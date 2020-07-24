@@ -1,5 +1,5 @@
 name: identitic
-description: Reinventando la educación a través de nuevas tecnologías
+description: Reinventando la educación
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,7 +14,7 @@ description: Reinventando la educación a través de nuevas tecnologías
 version: 0.0.1+1
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -22,16 +22,17 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: any
   dots_indicator: any
   flutter_secure_storage: any
+  flutter_socket_io: any
+  font_awesome_flutter: any
   http: any
   outline_material_icons: any
   provider: any
   shared_preferences: any
   shimmer: any
-  table_calendar: ^2.2.3
-  flutter_socket_io: ^0.6.0
+  table_calendar: any
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:
@@ -39,16 +40,22 @@ dev_dependencies:
   flutter_launcher_icons: any
   flutter_native_splash: any
 
+# After setting up the configuration, all that is left to do is run the package with:
+# flutter pub run flutter_launcher_icons:main
 flutter_icons:
   android: true
   ios: true
   image_path_android: "assets/icon/android/icon.png"
   image_path_ios: "assets/icon/ios/icon.png"
-  adaptive_icon_background: "assets/icon/android/background.png"
+  adaptive_icon_background: "#e91e63"
   adaptive_icon_foreground: "assets/icon/android/foreground.png"
+
+# After adding your settings, run the package with:
+# flutter pub pub run flutter_native_splash:create
 flutter_native_splash:
-  image: assets/images/splash_image.png
-  color: "ffffff"
+  image: assets/images/fingerprint_white.png
+  color: "#e91e63"
+  android_disable_fullscreen: false
 
 
 # For information on the generic Dart part of this file, see the
@@ -94,9 +101,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-  fonts:
-    - family: Nunito
-      fonts:
-      - asset: assets/fonts/Nunito-SemiBold.ttf
-      - asset: assets/fonts/Nunito-Bold.ttf
-        weight: 700
