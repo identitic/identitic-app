@@ -9,8 +9,7 @@ import 'package:identitic/services/events_service.dart';
 
 class EventsProvider with ChangeNotifier {
   EventsProvider() {
-    fetchAllEvents(1);
-    //TODO: Hacer get con token, no rompan hijos de puta.
+    fetchEvents();
   }
 
   EventsService _eventsService = EventsService();
