@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:identitic/utils/themes.dart';
+// import 'package:identitic/utils/themes.dart';
 
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,7 @@ import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 import 'package:identitic/providers/grades_provider.dart';
 import 'package:identitic/providers/inattendances_provider.dart';
-import 'package:identitic/widgets/theme.dart';
+// import 'package:identitic/widgets/theme.dart';
 import 'package:identitic/utils/routes.dart';
 
 Future<void> main() async {
@@ -82,14 +82,14 @@ class App extends StatelessWidget {
               ),
             ),
           ),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            unselectedItemColor: Colors.grey.withOpacity(.5),
-            selectedItemColor: Colors.black,
-            backgroundColor: Colors.white,
-          ),
+          // bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          //   type: BottomNavigationBarType.fixed,
+          //   showSelectedLabels: false,
+          //   showUnselectedLabels: false,
+          //   unselectedItemColor: Colors.grey.withOpacity(.5),
+          //   selectedItemColor: Colors.black,
+          //   backgroundColor: Colors.white,
+          // ),
           buttonColor: Colors.pink,
           buttonTheme: ButtonThemeData(
             minWidth: 56,
