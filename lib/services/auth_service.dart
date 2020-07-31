@@ -24,7 +24,7 @@ class AuthService {
 
     try {
       final http.Response response = await http.post(
-        '${apiBaseUrl}general/login',
+        '$apiBaseUrl/general/login',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {

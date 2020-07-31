@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-const String apiBaseUrl = 'http://35.211.3.86:3000/';
+const String apiBaseUrl = 'https://servidor.identiticapp.com';
 const String token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImhpZXJhcmNoeSI6ImFkbSIsImNsYXNzIjpudWxsLCJjbGFzc05hbWUiOjAsInNjaG9vbCI6MSwic2hvb2xOYW1lIjoiVUJBIiwibmFtZSI6Ikp1YW4iLCJsYXN0TmFtZSI6IlBlcmV6IiwiaWF0IjoxNTkzNjU0MDc2LCJleHAiOjE1OTQ5NTAwNzZ9.mn0k0FmYmCZ8dphTG5tAhcUOfHKL4A2Bkkn8cwHM5zc';
 

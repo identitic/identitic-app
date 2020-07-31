@@ -22,7 +22,7 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}admin/getpostbysc/1',
+        '$apiBaseUrl/admin/getpostbysc/1',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -55,7 +55,7 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}admin/getpostbycategory/1',
+        '$apiBaseUrl/admin/getpostbycategory/1',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -86,7 +86,7 @@ class ArticlesService {
 
     try {
       final http.Response response =
-          await http.post('${apiBaseUrl}admin/createpost',
+          await http.post('$apiBaseUrl/admin/createpost',
               headers: jsonHeaders,
               body: jsonEncode({
                 'id_sc': user.idSchool,

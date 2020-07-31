@@ -55,7 +55,7 @@ class EventsService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}teacher/AllEvents/1',
+        '$apiBaseUrl/teacher/AllEvents/1',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -86,7 +86,7 @@ class EventsService {
 
     try {
       final http.Response response =
-          await http.post('${apiBaseUrl}teacher/postevent',
+          await http.post('$apiBaseUrl/teacher/postevent',
               headers: jsonHeaders,
               body: jsonEncode({
                 'id_class': classs.id,

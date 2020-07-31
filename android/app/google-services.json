@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "37092859619",
+    "firebase_url": "https://identitic-app.firebaseio.com",
+    "project_id": "identitic-app",
+    "storage_bucket": "identitic-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37092859619:android:8beb709f9a45545558afd6",
+        "android_client_info": {
+          "package_name": "com.identitic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37092859619-lbe01desk9qphgimujtutanss2b5u2vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5yYosTCcEnmrkIXaUXBGGTl4eiKgCBJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37092859619-lbe01desk9qphgimujtutanss2b5u2vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

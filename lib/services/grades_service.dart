@@ -23,7 +23,7 @@ class GradesService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}student/marks/2',
+        '$apiBaseUrl/student/marks/2',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -65,7 +65,7 @@ class GradesService {
 
     try {
       final http.Response response = await http.post(
-          '{$apiBaseUrl}teacher/uploadMark',
+          '$apiBaseUrl/teacher/uploadMark',
           headers: {
             "Content-Type": 'application/json',
             'Authorization': 'Bearer $token'

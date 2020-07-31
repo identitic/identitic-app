@@ -22,7 +22,7 @@ class ClassesService {
 
     try {
       final http.Response response = await http.post(
-          '${apiBaseUrl}teacher/classes',
+          '$apiBaseUrl/teacher/classes',
           headers: {
             "Content-Type": 'application/json',
             'Authorization': 'Bearer $token'

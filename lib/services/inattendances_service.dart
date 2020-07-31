@@ -20,7 +20,7 @@ class InattendancesService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}student/attendance/1',
+        '$apiBaseUrl/student/attendance/1',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -64,7 +64,7 @@ class InattendancesService {
 
     try {
       final http.Response response = await http.post(
-          '{$apiBaseUrl}teacher/uploadabsenses',
+          '$apiBaseUrl/teacher/uploadabsenses',
           headers: jsonHeaders,
           body: json.encode(params));
       debugPrint(json.encode(params));

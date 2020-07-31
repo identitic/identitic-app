@@ -19,7 +19,7 @@ class StudentsService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}students.php',
+        '$apiBaseUrl/students.php',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -54,7 +54,7 @@ class StudentsService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}teacher/class/3',
+        '$apiBaseUrl/teacher/class/3',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {

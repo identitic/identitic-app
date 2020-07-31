@@ -20,7 +20,7 @@ class MessagesService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}chat/getMessagesById/$idUser',
+        '$apiBaseUrl/chat/getMessagesById/$idUser',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -53,7 +53,7 @@ class MessagesService {
 
     try {
       final http.Response response = await http.get(
-        '${apiBaseUrl}chat/getRoomsById/$idUser',
+        '$apiBaseUrl/chat/getRoomsById/$idUser',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {

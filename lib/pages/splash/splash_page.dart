@@ -4,6 +4,7 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/pages/main/main_page.dart';
 import 'package:identitic/pages/onboarding/onboarding_page.dart';
 import 'package:identitic/utils/constants.dart';
+import 'package:identitic/utils/jwt.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -22,9 +23,17 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _checkSignIn() async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
-    setState(() {
-      isLoggedIn = token != null;
-    });
+    if (token != null) {
+      if (DateTime.now().millisecondsSinceEpoch - JWT.toMap(token)['exp'] > 0) {
+        setState(() {
+          isLoggedIn = false;
+        });
+      }
+    } else {
+      setState(() {
+        isLoggedIn = token != null;
+      });
+    }
   }
 
   @override
