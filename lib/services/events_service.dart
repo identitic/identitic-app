@@ -22,7 +22,7 @@ class EventsService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/student/home',
+        '$apiBaseUrl/general/home',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
