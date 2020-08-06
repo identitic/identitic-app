@@ -11,6 +11,7 @@ import 'package:identitic/models/student.dart';
 import 'package:identitic/providers/inattendances_provider.dart';
 import 'package:identitic/services/exceptions.dart';
 import 'package:identitic/pages/inattendances_teacher/widgets/teacher_inattendance_list_tile.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 import 'package:provider/provider.dart';
@@ -68,9 +69,11 @@ class InattendancesTeacherPage extends StatelessWidget {
   }
 
   Future<List<Student>> _fetchStudents() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Student> students;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };

@@ -9,13 +9,16 @@ import 'package:identitic/models/class.dart';
 import 'package:identitic/models/event.dart';
 import 'package:identitic/models/user.dart';
 import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class EventsService {
   Future<List<Event>> fetchEvents() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Event> events;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
@@ -46,9 +49,11 @@ class EventsService {
   }
 
   Future<List<Event>> fetchAllEvents(int idClass) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Event> allEvents;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
@@ -79,7 +84,10 @@ class EventsService {
   }
 
   Future<void> postEvent(User user, Event event, Class classs) async {
-    const Map<String, String> jsonHeaders = <String, String>{
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+    
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };

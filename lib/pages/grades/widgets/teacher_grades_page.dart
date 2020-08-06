@@ -13,6 +13,7 @@ import 'package:identitic/models/user.dart';
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/grades_provider.dart';
 import 'package:identitic/pages/grades/widgets/grade_list_tile.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:identitic/services/exceptions.dart';
 import 'package:provider/provider.dart';
@@ -74,9 +75,11 @@ class TeacherGradesPage extends StatelessWidget {
   }
 
   Future<List<Student>> _fetchStudents() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Student> students;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       "Content-Type": 'application/json',
       'Authorization': 'Bearer $token'
     };

@@ -10,6 +10,7 @@ import 'package:identitic/models/event.dart';
 import 'package:provider/provider.dart'; */
 
 import 'package:http/http.dart' as http;
+import 'package:identitic/services/storage_service.dart';
 
 import 'package:identitic/utils/constants.dart';
 import 'package:identitic/services/exceptions.dart';
@@ -118,7 +119,10 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   Future<void> _postEvent(Event event, Class classs) async {
-    const Map<String, String> jsonHeaders = <String, String>{
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+    
+    final Map<String, String> jsonHeaders = <String, String>{
       "Content-Type": 'application/json',
       'Authorization': 'Bearer $token'
     };

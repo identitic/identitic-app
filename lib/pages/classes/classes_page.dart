@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -97,6 +98,8 @@ class _ClassesPageCreateState extends State<ClassesPage> {
   }
 
   Future<List<Class>> _fetchClasses(User user) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Class> classes;
 
     Map<String, dynamic> params = {

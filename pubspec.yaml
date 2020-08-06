@@ -33,6 +33,7 @@ dependencies:
   shimmer: any
   table_calendar: any
   url_launcher: any
+  firebase_messaging: any
 
 dev_dependencies:
   flutter_test:

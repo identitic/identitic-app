@@ -6,13 +6,16 @@ import 'package:http/http.dart' as http;
 
 import 'package:identitic/models/student.dart';
 import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class StudentsService {
   Future<List<Student>> fetchStudents() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Student> students;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
@@ -44,17 +47,19 @@ class StudentsService {
     return students;
   }
 
-  Future<List<Student>> fetchStudentsByClass() async {
+  Future<List<Student>> fetchStudentsByClass(int idClass) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Student> students;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/teacher/class/3',
+        '$apiBaseUrl/teacher/class/$idClass',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {

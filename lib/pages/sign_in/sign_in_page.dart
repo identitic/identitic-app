@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:identitic/pages/sign_in/widgets/sign_in_form_widget.dart';
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:identitic/utils/validator.dart';

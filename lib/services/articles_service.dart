@@ -9,20 +9,23 @@ import 'package:http/http.dart' as http;
 import 'package:identitic/models/article.dart';
 import 'package:identitic/models/user.dart';
 import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class ArticlesService {
-  Future<List<Article>> fetchArticles(/* User user */) async {
+  Future<List<Article>> fetchArticles() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbysc/1',
+        '$apiBaseUrl/admin/getpostbysc',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -45,17 +48,19 @@ class ArticlesService {
     return articles;
   }
 
-  Future<List<Article>> fetchFamiliesArticles(/* User user */) async {
+  Future<List<Article>> fetchFamiliesArticles() async {
     List<Article> articles;
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbycategory/1',
+        '$apiBaseUrl/admin/getpostbycategory',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -79,7 +84,10 @@ class ArticlesService {
   }
 
   Future<void> postArticle(User user, Article article) async {
-    const Map<String, String> jsonHeaders = <String, String>{
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+        
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };

@@ -10,6 +10,7 @@ import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 import 'package:identitic/providers/grades_provider.dart';
 import 'package:identitic/providers/inattendances_provider.dart';
+import 'package:identitic/providers/push_notifications_provider.dart';
 // import 'package:identitic/widgets/theme.dart';
 import 'package:identitic/utils/routes.dart';
 
@@ -33,13 +34,19 @@ Future<void> main() async {
   runApp(App());
 }
 
+
 class App extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         Provider<AuthProvider>(
           create: (_) => AuthProvider(),
+          lazy: false,
+        ),
+        Provider<PushNotificationsProvider>(
+          create: (_) => PushNotificationsProvider(),
           lazy: false,
         ),
         ChangeNotifierProvider<InattendancesProvider>(
@@ -82,14 +89,14 @@ class App extends StatelessWidget {
               ),
             ),
           ),
-          // bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          //   type: BottomNavigationBarType.fixed,
-          //   showSelectedLabels: false,
-          //   showUnselectedLabels: false,
-          //   unselectedItemColor: Colors.grey.withOpacity(.5),
-          //   selectedItemColor: Colors.black,
-          //   backgroundColor: Colors.white,
-          // ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            unselectedItemColor: Colors.grey.withOpacity(.5),
+            selectedItemColor: Colors.pink,
+            backgroundColor: Colors.white,
+          ),
           buttonColor: Colors.pink,
           buttonTheme: ButtonThemeData(
             minWidth: 56,

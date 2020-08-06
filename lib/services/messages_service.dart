@@ -7,13 +7,16 @@ import 'package:http/http.dart' as http;
 import 'package:identitic/models/messages/message.dart';
 import 'package:identitic/models/messages/room.dart';
 import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class MessagesService {
   Future<List<Message>> fetchMessages(int idUser) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Message> messages;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
@@ -43,17 +46,19 @@ class MessagesService {
     return messages;
   }
 
-  Future<List<Room>> fetchRooms(int idUser) async {
+  Future<List<Room>> fetchRooms() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Room> rooms;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = <String, String>{
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/chat/getRoomsById/$idUser',
+        '$apiBaseUrl/chat/getRoomsById',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {

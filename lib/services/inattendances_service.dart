@@ -7,13 +7,16 @@ import 'package:http/http.dart' as http;
 
 import 'package:identitic/models/inattendance.dart';
 import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class InattendancesService {
   Future<List<Inattendance>> fetchInattendances() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Inattendance> inattendances;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
@@ -44,7 +47,7 @@ class InattendancesService {
   }
 
   Future<void> postInattendances(List<Inattendance> inattendances) async {
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = {
       "Content-Type": "application/json",
       'Accept': 'application/json',
       'Authorization':

@@ -7,12 +7,14 @@ import 'package:http/http.dart' as http;
 import 'package:identitic/models/class.dart';
 import 'package:identitic/models/user.dart';
 import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
-
-//not in use
 
 class ClassesService {
   Future<List<Class>> fetchClasses(User user) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
     List<Class> classes;
 
     Map<String, dynamic> params = {

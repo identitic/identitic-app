@@ -10,13 +10,16 @@ import 'package:identitic/models/class.dart';
 import 'package:identitic/models/grade.dart';
 import 'package:identitic/models/user.dart';
 import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class GradesService {
   Future<List<Grade>> fetchGrades() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Grade> grades;
 
-    const Map<String, String> jsonHeaders = <String, String>{
+    final Map<String, String> jsonHeaders = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
     };
@@ -47,6 +50,9 @@ class GradesService {
   }
 
   Future<void> postGrades(User user, List<Grade> grades, Class classs) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+    
     Map<String, dynamic> params = {
       "info": <String, dynamic>{
         "id_class": classs.id,

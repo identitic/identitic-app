@@ -10,8 +10,7 @@ import 'package:identitic/services/messages_service.dart';
 
 class SocketsProvider extends ChangeNotifier {
   SocketsProvider() {
-    fetchRooms(1);
-    //TODO: Hacer get con token, no rompan hijos de puta.
+    fetchRooms();
   }
   List<User> _users = [
     User(
@@ -120,11 +119,10 @@ class SocketsProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Room>> fetchRooms(int idUser) async {
+  Future<List<Room>> fetchRooms() async {
     try {
-      _rooms = await _messagesService.fetchRooms(idUser);
+      _rooms = await _messagesService.fetchRooms();
       notifyListeners();
-      //init(idUser);
       return _rooms;
     } catch (e) {
       rethrow;

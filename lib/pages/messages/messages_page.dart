@@ -27,10 +27,7 @@ class MessagesPage extends StatelessWidget {
             SizedBox(height: 16),
             FutureBuilder(
                 future: Provider.of<SocketsProvider>(context, listen: false)
-                    .fetchRooms(
-                        Provider.of<AuthProvider>(context, listen: false)
-                            .user
-                            .id),
+                    .fetchRooms(),
                 builder: (_, AsyncSnapshot<List<Room>> snapshot) {
                   return ListView.separated(
                     physics: ClampingScrollPhysics(),
