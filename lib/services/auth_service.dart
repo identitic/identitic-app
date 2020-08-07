@@ -34,12 +34,12 @@ class AuthService {
             break;
           }
         case 401:
-          throw UnauthorizedException('UnauthorizedException: Voló todo');
+          throw UnauthorizedException('UnauthorizedException');
         case 429:
-          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+          throw TooManyRequestsException('TooManyRequestsException');
       }
     } on SocketException {
-      throw const SocketException('SocketException: Voló todo');
+      throw const SocketException('SocketException');
     } catch (e) {
       throw Exception(e);
     }

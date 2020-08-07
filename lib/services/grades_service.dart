@@ -26,7 +26,7 @@ class GradesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/student/marks/2',
+        '$apiBaseUrl/student/marks',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {

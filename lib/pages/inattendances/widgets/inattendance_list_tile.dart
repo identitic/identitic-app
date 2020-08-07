@@ -10,13 +10,16 @@ class InattendanceListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-        leading: CircleAvatar(
-            backgroundColor: Colors.pink, child: Icon(OMIcons.close)),
-        title: Text('${inattendance.date[8]}' +
-            '${inattendance.date[9]}' +
-            '/' +
-            '${inattendance.date[5]}' +
-            '${inattendance.date[6]}'));
+    if (inattendance != null) {
+      return ListTile(
+          leading: CircleAvatar(
+              backgroundColor: Colors.pink, child: Icon(OMIcons.close)),
+          title: Text('${inattendance.date[8]}' +
+              '${inattendance.date[9]}' +
+              '/' +
+              '${inattendance.date[5]}' +
+              '${inattendance.date[6]}'));
+    }
+    return Text('xd!');
   }
 }

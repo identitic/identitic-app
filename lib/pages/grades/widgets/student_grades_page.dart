@@ -8,8 +8,7 @@ class StudentGradesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Calificaciones',
-          style: TextStyle(fontSize: 16),
+          'Calificaciones'
         ),
         centerTitle: true,
       ),

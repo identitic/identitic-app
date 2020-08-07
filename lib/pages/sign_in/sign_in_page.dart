@@ -103,7 +103,7 @@ class _SignInPageState extends State<SignInPage> {
                     width: double.infinity,
                     child: FlatButton(
                       color: Theme.of(context).buttonColor,
-                      child: Text('Iniciar sesión'),
+                      child: Text('Iniciar sesión', style: TextStyle(color: Colors.white)),
                       onPressed: _isSending
                           ? null
                           : () async {

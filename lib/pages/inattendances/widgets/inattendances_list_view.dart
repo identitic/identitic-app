@@ -8,26 +8,30 @@ import 'package:provider/provider.dart';
 class InattendancesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<InattendancesProvider>(
-        builder: (_, InattendancesProvider inattendancesProvider, __) {
-      return ListView.separated(
-        physics: ClampingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: inattendancesProvider.inattendances.isNotEmpty
-            ? inattendancesProvider.inattendances.length
-            : 2,
-        padding: EdgeInsets.all(16),
-        separatorBuilder: (_, int i) {
-          return SizedBox(height: 8);
-        },
-        itemBuilder: (_, int i) {
-          Inattendance inattendance =
-              inattendancesProvider.inattendances.isNotEmpty
-                  ? inattendancesProvider.inattendances[i]
-                  : null;
-          return InattendanceListTile(inattendance);
-        },
-      );
-    });
+    return FutureBuilder(
+        future: Provider.of<InattendancesProvider>(context, listen: false)
+            .fetchInattendances(),
+        builder: (_, AsyncSnapshot snapshot) {
+          final List<Inattendance> _inattendances = snapshot.data;
+          if (snapshot.hasData) {
+            return ListView.separated(
+                physics: ClampingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount:
+                    _inattendances.isNotEmpty ? _inattendances.length : 0,
+                padding: EdgeInsets.all(16),
+                separatorBuilder: (_, int i) {
+                  return SizedBox(height: 8);
+                },
+                itemBuilder: (_, int i) {
+                  Inattendance _inattendance =
+                      _inattendances.isNotEmpty ? _inattendances[i] : null;
+                  return InattendanceListTile(_inattendance);
+                });
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
   }
 }

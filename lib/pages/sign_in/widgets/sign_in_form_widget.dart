@@ -68,7 +68,7 @@ class _SignInFormWidgetState extends State<SignInFormWidget> {
                 }
               },
         color: Colors.pink,
-        child: Text('Iniciar sesión'),
+        child: Text('Iniciar sesión', style: TextStyle(color: Colors.white)),
       ),
     );
   }

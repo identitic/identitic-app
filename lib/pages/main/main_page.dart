@@ -67,9 +67,9 @@ class _MainPageState extends State<MainPage>
           BottomNavigationBarItem(
             icon: CircleAvatar(
               radius: 13,
-              // backgroundColor: _currentIndex == 3
-              //     ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
-              //     : Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              /* backgroundColor: _currentIndex == 3
+                  ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                  : Theme.of(context).bottomNavigationBarTheme.backgroundColor, */
               child: CircleAvatar(
                 radius: 12,
                 backgroundImage:

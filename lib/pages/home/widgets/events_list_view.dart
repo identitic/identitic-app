@@ -18,7 +18,6 @@ class EventsListView extends StatelessWidget {
             itemBuilder: (_, int i) {
               final EventListTile eventListTile =
                   EventListTile(eventsProvider.events[i]);
-
               if (i == 0) {
                 return Column(
                   children: [
@@ -34,7 +33,6 @@ class EventsListView extends StatelessWidget {
                   ],
                 );
               }
-
               return eventListTile;
             },
           );
