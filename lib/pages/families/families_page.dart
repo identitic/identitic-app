@@ -11,7 +11,6 @@ class FamiliesPage extends StatelessWidget {
       appBar: AppBar(
           title: Text(
             'Familias',
-            style: TextStyle(fontSize: 16),
           ),
           centerTitle: true),
       body: FutureBuilder<List<Article>>(

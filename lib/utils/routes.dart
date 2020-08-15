@@ -13,8 +13,6 @@ import 'package:identitic/pages/home/home_page.dart';
 import 'package:identitic/pages/inattendances/inattendances_page.dart';
 import 'package:identitic/pages/inattendances_teacher/teacher_inattendances_page.dart';
 import 'package:identitic/pages/main/main_page.dart';
-import 'package:identitic/pages/messages/messages_page.dart';
-import 'package:identitic/pages/messages/widgets/room_page.dart';
 import 'package:identitic/pages/not_found/developing.dart';
 import 'package:identitic/pages/not_found/not_found_page.dart';
 import 'package:identitic/pages/onboarding/onboarding_page.dart';
@@ -75,10 +73,6 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return TasksPage();
         case RouteName.tasks_teacher:
           return TeacherTasksPage(settings.arguments);
-        case RouteName.messages:
-          return MessagesPage();
-        case RouteName.room:
-          return RoomPage(settings.arguments);
         default:
           return NotFoundPage();
       }

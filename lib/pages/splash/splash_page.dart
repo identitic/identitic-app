@@ -29,6 +29,9 @@ class _SplashPageState extends State<SplashPage> {
           isLoggedIn = false;
         });
       }
+      setState(() {
+          isLoggedIn = true;
+        });
     } else {
       setState(() {
         isLoggedIn = token != null;

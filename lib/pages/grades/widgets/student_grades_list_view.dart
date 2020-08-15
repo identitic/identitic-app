@@ -15,7 +15,7 @@ class StudentGradesListView extends StatelessWidget {
               ? BouncingScrollPhysics()
               : NeverScrollableScrollPhysics(),
           padding: EdgeInsets.all(16),
-          itemCount: gradesProvider.grades?.length ?? 10,
+          itemCount: gradesProvider.grades?.length ?? 1,
           separatorBuilder: (_, int i) => SizedBox(height: 8),
           itemBuilder: (_, int i) {
             if (gradesProvider.grades != null) {
@@ -31,7 +31,7 @@ class StudentGradesListView extends StatelessWidget {
               }
               return StudentGradeListTile(gradesProvider.grades[i]);
             }
-            return StudentGradeListTile();
+            return Text('No tienes nuevas calificaciones!');
           },
         );
       },

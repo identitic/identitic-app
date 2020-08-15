@@ -14,7 +14,7 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class GradesService {
-  Future<List<Grade>> fetchGrades() async {
+  Future<List<Grade>> fetchGrades(int idUser) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Grade> grades;
@@ -26,7 +26,7 @@ class GradesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/student/marks',
+        '$apiBaseUrl/student/marks/$idUser',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {

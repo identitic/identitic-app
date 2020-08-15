@@ -29,14 +29,15 @@ class _HomePageState extends State<CalendarStudentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Calendario',
-          style: TextStyle(fontSize: 16),
-        ),
-        centerTitle: true,
-      ),
-      body: ListView(
+        body: NestedScrollView(
+      physics: const BouncingScrollPhysics(),
+      headerSliverBuilder: (_, __) => [
+        SliverAppBar(pinned: true, title: Text('Calendario')),
+      ],
+      body: Text('nadapa')
+      
+      
+      /* ListView(
         physics: BouncingScrollPhysics(),
         children: <Widget>[
           TableCalendar(
@@ -120,8 +121,10 @@ class _HomePageState extends State<CalendarStudentPage> {
                 }),
           ),
         ],
-      ),
-    );
+      ), */
+
+      
+    ));
   }
 }
 

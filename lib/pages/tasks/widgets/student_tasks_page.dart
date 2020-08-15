@@ -11,7 +11,6 @@ class StudentTasksPage extends StatelessWidget {
       appBar: AppBar(
           title: Text(
             'Tareas',
-            style: TextStyle(fontSize: 16),
           ),
           centerTitle: true),
       body: FutureBuilder<List<Article>>(

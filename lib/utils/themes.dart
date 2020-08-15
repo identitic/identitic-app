@@ -23,12 +23,12 @@ class AppThemes {
         ),
       ),
     ),
-    // bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    //   type: BottomNavigationBarType.fixed,
-    //   showSelectedLabels: false,
-    //   showUnselectedLabels: false,
-    //   unselectedItemColor: Colors.grey[200],
-    //   selectedItemColor: Colors.black,
-    // ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      unselectedItemColor: Colors.grey[200],
+      selectedItemColor: Colors.black,
+    ),
   );
 }

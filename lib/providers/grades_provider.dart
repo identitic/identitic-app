@@ -8,18 +8,15 @@ import 'package:identitic/models/user.dart';
 import 'package:identitic/services/grades_service.dart';
 
 class GradesProvider with ChangeNotifier {
-  GradesProvider() {
-    fetchGrades();
-  }
 
   GradesService _gradesService = GradesService();
   List<Grade> _grades;
 
   List<Grade> get grades => _grades;
 
-  Future<void> fetchGrades() async {
+  Future<void> fetchGrades(int idUser) async {
     try {
-      _grades = await _gradesService.fetchGrades();
+      _grades = await _gradesService.fetchGrades(idUser);
       notifyListeners();
     } catch (e) {
       rethrow;

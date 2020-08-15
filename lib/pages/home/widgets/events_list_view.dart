@@ -14,10 +14,8 @@ class EventsListView extends StatelessWidget {
           return ListView.builder(
             physics: ClampingScrollPhysics(),
             shrinkWrap: true,
-            itemCount: /* eventsProvider.events?.length ?? */ 4,
+            itemCount: eventsProvider.events?.length ?? 0,
             itemBuilder: (_, int i) {
-              final EventListTile eventListTile =
-                  EventListTile(eventsProvider.events[i]);
               if (i == 0) {
                 return Column(
                   children: [
@@ -29,17 +27,15 @@ class EventsListView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    eventListTile,
+                    EventListTile(eventsProvider.events[i]),
                   ],
                 );
               }
-              return eventListTile;
+              return EventListTile();
             },
           );
         }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+        return EventListTile();
       },
     );
   }

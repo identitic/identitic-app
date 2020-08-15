@@ -8,6 +8,7 @@ class PushNotificationsProvider {
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
+  
   _initNotifications(){
     _firebaseMessaging.requestNotificationPermissions();
 

@@ -22,7 +22,6 @@ class _TasksPageCreateState extends State<TeacherTasksPage> {
       appBar: AppBar(
           title: Text(
             'Tareas - ${widget.classs.label}',
-            style: TextStyle(fontSize: 16),
           ),
           centerTitle: true),
       floatingActionButton: FloatingActionButton.extended(

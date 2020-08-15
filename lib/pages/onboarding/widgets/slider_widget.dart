@@ -35,7 +35,7 @@ class _SliderWidgetState extends State<SliderWidget> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 351,
+            height: 340,
             child: PageView(
               controller: _pageController,
               children: _sliderItems,
@@ -60,7 +60,7 @@ class _SliderWidgetState extends State<SliderWidget> {
             child: FlatButton(
               onPressed: _nextPage,
               color: Theme.of(context).buttonColor,
-              child: Text('Continuar'),
+              child: Text('Continuar', style: TextStyle(color: Colors.white),),
             ),
           ),
         ],
