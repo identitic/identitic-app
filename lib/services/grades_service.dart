@@ -57,10 +57,10 @@ class GradesService {
       "info": <String, dynamic>{
         "id_class": classs.id,
         "id_subject": classs.idSubject,
-        "id_teacher": user.id //user.id
+        "id_teacher": user.id
       },
       "marks": [
-        for (int i = 1; i < grades.length; i++)
+        for (int i = 0; i < grades.length; i++)
           <String, dynamic>{
             "id_student": grades[i].idUser,
             "mark": grades[i].value,
@@ -82,7 +82,6 @@ class GradesService {
       switch (response.statusCode) {
         case 200:
           {
-            debugPrint(response.body);
             break;
           }
         case 401:

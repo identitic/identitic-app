@@ -161,9 +161,7 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   void _addEvent() {
-    /* final EventsProvider eventsProvider =
-        Provider.of<EventsProvider>(context, listen: false);
- */
+
     final Event event = Event(
         idClass: widget.classs.id,
         idUser: 5,
@@ -174,7 +172,5 @@ class _AddEventPageState extends State<AddEventPage> {
         idCategory: _category);
 
     _postEvent(event, widget.classs);
-
-    //TODO: Agregar excepciones en pantalla.
   }
 }

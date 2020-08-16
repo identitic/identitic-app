@@ -11,7 +11,7 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class InattendancesService {
-  Future<List<Inattendance>> fetchInattendances() async {
+  Future<List<Inattendance>> fetchInattendances(int idUser) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Inattendance> inattendances;
@@ -23,7 +23,7 @@ class InattendancesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/student/attendance/1',
+        '$apiBaseUrl/student/attendance/$idUser',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -47,28 +47,27 @@ class InattendancesService {
   }
 
   Future<void> postInattendances(List<Inattendance> inattendances) async {
-    final Map<String, String> jsonHeaders = {
-      "Content-Type": "application/json",
-      'Accept': 'application/json',
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQ0NTk0NzIzLCJoaWVyYXJjaHkiOiJhZG0iLCJjbGFzc05hbWUiOm51bGwsInNjaG9vbCI6MSwic2hvb2xOYW1lIjoiVUJBIiwiaWF0IjoxNTg5NzU1MzQxLCJleHAiOjE1OTEwNTEzNDF9.DBHeC-QgnyR1FSkAGwEVPQPVQnfuC2hY4ZXrCEalMUM'
-    };
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
 
     Map<String, dynamic> params = {
       "absenses": [
-        for (int i = 1; i < inattendances.length; i++)
+        for (int i = 0; i < inattendances.length; i++)
           <String, dynamic>{
             'users_id_user': inattendances[i].idUser,
             'date': DateTime.now().toString(),
-            'status': inattendances[i].value
-          }
+            'status': inattendances[i].value,
+          },
       ],
     };
 
     try {
       final http.Response response = await http.post(
           '$apiBaseUrl/teacher/uploadabsenses',
-          headers: jsonHeaders,
+          headers: {
+            "Content-Type": 'application/json',
+            'Authorization': 'Bearer $token'
+          },
           body: json.encode(params));
       debugPrint(json.encode(params));
       debugPrint(response.body);

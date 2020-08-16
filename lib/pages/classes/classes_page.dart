@@ -1,18 +1,12 @@
-import 'dart:convert';
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:identitic/services/storage_service.dart';
+
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
+import 'package:identitic/providers/classes_provider.dart';
 import 'package:identitic/models/class.dart';
-import 'package:identitic/models/user.dart';
 import 'package:identitic/providers/auth_provider.dart';
-
 import 'package:identitic/utils/constants.dart';
-import 'package:identitic/services/exceptions.dart';
+
 
 enum ClassPageType {
   grades,
@@ -63,11 +57,13 @@ class _ClassesPageCreateState extends State<ClassesPage> {
         centerTitle: true,
       ),
       body: FutureBuilder<List<Class>>(
-        future: _fetchClasses(
-            Provider.of<AuthProvider>(context, listen: false).user),
+        future: Provider.of<ClassesProvider>(context, listen: false)
+            .fetchClasses(
+                Provider.of<AuthProvider>(context, listen: false).user),
         builder: (_, AsyncSnapshot<List<Class>> snapshot) {
-          final List<Class> classes = snapshot.data;
+          
           if (snapshot.hasData) {
+            final List<Class> classes = snapshot.data;
             return ListView.separated(
               physics: BouncingScrollPhysics(),
               padding: EdgeInsets.all(16),
@@ -97,7 +93,7 @@ class _ClassesPageCreateState extends State<ClassesPage> {
     );
   }
 
-  Future<List<Class>> _fetchClasses(User user) async {
+  /* Future<List<Class>> _fetchClasses(User user) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Class> classes;
@@ -133,5 +129,5 @@ class _ClassesPageCreateState extends State<ClassesPage> {
       throw Exception(e);
     }
     return classes;
-  }
+  } */
 }

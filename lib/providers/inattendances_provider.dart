@@ -6,19 +6,18 @@ import 'package:identitic/models/inattendance.dart';
 import 'package:identitic/services/inattendances_service.dart';
 
 class InattendancesProvider with ChangeNotifier {
-  InattendancesProvider() {
-    fetchInattendances();
-  }
-
+  
   InattendancesService _inattendancesService = InattendancesService();
   List<Inattendance> _inattendances;
 
   List<Inattendance> get inattendances => _inattendances;
 
-  Future<void> fetchInattendances() async {
+  //Antes era void. Lo cambié para que el FutureBuilder funcione.
+  Future<List<Inattendance>> fetchInattendances(int idUser) async {
     try {
-      _inattendances = await _inattendancesService.fetchInattendances();
+      _inattendances = await _inattendancesService.fetchInattendances(idUser);
       notifyListeners();
+      return _inattendances;
     } catch (e) {
       rethrow;
     }

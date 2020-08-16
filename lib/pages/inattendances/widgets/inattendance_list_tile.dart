@@ -20,6 +20,10 @@ class InattendanceListTile extends StatelessWidget {
               '${inattendance.date[5]}' +
               '${inattendance.date[6]}'));
     }
-    return Text('xd!');
+    return Center(
+      child: Text(
+        'No tienes nuevas inasistencias!',
+      ),
+    );
   }
 }

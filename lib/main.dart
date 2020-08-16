@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:identitic/providers/classes_provider.dart';
+import 'package:identitic/providers/students_provider.dart';
 // import 'package:identitic/utils/themes.dart';
 
 import 'package:provider/provider.dart';
 
 import 'package:identitic/providers/articles_provider.dart';
-import 'package:identitic/providers/sockets_provider.dart';
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 import 'package:identitic/providers/grades_provider.dart';
@@ -58,11 +59,14 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<EventsProvider>(
           create: (_) => EventsProvider(),
         ),
+        ChangeNotifierProvider<ClassesProvider>(
+          create: (_) => ClassesProvider(),
+        ),
+        ChangeNotifierProvider<StudentsProvider>(
+          create: (_) => StudentsProvider(),
+        ),
         ChangeNotifierProvider<ArticlesProvider>(
           create: (_) => ArticlesProvider(),
-        ),
-        ChangeNotifierProvider<SocketsProvider>(
-          create: (_) => SocketsProvider(),
         )
       ],
       child: MaterialApp(

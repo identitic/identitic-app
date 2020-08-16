@@ -27,7 +27,7 @@ class StudentInattendancesPage extends StatelessWidget {
                       return Text(
                         inattendancesProvider.inattendances?.length
                                 ?.toString() ??
-                            '...',
+                            '?',
                         style: TextStyle(color: Colors.white, fontSize: 32),
                       );
                     },

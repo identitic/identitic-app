@@ -21,7 +21,6 @@ class EventsProvider with ChangeNotifier {
     try {
       _events = await _eventsService.fetchEvents();
       notifyListeners();
-
       return _events;
     } catch (e) {
       rethrow;

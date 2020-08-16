@@ -10,7 +10,7 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class StudentsService {
-  Future<List<Student>> fetchStudents() async {
+  Future<List<Student>> fetchStudents(int id) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Student> students;
@@ -22,14 +22,14 @@ class StudentsService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/students.php',
+        '$apiBaseUrl/teacher/class/$id}',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
         case 200:
           {
             final Iterable<dynamic> list =
-                json.decode(response.body)['students'];
+                json.decode(response.body)['data'];
             students = list.map((e) => Student.fromJson(e)).toList();
             break;
           }

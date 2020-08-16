@@ -9,7 +9,6 @@ class EventListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (event != null){
       return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.pink,
@@ -17,7 +16,7 @@ class EventListTile extends StatelessWidget {
       ),
       title: Text(event?.title ?? 'No hay eventos disponibles'),
       subtitle: Text(event?.description ?? '...'),
-      trailing: event?? Text(
+      trailing: Text(
         '${event.date[8]}' + 
             '${event.date[9]}' +
             '/' +
@@ -26,7 +25,5 @@ class EventListTile extends StatelessWidget {
         style: TextStyle(color: Theme.of(context).textTheme.caption.color),
       ),
     );
-    }
-    return Center(child:Text('No hay eventos disponibles!'));
   }
 }

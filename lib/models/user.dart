@@ -30,13 +30,13 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['username'],
-      hierarchy: json['hierarchy'] == 2
+      id: json['sub'],
+      hierarchy: json['hierarchy'] == 'teacher'
           ? UserHierarchy.teacher
           : UserHierarchy.student,
       name: json['name'],
       lastName: json['lastName'],
-      idSchool: json['id_sc'],
+      idSchool: json['school'],
       schoolName: json['shoolName']
     );
   }

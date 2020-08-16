@@ -23,11 +23,12 @@ class _GradeListTileState extends State<GradeListTile> {
       title: Text('${widget.student.lastName}'),
       subtitle: Text('${widget.student.name}'),
       trailing: SizedBox(
-        width: 32,
+        width: 64,
         child: TextField(
           keyboardType: TextInputType.number,
           onChanged: (value) => widget.grade.value =
-              int.tryParse(value), //Cambiar a double? Hablar con back
+              int.tryParse(value),
+               textAlign: TextAlign.center, //Cambiar a double? Hablar con back
         ),
       ),
     );

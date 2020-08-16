@@ -1,20 +1,14 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:async';
-
-import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:identitic/models/class.dart';
 import 'package:identitic/models/inattendance.dart';
 import 'package:identitic/models/student.dart';
 import 'package:identitic/providers/inattendances_provider.dart';
-import 'package:identitic/services/exceptions.dart';
+import 'package:identitic/providers/students_provider.dart';
 import 'package:identitic/pages/inattendances_teacher/widgets/teacher_inattendance_list_tile.dart';
-import 'package:identitic/services/storage_service.dart';
-import 'package:identitic/utils/constants.dart';
-
-import 'package:provider/provider.dart';
 
 class InattendancesTeacherPage extends StatelessWidget {
   InattendancesTeacherPage(this.classs);
@@ -33,20 +27,21 @@ class InattendancesTeacherPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: FutureBuilder<List<Student>>(
-          future: _fetchStudents(),
+          future: _fetchStudents(context, classs),
           builder: (_, AsyncSnapshot<List<Student>> snapshot) {
             final List<Student> students = snapshot.data;
             if (snapshot.hasData) {
               return ListView.separated(
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: students.length,
+                itemCount: students.length ?? 3,
                 padding: EdgeInsets.all(16),
                 separatorBuilder: (_, __) {
                   return SizedBox(height: 8);
                 },
                 itemBuilder: (_, int i) {
-                  return InattendanceTeacherListTile(
+                  return 
+                   InattendanceTeacherListTile(
                       students[i], inattendances[i]);
                 },
               );
@@ -59,58 +54,33 @@ class InattendancesTeacherPage extends StatelessWidget {
         onPressed: () => postInattendances(context, inattendances),
         label: Row(
           children: <Widget>[
-            Icon(Icons.send),
-            SizedBox(width: 8),
             Text('Enviar'),
+            SizedBox(width: 8),
+            Icon(Icons.send),
           ],
         ),
       ),
     );
   }
 
-  Future<List<Student>> _fetchStudents() async {
-    final String token =
-        await StorageService.instance.getEncrypted(StorageKey.token, null);
-    List<Student> students;
-
-    final Map<String, String> jsonHeaders = <String, String>{
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token'
-    };
-
-    try {
-      final http.Response response = await http.get(
-        '${apiBaseUrl}teacher/class/${classs.id}',
-        headers: jsonHeaders,
-      );
-      switch (response.statusCode) {
-        case 200:
-          {
-            final Iterable<dynamic> list = json.decode(response.body)['data'];
-            students = list.map((e) {
-              final Student student = Student.fromJson(e);
-              inattendances.add(Inattendance(idUser: student.idStudent));
-              return student;
-            }).toList();
-            break;
-          }
-        case 401:
-          throw UnauthorizedException('UnauthorizedException: Voló todo');
-        case 429:
-          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
-      }
-    } on SocketException {
-      throw const SocketException('SocketException: Voló todo');
-    } catch (e) {
-      throw Exception(e);
+  Future<List<Student>> _fetchStudents(
+      BuildContext context, Class classs) async {
+    List<Student> _students =
+        await Provider.of<StudentsProvider>(context, listen: false)
+            .fetchStudents(classs.id);
+    if (_students.isNotEmpty) {
+      _students.forEach((student) {
+        inattendances.add(Inattendance(idUser: student.idStudent));
+        return student;
+      });
     }
-    return students;
+    return _students;
   }
 
   void postInattendances(
-      BuildContext context, List<Inattendance> _inattendances) async {
+          BuildContext context, List<Inattendance> _inattendances) async {
     await Provider.of<InattendancesProvider>(context, listen: false)
-        .postInattendances(_inattendances);
+        .postInattendances(inattendances);
     Navigator.pop(context);
   }
 }
