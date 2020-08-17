@@ -14,10 +14,11 @@ class GradesProvider with ChangeNotifier {
 
   List<Grade> get grades => _grades;
 
-  Future<void> fetchGrades(int idUser) async {
+  Future<List<Grade>> fetchGrades(int idUser) async {
     try {
       _grades = await _gradesService.fetchGrades(idUser);
       notifyListeners();
+      return _grades;
     } catch (e) {
       rethrow;
     }
