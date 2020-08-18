@@ -2,11 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class Class {
   const Class(
-      {this.id,
-      @required this.label,
-      @required this.year,
-      @required this.course,
-      this.idSubject});
+      {@required this.id, this.label, this.year, this.course, this.idSubject});
 
   final int id;
   final String label;

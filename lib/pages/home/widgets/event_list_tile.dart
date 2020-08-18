@@ -12,9 +12,9 @@ class EventListTile extends StatelessWidget {
       return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.pink,
-        child: Text(event?.title[0] ?? '?'),
+        child: Text(event?.title[0] ?? '?', style: TextStyle(color: Theme.of(context).primaryColor)),
       ),
-      title: Text(event?.title ?? 'No hay eventos disponibles'),
+      title: Text(event?.title ?? 'No hay eventos disponibles',),
       subtitle: Text(event?.description ?? '...'),
       trailing: Text(
         '${event.date[8]}' + 

@@ -86,26 +86,25 @@ class EventsService {
   Future<void> postEvent(User user, Event event, Class classs) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
-    
-    final Map<String, String> jsonHeaders = <String, String>{
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token'
+
+    var params = {
+      'id_class': classs.id,
+      'id_user': user.id,
+      'id_subject': classs.idSubject,
+      'date': event.date,
+      'title': event.title,
+      'ds_event': event.description,
+      'event_category_id_category': event.idCategory,
     };
 
     try {
-      final http.Response response =
-          await http.post('$apiBaseUrl/teacher/postevent',
-              headers: jsonHeaders,
-              body: jsonEncode({
-                'id_class': classs.id,
-                'id_user': user.id,
-                'id_subject': classs.idSubject,
-                'date': event.date,
-                'title': event.title,
-                'ds_event': event.description,
-                'event_category_id_category': event.idCategory,
-              }));
-      debugPrint(response.body);
+      final http.Response response = await http.post(
+          '$apiBaseUrl/teacher/postevent',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+          body: json.encode(params));
       switch (response.statusCode) {
         case 200:
           debugPrint(response.body);

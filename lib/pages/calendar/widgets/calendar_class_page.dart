@@ -93,9 +93,14 @@ class _HomePageState extends State<CalendarClassPage> {
           ),
           SizedBox(height: 16),
           FlatButton(
-              child: Text("Añadir evento"),
-              onPressed: () => Navigator.pushNamed(context, RouteName.add_event,
-                  arguments: widget.classs)),
+            child: Text(
+              "Añadir evento",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
+            onPressed: () => Navigator.pushNamed(context, RouteName.add_event,
+                arguments: widget.classs),
+            color: Colors.pink,
+          ),
           SizedBox(height: 16),
           FutureBuilder(
               future: Provider.of<EventsProvider>(context, listen: false)
@@ -106,7 +111,7 @@ class _HomePageState extends State<CalendarClassPage> {
                   return ListView.separated(
                     physics: ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 3,
+                    itemCount: _events?.length ?? 3,
                     separatorBuilder: (_, int i) => SizedBox(height: 8),
                     itemBuilder: (_, int i) {
                       if (i == 0) {

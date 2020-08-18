@@ -17,7 +17,6 @@ class StudentGradesListView extends StatelessWidget {
           Provider.of<AuthProvider>(context, listen: false).user.id),
       builder: (_, AsyncSnapshot snapshot) {
         final List<Grade> _grades = snapshot.data;
-        print(_grades);
         if (snapshot.hasData) {
           return ListView.separated(
               physics: ClampingScrollPhysics(),

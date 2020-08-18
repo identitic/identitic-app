@@ -37,7 +37,8 @@ class User {
       name: json['name'],
       lastName: json['lastName'],
       idSchool: json['school'],
-      schoolName: json['shoolName']
+      schoolName: json['shoolName'],
+      idClass: json['class']
     );
   }
 }

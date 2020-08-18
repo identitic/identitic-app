@@ -38,6 +38,21 @@ class EventsProvider with ChangeNotifier {
     }
   }
 
+  Future<List<Event>> fetchDayEvents(int idClass, DateTime _actualDay) async {
+    List<Event> _results;
+    try {
+      _events = await _eventsService.fetchAllEvents(idClass);
+
+      _results = _events
+          .where((event) =>
+              DateTime.parse(event.date).difference(_actualDay).inDays == 0)
+          .toList();
+      return _results;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> postEvent(User user, Event event, Class classs) async {
     try {
       await _eventsService.postEvent(user, event, classs);
