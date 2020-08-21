@@ -16,8 +16,10 @@ class Article {
   final String subject;
   final String name;
   final String lastName;
+  final int idJoin;
   
   const Article({
+
     this.idUser,
     this.name,
     this.lastName,
@@ -32,7 +34,8 @@ class Article {
     this.division,
     this.idSubject,
     this.subject,
-    this.idHierarchy
+    this.idHierarchy,
+    this.idJoin
   });
 
   factory Article.fromJson(Map<String, dynamic> json) {

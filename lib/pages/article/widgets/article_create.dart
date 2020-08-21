@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:identitic/models/article.dart';
+import 'package:identitic/models/class.dart';
 import 'package:identitic/providers/articles_provider.dart';
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class ArticleCreatePage extends StatefulWidget {
-  const ArticleCreatePage(this.type);
+  const ArticleCreatePage(this.classs);
 
-  final String type;
+  final Class classs;
 
   @override
   _ArticleCreatePageState createState() => _ArticleCreatePageState();
@@ -17,12 +18,11 @@ class ArticleCreatePage extends StatefulWidget {
 class _ArticleCreatePageState extends State<ArticleCreatePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
-  int _category;
+  /* int _category; */
   DateTime _date;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -70,7 +70,7 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
             controller: _bodyController,
           ),
           SizedBox(height: 16),
-          ListTile(
+          /* ListTile(
             title: Text('Categoría'),
             trailing: DropdownButton(
               hint: Text('Seleccionar categoría'),
@@ -91,7 +91,7 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
                 });
               },
             ),
-          ),
+          ), */
           ListTile(
             title: Text('Fecha de entrega'),
             trailing: FlatButton(
@@ -113,13 +113,16 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
 
   void _postArticle(BuildContext context) async {
     Article article = Article(
+        idJoin: widget.classs.idJoin,
         title: _titleController.text,
         body: _bodyController.text,
         date: DateTime.now().toUtc().toString(),
-        deadline: _date.toUtc().toString(),
+        deadline: _date?.toUtc().toString()?? 'null',
         idHierarchy: 2);
 
     Provider.of<ArticlesProvider>(context, listen: false).postArticle(
         Provider.of<AuthProvider>(context, listen: false).user, article);
+
+    Navigator.pop(context);
   }
 }

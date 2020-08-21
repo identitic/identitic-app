@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarClassPage extends StatefulWidget {
-  const CalendarClassPage(this.classs);
-  final Class classs;
+  /* const CalendarClassPage(this.classs);
+  final Class classs; */
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -18,30 +18,51 @@ class CalendarClassPage extends StatefulWidget {
 
 class _HomePageState extends State<CalendarClassPage> {
   CalendarController _controller;
-  Map<DateTime, List<dynamic>> _events;
+  int _course;
+  int _idJoinSelectedClass;
   @override
   void initState() {
     super.initState();
     _controller = CalendarController();
-
-    /* traigo los eventos en una list<event>
-
-    for(recorra list<event>){
-      event[i].date: event[i]
-    } */
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Calendario'),
-        centerTitle: true,
-      ),
+        body: NestedScrollView(
+      physics: const BouncingScrollPhysics(),
+      headerSliverBuilder: (_, __) => [
+        SliverAppBar(
+          pinned: true,
+          title: Text('Calendario'),
+        ),
+      ],
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 16),
         physics: BouncingScrollPhysics(),
         children: <Widget>[
+          ListTile(
+            title: Text('Curso'),
+            trailing: DropdownButton(
+              hint: Text('Seleccionar curso'),
+              value: _idJoinSelectedClass, 
+              items: [
+                DropdownMenuItem(
+                  child: Text('1ero A'),
+                  value: 1,
+                ),
+                DropdownMenuItem(
+                  child: Text('5to A'),
+                  value: 2,
+                ),
+              ],
+              onChanged: (newValue) {
+                setState(() {
+                  _idJoinSelectedClass = newValue;
+                });
+              }, 
+            ),
+          ),
           TableCalendar(
             initialCalendarFormat: CalendarFormat.month,
             availableCalendarFormats: const {CalendarFormat.month: "Mensual"},
@@ -93,13 +114,13 @@ class _HomePageState extends State<CalendarClassPage> {
           ),
           SizedBox(height: 16),
           FlatButton(
+            color: Colors.blue,
             child: Text(
               "Añadir evento",
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
             onPressed: () => Navigator.pushNamed(context, RouteName.add_event,
-                arguments: widget.classs),
-            color: Colors.pink,
+                arguments: _course),
           ),
           SizedBox(height: 16),
           FutureBuilder(
@@ -132,6 +153,6 @@ class _HomePageState extends State<CalendarClassPage> {
               }),
         ],
       ),
-    );
+    ));
   }
 }

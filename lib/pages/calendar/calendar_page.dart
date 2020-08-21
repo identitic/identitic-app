@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:identitic/pages/calendar/widgets/calendar_class_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class CalendarPage extends StatelessWidget {
       case UserHierarchy.student:
         return CalendarStudentPage();
       case UserHierarchy.teacher:
-        return ClassesPage(selected);
+        return CalendarClassPage();
       default:
         return CalendarStudentPage();
     }

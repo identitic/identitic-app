@@ -13,7 +13,7 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class ArticlesService {
-  Future<List<Article>> fetchArticles() async {
+  Future<List<Article>> fetchArticles(int idClass) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
@@ -25,9 +25,10 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbysc',
+        '$apiBaseUrl/admin/getpostbyidclass/$idClass',
         headers: jsonHeaders,
       );
+      debugPrint(response.body);
       switch (response.statusCode) {
         case 200:
           {
@@ -48,7 +49,7 @@ class ArticlesService {
     return articles;
   }
 
-  Future<List<Article>> fetchFamiliesArticles() async {
+  Future<List<Article>> fetchFamiliesArticles(int idSchool) async {
     List<Article> articles;
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
@@ -60,7 +61,7 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbycategory',
+        '$apiBaseUrl/admin/getpostbycategory/2',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -86,28 +87,25 @@ class ArticlesService {
   Future<void> postArticle(User user, Article article) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
-        
-    final Map<String, String> jsonHeaders = <String, String>{
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token'
-    };
 
     try {
-      final http.Response response =
-          await http.post('$apiBaseUrl/admin/createpost',
-              headers: jsonHeaders,
-              body: jsonEncode({
-                'id_sc': user.idSchool,
-                'id_user': user.id,
-                'title': article.title,
-                'body': article.body,
-                'date': article.date,
-                'id_hierarchy': article.hierarchy,
-                'deadline': article.deadline
-              }));
+      final http.Response response = await http.post(
+          '$apiBaseUrl/admin/createpost',
+          headers: {
+            "Content-Type": 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+          body: jsonEncode({
+            'id_sc': article.idJoin,
+            'id_user': user.id,
+            'title': article.title,
+            'body': article.body,
+            'date': article.date,
+            'id_hierarchy': article.idHierarchy,
+            'deadline': article.deadline
+          }));
       switch (response.statusCode) {
         case 200:
-          debugPrint(response.body);
           break;
         case 401:
           debugPrint(response.body);

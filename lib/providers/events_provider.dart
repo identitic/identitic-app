@@ -38,16 +38,45 @@ class EventsProvider with ChangeNotifier {
     }
   }
 
-  Future<List<Event>> fetchDayEvents(int idClass, DateTime _actualDay) async {
+  Future<List<Event>> fetchDayEvents(int idClass, DateTime _selectedDay) async {
     List<Event> _results;
     try {
       _events = await _eventsService.fetchAllEvents(idClass);
 
       _results = _events
           .where((event) =>
-              DateTime.parse(event.date).difference(_actualDay).inDays == 0)
+              DateTime.parse(event.date).difference(_selectedDay).inDays == 0)
           .toList();
       return _results;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  calendarEvents(int idClass, DateTime _selectedDay) async {
+    List<Event> _results;
+    List<DateTime> _dates;
+    List<DateTime> _newdates;
+    Map<DateTime, List<dynamic>> _calendarEvents;
+    List<dynamic> _newEvents;
+    try {
+      _events = await _eventsService.fetchAllEvents(idClass);
+
+      _events.forEach((event) {
+        _dates.add(DateTime.parse(event.date));
+      });
+
+      for (DateTime date in _dates) {
+        for (date in _dates) {
+          _newdates =
+              _dates.where((element) => element.difference(date).inDays != 0);
+        }
+      }
+      print(_newdates);
+      print(_dates);
+      /* _dates.where((date) => false).toList(); */
+
+      /* _calendarEvents = Map.fromIterables(_newdates, _events); */
     } catch (e) {
       rethrow;
     }

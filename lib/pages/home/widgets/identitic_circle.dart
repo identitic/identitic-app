@@ -17,7 +17,7 @@ class IdentiticCircle extends StatelessWidget {
           highlightedBorderColor: Colors.pink,
           borderSide: BorderSide(
             width: 2,
-            color: Colors.pink,
+            color: Colors.blue,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

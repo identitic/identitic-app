@@ -40,7 +40,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         case RouteName.calendar:
           return CalendarPage();
         case RouteName.class_calendar:
-          return CalendarClassPage(settings.arguments);
+          return CalendarClassPage(/* settings.arguments */);
         case RouteName.classes:
           return ClassesPage(settings.arguments);
         case RouteName.grades:
@@ -65,8 +65,6 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return TeacherGradesPage(settings.arguments);
         case RouteName.families:
           return FamiliesPage();
-        case RouteName.class_calendar:
-          return CalendarClassPage(settings.arguments);
         case RouteName.article_create:
           return ArticleCreatePage(settings.arguments);
         case RouteName.tasks:

@@ -7,7 +7,6 @@ import 'package:identitic/models/class.dart';
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/utils/constants.dart';
 
-
 enum ClassPageType {
   grades,
   inattendances,
@@ -61,7 +60,6 @@ class _ClassesPageCreateState extends State<ClassesPage> {
             .fetchClasses(
                 Provider.of<AuthProvider>(context, listen: false).user),
         builder: (_, AsyncSnapshot<List<Class>> snapshot) {
-          
           if (snapshot.hasData) {
             final List<Class> classes = snapshot.data;
             return ListView.separated(

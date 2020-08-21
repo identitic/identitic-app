@@ -3,6 +3,7 @@ import 'package:identitic/models/article.dart';
 import 'package:identitic/models/class.dart';
 import 'package:identitic/providers/articles_provider.dart';
 import 'package:identitic/pages/article/widgets/article_list_tile.dart';
+import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class _TasksPageCreateState extends State<TeacherTasksPage> {
           ),
           centerTitle: true),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, RouteName.article_create),
+        onPressed: () => Navigator.pushNamed(context, RouteName.article_create, arguments: widget.classs),
         label: Row(
           children: <Widget>[
             Icon(Icons.add),
@@ -36,7 +37,7 @@ class _TasksPageCreateState extends State<TeacherTasksPage> {
       ),
       body: FutureBuilder<List<Article>>(
         future: Provider.of<ArticlesProvider>(context, listen: false)
-            .fetchArticles(), //fetchArticlesByCLass(classs)
+            .fetchArticles(widget.classs.id),
         builder: (_, AsyncSnapshot<List<Article>> snapshot) {
           final List<Article> articles = snapshot.data;
           if (snapshot.hasData) {

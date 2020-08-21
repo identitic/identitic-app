@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:identitic/models/article.dart';
 import 'package:identitic/providers/articles_provider.dart';
 import 'package:identitic/pages/article/widgets/article_list_tile.dart';
+import 'package:identitic/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class FamiliesPage extends StatelessWidget {
@@ -15,21 +16,30 @@ class FamiliesPage extends StatelessWidget {
           centerTitle: true),
       body: FutureBuilder<List<Article>>(
         future: Provider.of<ArticlesProvider>(context, listen: false)
-            .fetchFamiliesArticles(),
+            .fetchFamiliesArticles(
+                Provider.of<AuthProvider>(context, listen: false)
+                    .user
+                    .idSchool),
         builder: (_, AsyncSnapshot<List<Article>> snapshot) {
-          final List<Article> articles = snapshot.data;
+          final List<Article> _articles = snapshot.data;
           if (snapshot.hasData) {
-            return ListView.separated(
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.all(16),
-              separatorBuilder: (_, int i) {
-                return SizedBox(height: 8);
-              },
-              itemCount: articles.length ?? 5,
-              itemBuilder: (_, int i) {
-                return ArticleListTile(articles[i]);
-              },
-            );
+            if (_articles.length != 0) {
+              return ListView.separated(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.all(16),
+                separatorBuilder: (_, int i) {
+                  return SizedBox(height: 8);
+                },
+                itemCount: _articles.length ?? 5,
+                itemBuilder: (_, int i) {
+                  return ArticleListTile(_articles[i]);
+                },
+              );
+            } else {
+              return Center(
+                child: Text('No hay artículos nuevos :(', style: TextStyle(fontSize: 16),),
+              );
+            }
           }
           return Center(
             child: CircularProgressIndicator(),

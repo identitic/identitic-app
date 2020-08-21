@@ -23,7 +23,7 @@ class EventsListView extends StatelessWidget {
             return ListView.builder(
               physics: ClampingScrollPhysics(),
               shrinkWrap: true,
-              itemCount: eventsProvider.events?.length ?? 3,
+              itemCount: eventsProvider.events?.length ?? 0,
               itemBuilder: (_, int i) {
                 return EventListTile(eventsProvider.events[i]);
               },
