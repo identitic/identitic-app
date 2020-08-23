@@ -38,6 +38,17 @@ class EventsProvider with ChangeNotifier {
     }
   }
 
+  Future<List<Event>> fetchAllEventsTeacher() async {
+    try {
+      _events = await _eventsService.fetchAllEventsTeacher();
+      notifyListeners();
+
+      return _events;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<List<Event>> fetchDayEvents(int idClass, DateTime _selectedDay) async {
     List<Event> _results;
     try {
@@ -47,6 +58,22 @@ class EventsProvider with ChangeNotifier {
           .where((event) =>
               DateTime.parse(event.date).difference(_selectedDay).inDays == 0)
           .toList();
+      return _results;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<Event>> fetchDayEventsTeacher(DateTime _selectedDay) async {
+    List<Event> _results;
+    try {
+      _events = await _eventsService.fetchAllEventsTeacher();
+      if (_events.isNotEmpty) {
+        _results = _events
+            .where((event) =>
+                DateTime.parse(event.date).difference(_selectedDay).inDays == 0)
+            .toList();
+      }
       return _results;
     } catch (e) {
       rethrow;

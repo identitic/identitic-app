@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
         body: Container(
           child: RefreshIndicator(
             onRefresh: () => Provider.of<EventsProvider>(context, listen: false)
-                .fetchAllEvents(1),
+                .fetchEvents(),
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: <Widget>[

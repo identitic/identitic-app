@@ -14,7 +14,7 @@ class StudentGradesPage extends StatelessWidget {
       ),
       body: StudentGradesListView(),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.blue,
         onPressed: () {},
         label: Row(
           children: <Widget>[

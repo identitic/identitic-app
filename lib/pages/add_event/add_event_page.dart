@@ -11,7 +11,7 @@ import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 
 class AddEventPage extends StatefulWidget {
-  const AddEventPage(this.classs);
+  const AddEventPage([this.classs]);
 
   final Class classs;
 
@@ -24,17 +24,19 @@ class _AddEventPageState extends State<AddEventPage> {
   final TextEditingController _descriptionController = TextEditingController();
   int _category;
   DateTime _date;
+  int _idJoinSelectedClass;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Añadir evento en ${widget.classs.year}to ${widget.classs.course}',
-          style: TextStyle(fontSize: 18),
-        ),
-        centerTitle: true,
-      ),
+          centerTitle: true,
+          title: widget.classs == null
+              ? Text('Añadir evento')
+              : Text(
+                  'Añadir evento - ${widget.classs.year}to ${widget.classs.course}',
+                  style: TextStyle(fontSize: 18),
+                )),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _postEvent(),
         label: Row(
@@ -49,6 +51,28 @@ class _AddEventPageState extends State<AddEventPage> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(16),
         children: <Widget>[
+          ListTile(
+            title: Text('Curso'),
+            trailing: DropdownButton(
+              hint: Text('Seleccionar curso'),
+              value: _idJoinSelectedClass, 
+              items: [
+                DropdownMenuItem(
+                  child: Text('1ero A'),
+                  value: 1,
+                ),
+                DropdownMenuItem(
+                  child: Text('5to A'),
+                  value: 2,
+                ),
+              ],
+              onChanged: (newValue) {
+                setState(() {
+                  _idJoinSelectedClass = newValue;
+                });
+              }, 
+            ),
+          ),
           ListTile(
             title: Text('Título'),
           ),

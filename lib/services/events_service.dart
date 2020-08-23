@@ -60,7 +60,42 @@ class EventsService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/teacher/AllEvents/$idClass',
+        '$apiBaseUrl/student/AllEvents/$idClass',
+        headers: jsonHeaders,
+      );
+      switch (response.statusCode) {
+        case 200:
+          {
+            final Iterable<dynamic> list = json.decode(response.body)['data'];
+            allEvents = list.map((e) => Event.fromJson(e)).toList();
+            break;
+          }
+        case 401:
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e);
+    }
+    return allEvents;
+  }
+
+  Future<List<Event>> fetchAllEventsTeacher() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+    List<Event> allEvents;
+
+    final Map<String, String> jsonHeaders = <String, String>{
+      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token'
+    };
+
+    try {
+      final http.Response response = await http.get(
+        '$apiBaseUrl/teacher/AllEvents',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
