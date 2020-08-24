@@ -18,18 +18,18 @@ class NotificationsPage extends StatelessWidget {
               pinned: true,
               title: Text('Notificaciones'),
             ),
-            SliverFillRemaining(
+/*             SliverFillRemaining(
               hasScrollBody: false,
               child: Column(
                 children: [
                   for (int i = 0; i < 10; i++) ListTile(title: Text('$i')),
                 ],
               ),
+            ), */
+            SliverFillRemaining(
+              hasScrollBody: true,
+              child: NotificationsListView(),
             ),
-            // SliverFillRemaining(
-            //   hasScrollBody: false,
-            //   child: NotificationsListView(),
-            // ),
           ],
         ),
       ),

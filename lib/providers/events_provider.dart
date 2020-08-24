@@ -56,7 +56,10 @@ class EventsProvider with ChangeNotifier {
 
       _results = _events
           .where((event) =>
-              DateTime.parse(event.date).difference(_selectedDay).inDays == 0)
+              /* DateTime.parse(event.date).difference(_selectedDay).inDays == 0) */
+              DateTime.parse(event.date).day == _selectedDay.day &&
+                DateTime.parse(event.date).month == _selectedDay.month &&
+                DateTime.parse(event.date).year == _selectedDay.year)
           .toList();
       return _results;
     } catch (e) {
@@ -71,7 +74,10 @@ class EventsProvider with ChangeNotifier {
       if (_events.isNotEmpty) {
         _results = _events
             .where((event) =>
-                DateTime.parse(event.date).difference(_selectedDay).inDays == 0)
+                /* DateTime.parse(event.date).difference(_selectedDay).inDays == 0) */
+                DateTime.parse(event.date).day == _selectedDay.day &&
+                DateTime.parse(event.date).month == _selectedDay.month &&
+                DateTime.parse(event.date).year == _selectedDay.year)
             .toList();
       }
       return _results;

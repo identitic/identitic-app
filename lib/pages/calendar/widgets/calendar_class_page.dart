@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:identitic/models/event.dart';
-import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 import 'package:identitic/pages/home/widgets/event_list_tile.dart';
 import 'package:identitic/utils/constants.dart';
