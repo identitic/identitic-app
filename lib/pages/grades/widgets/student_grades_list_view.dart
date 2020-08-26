@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:identitic/models/grade.dart';
-import 'package:identitic/pages/grades/widgets/grade_list_tile.dart';
-import 'package:identitic/providers/auth_provider.dart';
-import 'package:identitic/services/auth_service.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:identitic/models/grade.dart';
+import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/grades_provider.dart';
 import 'package:identitic/pages/grades/widgets/student_grade_list_tile.dart';
 

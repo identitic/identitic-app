@@ -4,10 +4,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:identitic/models/class.dart';
 
 import 'package:identitic/models/event.dart';
-import 'package:identitic/models/user.dart';
 import 'package:identitic/services/exceptions.dart';
 import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
@@ -118,14 +116,12 @@ class EventsService {
     return allEvents;
   }
 
-  Future<void> postEvent(User user, Event event, Class classs) async {
+  Future<void> postEvent(Event event) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
 
     var params = {
-      'id_class': classs.id,
-      'id_user': user.id,
-      'id_subject': classs.idSubject,
+      'id_join': event.idJoin,
       'date': event.date,
       'title': event.title,
       'ds_event': event.description,
@@ -140,6 +136,8 @@ class EventsService {
             'Authorization': 'Bearer $token'
           },
           body: json.encode(params));
+          debugPrint(json.encode(params));
+          debugPrint(response.body);
       switch (response.statusCode) {
         case 200:
           debugPrint(response.body);

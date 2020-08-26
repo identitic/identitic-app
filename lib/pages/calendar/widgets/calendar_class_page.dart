@@ -8,9 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarClassPage extends StatefulWidget {
-  /* const CalendarClassPage(this.classs);
-  final Class classs; */
-
   @override
   _HomePageState createState() => _HomePageState();
 }

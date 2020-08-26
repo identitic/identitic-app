@@ -17,42 +17,39 @@ class Article {
   final String name;
   final String lastName;
   final int idJoin;
-  
-  const Article({
 
-    this.idUser,
-    this.name,
-    this.lastName,
-    this.title,
-    this.body,
-    this.idClass,
-    this.image,
-    this.date,
-    this.deadline,
-    this.hierarchy,
-    this.year,
-    this.division,
-    this.idSubject,
-    this.subject,
-    this.idHierarchy,
-    this.idJoin
-  });
+  const Article(
+      {this.idUser,
+      this.name,
+      this.lastName,
+      this.title,
+      this.body,
+      this.idClass,
+      this.image,
+      this.date,
+      this.deadline,
+      this.hierarchy,
+      this.year,
+      this.division,
+      this.idSubject,
+      this.subject,
+      this.idHierarchy,
+      this.idJoin});
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
-      title: json['title'],
-      body: json['body'],
-      date: json['date'],
-      idClass: json['id_class'],
-      year: json['year'],
-      division: json['division'],
-      idSubject: json['id_subject'],
-      subject: json['ds_subject'],
-      idUser: json['id_user'],
-      name: json['first_name'],
-      lastName: json['last_name'],
-      deadline: json['deadline'],
-      hierarchy: json['hierarchy']
-    );
+        title: json['title'],
+        body: json['body'],
+        date: json['date'],
+        idClass: json['id_class'],
+        year: json['year'],
+        division: json['division'],
+        idSubject: json['id_subject'],
+        subject: json['ds_subject'],
+        idUser: json['id_user'],
+        name: json['first_name'],
+        lastName: json['last_name'],
+        deadline: json['deadline'],
+        hierarchy: json['hierarchy']);
   }
 }

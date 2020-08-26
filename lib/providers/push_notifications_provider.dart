@@ -1,5 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:identitic/models/notification.dart';
+import 'package:identitic/services/notifications_service.dart';
 
 class PushNotificationsProvider {
   PushNotificationsProvider() {
@@ -8,10 +11,17 @@ class PushNotificationsProvider {
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  List<Notification> _notifications;
+  List<PNotification> _notifications = [PNotification(body: 'Nuevo evento', title: 'Matemática')];
 
-  List<Notification> get notifications => _notifications;
+  List<PNotification> get notifications => _notifications;
 
+  NotificationsService _notificationsService = NotificationsService();
+
+
+  Future<List<PNotification>> fetchNotifications() async {
+    _notifications = await _notificationsService.fetchNotifications();
+    return _notifications;
+  }
   _initNotifications() {
     _firebaseMessaging.requestNotificationPermissions();
 
@@ -24,12 +34,15 @@ class PushNotificationsProvider {
         onMessage: (Map<String, dynamic> message) async {
       print("===== On Message =====");
       print(message);
+      _notifications.add(PNotification(title: message['title'], body: message['body']));
     }, onLaunch: (Map<String, dynamic> message) async {
       print("===== On Launch =====");
       print(message);
+      _notifications.add(PNotification(title: message['title'], body: message['body']));
     }, onResume: (Map<String, dynamic> message) async {
       print("===== On Resume =====");
       print(message);
+      _notifications.add(PNotification(title: message['title'], body: message['body']));
     });
   }
 }

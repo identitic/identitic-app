@@ -4,13 +4,14 @@ class Event {
   const Event({
     this.id,
     this.idClass,
-    this.idUser,
+    this.idSubject,
     this.idCategory,
     this.subject,
     this.category,
+    this.idUser,
+    @required this.idJoin,
     @required this.title,
     @required this.description,
-    @required this.idSubject,
     @required this.date,
   });
 
@@ -24,6 +25,7 @@ class Event {
   final String date;
   final String category;
   final int idCategory;
+  final int idJoin;
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
@@ -33,7 +35,8 @@ class Event {
         idSubject: json['id_subject'],
         category: json['ds_category'],
         idCategory: json['id_category'],
-        date: json['date']
-      );
+        date: json['date'],
+        idUser: json['id_user'],
+        idJoin: json['id_join']);
   }
 }

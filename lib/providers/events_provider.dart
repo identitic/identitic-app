@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:identitic/models/class.dart';
 
 import 'package:identitic/models/event.dart';
-import 'package:identitic/models/user.dart';
 import 'package:identitic/services/events_service.dart';
 
 class EventsProvider with ChangeNotifier {
@@ -71,7 +69,7 @@ class EventsProvider with ChangeNotifier {
     List<Event> _results;
     try {
       _events = await _eventsService.fetchAllEventsTeacher();
-      if (_events.isNotEmpty) {
+      if (_events != null) {
         _results = _events
             .where((event) =>
                 /* DateTime.parse(event.date).difference(_selectedDay).inDays == 0) */
@@ -115,9 +113,9 @@ class EventsProvider with ChangeNotifier {
     }
   }
 
-  Future<void> postEvent(User user, Event event, Class classs) async {
+  Future<void> postEvent(Event event) async {
     try {
-      await _eventsService.postEvent(user, event, classs);
+      await _eventsService.postEvent(event);
       notifyListeners();
     } catch (e) {
       rethrow;
