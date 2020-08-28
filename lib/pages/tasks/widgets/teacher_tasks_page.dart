@@ -8,7 +8,6 @@ import 'package:identitic/providers/articles_provider.dart';
 import 'package:identitic/pages/article/widgets/article_list_tile.dart';
 import 'package:identitic/utils/constants.dart';
 
-
 class TeacherTasksPage extends StatefulWidget {
   const TeacherTasksPage(this.classs);
 
@@ -28,7 +27,10 @@ class _TasksPageCreateState extends State<TeacherTasksPage> {
           ),
           centerTitle: true),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, RouteName.article_create, arguments: widget.classs),
+        onPressed: () => Navigator.pushNamed(
+            context,
+            RouteName
+                .article_markdown /* RouteName.article_create, arguments: widget.classs */),
         label: Row(
           children: <Widget>[
             Icon(Icons.add),

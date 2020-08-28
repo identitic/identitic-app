@@ -37,15 +37,5 @@ class NotificationsListView extends StatelessWidget {
             });
       },
     );
-    /* return ListView.separated(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(0),
-        itemCount: 5,
-        separatorBuilder: (_, int i) {
-          return SizedBox(height: 8);
-        },
-        itemBuilder: (_, int i) {
-          return NotificationListTile(i, 1);
-        }); */
   }
 }

@@ -37,6 +37,7 @@ class RouteName {
   static const String article_create = '/article_create';
   static const String tasks = '/tasks';
   static const String tasks_teacher = '/tasks_teacher';
+  static const String article_markdown = '/article_markdown';
 }
 
 class StorageKey {

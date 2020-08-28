@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:identitic/pages/add_event/add_event_page.dart';
+import 'package:identitic/pages/article/article_markdown.dart';
 import 'package:identitic/pages/article/article_page.dart';
 import 'package:identitic/pages/article/widgets/article_create.dart';
 import 'package:identitic/pages/calendar/calendar_page.dart';
@@ -71,6 +72,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return TasksPage();
         case RouteName.tasks_teacher:
           return TeacherTasksPage(settings.arguments);
+        case RouteName.article_markdown:
+          return EditorPage(settings.arguments);
         default:
           return NotFoundPage();
       }

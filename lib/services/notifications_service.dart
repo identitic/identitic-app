@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+/* import 'dart:convert'; */
+/* import 'dart:io'; */
 
-import 'package:flutter/foundation.dart';
+/* import 'package:flutter/foundation.dart';
 
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http; */
 
 import 'package:identitic/models/notification.dart';
-import 'package:identitic/services/exceptions.dart';
+/* import 'package:identitic/services/exceptions.dart'; */
 import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
@@ -19,10 +19,10 @@ class NotificationsService {
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<PNotification> notifications = [PNotification(body: 'Nuevo evento', title: 'Matemática')];
 
-    final Map<String, String> jsonHeaders = {
+    /* final Map<String, String> jsonHeaders = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token'
-    };
+    }; */
 
     /* try {
       final http.Response response = await http.get(

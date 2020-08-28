@@ -11,9 +11,12 @@ class EventsProvider with ChangeNotifier {
   }
 
   EventsService _eventsService = EventsService();
+
   List<Event> _events;
+  List<Event> _allEvents;
 
   List<Event> get events => _events;
+  List<Event> get allEvents => _allEvents;
 
   Future<List<Event>> fetchEvents() async {
     try {
@@ -27,10 +30,10 @@ class EventsProvider with ChangeNotifier {
 
   Future<List<Event>> fetchAllEvents(int idClass) async {
     try {
-      _events = await _eventsService.fetchAllEvents(idClass);
+      _allEvents = await _eventsService.fetchAllEvents(idClass);
       notifyListeners();
 
-      return _events;
+      return _allEvents;
     } catch (e) {
       rethrow;
     }
@@ -38,10 +41,10 @@ class EventsProvider with ChangeNotifier {
 
   Future<List<Event>> fetchAllEventsTeacher() async {
     try {
-      _events = await _eventsService.fetchAllEventsTeacher();
+      _allEvents = await _eventsService.fetchAllEventsTeacher();
       notifyListeners();
 
-      return _events;
+      return _allEvents;
     } catch (e) {
       rethrow;
     }
@@ -50,14 +53,14 @@ class EventsProvider with ChangeNotifier {
   Future<List<Event>> fetchDayEvents(int idClass, DateTime _selectedDay) async {
     List<Event> _results;
     try {
-      _events = await _eventsService.fetchAllEvents(idClass);
+      _allEvents = await _eventsService.fetchAllEvents(idClass);
 
-      _results = _events
+      _results = _allEvents
           .where((event) =>
               /* DateTime.parse(event.date).difference(_selectedDay).inDays == 0) */
               DateTime.parse(event.date).day == _selectedDay.day &&
-                DateTime.parse(event.date).month == _selectedDay.month &&
-                DateTime.parse(event.date).year == _selectedDay.year)
+              DateTime.parse(event.date).month == _selectedDay.month &&
+              DateTime.parse(event.date).year == _selectedDay.year)
           .toList();
       return _results;
     } catch (e) {
@@ -68,9 +71,9 @@ class EventsProvider with ChangeNotifier {
   Future<List<Event>> fetchDayEventsTeacher(DateTime _selectedDay) async {
     List<Event> _results;
     try {
-      _events = await _eventsService.fetchAllEventsTeacher();
-      if (_events != null) {
-        _results = _events
+      _allEvents = await _eventsService.fetchAllEventsTeacher();
+      if (_allEvents != null) {
+        _results = _allEvents
             .where((event) =>
                 /* DateTime.parse(event.date).difference(_selectedDay).inDays == 0) */
                 DateTime.parse(event.date).day == _selectedDay.day &&
@@ -84,33 +87,25 @@ class EventsProvider with ChangeNotifier {
     }
   }
 
-  calendarEvents(int idClass, DateTime _selectedDay) async {
-    List<Event> _results;
-    List<DateTime> _dates;
-    List<DateTime> _newdates;
-    Map<DateTime, List<dynamic>> _calendarEvents;
-    List<dynamic> _newEvents;
-    try {
-      _events = await _eventsService.fetchAllEvents(idClass);
+  Future<Map<DateTime, List<dynamic>>> calendarEvents() async {
 
-      _events.forEach((event) {
-        _dates.add(DateTime.parse(event.date));
+    Map<DateTime, List<dynamic>> calendarEvents = Map();
+
+    try {
+      _allEvents = await _eventsService.fetchAllEventsTeacher();
+
+      _allEvents.forEach((event) {
+        calendarEvents[DateTime.parse(event.date)] == null
+            ? calendarEvents[DateTime.parse(event.date)] = [event]
+            : calendarEvents[DateTime.parse(event.date)].add(event);
       });
 
-      for (DateTime date in _dates) {
-        for (date in _dates) {
-          _newdates =
-              _dates.where((element) => element.difference(date).inDays != 0);
-        }
-      }
-      print(_newdates);
-      print(_dates);
-      /* _dates.where((date) => false).toList(); */
-
-      /* _calendarEvents = Map.fromIterables(_newdates, _events); */
     } catch (e) {
+      debugPrint(e.toString());
       rethrow;
     }
+
+    return calendarEvents;
   }
 
   Future<void> postEvent(Event event) async {

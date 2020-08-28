@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:identitic/models/notification.dart';
 import 'package:identitic/services/notifications_service.dart';
@@ -22,6 +21,7 @@ class PushNotificationsProvider {
     _notifications = await _notificationsService.fetchNotifications();
     return _notifications;
   }
+
   _initNotifications() {
     _firebaseMessaging.requestNotificationPermissions();
 
