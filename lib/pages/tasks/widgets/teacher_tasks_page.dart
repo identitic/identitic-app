@@ -30,7 +30,7 @@ class _TasksPageCreateState extends State<TeacherTasksPage> {
         onPressed: () => Navigator.pushNamed(
             context,
             RouteName
-                .article_markdown /* RouteName.article_create, arguments: widget.classs */),
+                .article_create, arguments: widget.classs),
         label: Row(
           children: <Widget>[
             Icon(Icons.add),

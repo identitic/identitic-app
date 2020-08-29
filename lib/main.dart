@@ -110,7 +110,7 @@ class App extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             textTheme: ButtonTextTheme.normal,
           ),
-          inputDecorationTheme: InputDecorationTheme(
+          /* inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(),
             disabledBorder: OutlineInputBorder(),
@@ -119,7 +119,8 @@ class App extends StatelessWidget {
             labelStyle: TextStyle(
               color: Colors.black,
             ),
-          ),
+            hintStyle: TextStyle(color: Colors.grey)
+          ), */
         ),
         initialRoute: initialRoute,
         onGenerateRoute: onGenerateRoute,

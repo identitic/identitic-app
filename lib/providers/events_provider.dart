@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 
 import 'package:identitic/models/event.dart';
+import 'package:identitic/models/user.dart';
 import 'package:identitic/services/events_service.dart';
 
 class EventsProvider with ChangeNotifier {
@@ -87,19 +88,21 @@ class EventsProvider with ChangeNotifier {
     }
   }
 
-  Future<Map<DateTime, List<dynamic>>> calendarEvents() async {
-
+  Future<Map<DateTime, List<dynamic>>> calendarEvents(User user) async {
     Map<DateTime, List<dynamic>> calendarEvents = Map();
 
     try {
-      _allEvents = await _eventsService.fetchAllEventsTeacher();
+
+      // Asking user hierarchy
+      _allEvents = user.hierarchy == UserHierarchy.teacher
+          ? await _eventsService.fetchAllEventsTeacher()
+          : await _eventsService.fetchAllEvents(user.idClass);
 
       _allEvents.forEach((event) {
         calendarEvents[DateTime.parse(event.date)] == null
             ? calendarEvents[DateTime.parse(event.date)] = [event]
             : calendarEvents[DateTime.parse(event.date)].add(event);
       });
-
     } catch (e) {
       debugPrint(e.toString());
       rethrow;

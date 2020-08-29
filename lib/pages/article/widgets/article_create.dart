@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+import 'package:image_picker/image_picker.dart';
+
 import 'package:identitic/models/article.dart';
 import 'package:identitic/models/class.dart';
-import 'package:identitic/providers/articles_provider.dart';
-import 'package:identitic/providers/auth_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:identitic/utils/constants.dart';
 
 class ArticleCreatePage extends StatefulWidget {
-  const ArticleCreatePage(this.classs);
-
+  const ArticleCreatePage([this.classs]);
   final Class classs;
-
   @override
   _ArticleCreatePageState createState() => _ArticleCreatePageState();
 }
@@ -18,21 +18,35 @@ class ArticleCreatePage extends StatefulWidget {
 class _ArticleCreatePageState extends State<ArticleCreatePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
-  /* int _category; */
+
+  final picker = ImagePicker();
+
+  File imageFile;
+
+  TextEditingController _textEditingController;
   DateTime _date;
+  int _tappedCount = 1;
+  String _text = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = new TextEditingController(text: '');
+  }
 
   @override
   Widget build(BuildContext context) {
+    var showEditor = !(_tappedCount % 3 == 0);
+    if (!showEditor) {
+      _textEditingController.text = _text;
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Crear artículo',
-          style: TextStyle(fontSize: 18),
-        ),
-        centerTitle: true,
+        title: Text('Crear artículo'),
       ),
+      resizeToAvoidBottomPadding: false,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _postArticle(context),
+        onPressed: () => _generateArticle(),
         label: Row(
           children: <Widget>[
             Icon(Icons.add),
@@ -45,295 +59,75 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(16),
         children: <Widget>[
-          ListTile(
-            title: Text('Título'),
-          ),
           TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Título',
-            ),
+                border: InputBorder.none,
+                hintText: 'Título',
+                hintStyle:
+                    TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                    maxLines: null,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             controller: _titleController,
           ),
-          SizedBox(height: 16),
-          ListTile(
-            title: Text('Cuerpo'),
-          ),
+          Divider(),
           TextField(
-            maxLines: null,
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 40.0, horizontal: 10),
-              //hintText: 'Cuerpo',
-            ),
+                border: InputBorder.none,
+                hintText: 'Cuerpo',
+                hintStyle: TextStyle(fontWeight: FontWeight.w600)),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
             controller: _bodyController,
           ),
           SizedBox(height: 16),
-          /* ListTile(
-            title: Text('Categoría'),
-            trailing: DropdownButton(
-              hint: Text('Seleccionar categoría'),
-              value: _category,
-              items: [
-                DropdownMenuItem(
-                  child: Text('Exámenes'),
-                  value: 1,
-                ),
-                DropdownMenuItem(
-                  child: Text('Entregas'),
-                  value: 2,
-                ),
-              ],
-              onChanged: (newValue) {
-                setState(() {
-                  _category = newValue;
-                });
-              },
-            ),
-          ), */
-          ListTile(
-            title: Text('Fecha de entrega'),
-            trailing: FlatButton(
-              child: Text('Seleccionar fecha'),
-              onPressed: () async {
-                _date = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now().add(Duration(seconds: 10)),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(Duration(days: 610)));
-                setState(() {});
-              },
-            ),
-          ),
+          FlatButton(
+            color: imageFile == null ? Colors.blue : null,
+            child: imageFile == null
+                ? Text(
+                    'Adjuntar multimedia',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  )
+                : Container(
+                    child: Image.file(imageFile),
+                    height: 282,
+                    width: 282,
+                  ),
+            onPressed: () {
+              _selectImageGallery(context);
+            },
+          )
         ],
       ),
     );
   }
 
-  void _postArticle(BuildContext context) async {
-    Article article = Article(
+  Future _selectImageGallery(BuildContext context) async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      imageFile = File(pickedFile.path);
+    });
+  }
+
+  Future<void> _generateArticle() async {
+    
+    Article _article = Article(
         idJoin: widget.classs.idJoin,
-        title: _titleController.text,
-        body: _bodyController.text,
+        title: _titleController?.text?? 'Salio mal xdd',
+        body: _bodyController?.text?? 'Salio mal xd',
+        image: imageFile != null ? FileImage(imageFile) : null,
         date: DateTime.now().toUtc().toString(),
-        deadline: _date?.toUtc().toString() ?? 'null',
+        deadline: _date?.toUtc()?.toString() ?? null,
         idHierarchy: 2);
 
-    Provider.of<ArticlesProvider>(context, listen: false).postArticle(
-        Provider.of<AuthProvider>(context, listen: false).user, article);
+    Navigator.pushNamed(context, RouteName.article_markdown,
+        arguments: _article);
+  }
 
-    Navigator.pop(context);
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    _bodyController.dispose();
+    super.dispose();
   }
 }
-
-/* const String _markdownData = """
-# Markdown Example
-Markdown allows you to easily include formatted text, images, and even formatted Dart code in your app.
-
-## Titles
-
-Setext-style
-
-```
-This is an H1
-=============
-
-This is an H2
--------------
-```
-
-Atx-style
-
-```
-# This is an H1
-
-## This is an H2
-
-###### This is an H6
-```
-
-Select the valid headers:
-
-- [x] `# hello`
-- [ ] `#hello`
-
-## Links
-
-[Google's Homepage][Google]
-
-```
-[inline-style](https://www.google.cn)
-
-[reference-style][Google]
-```
-
-## Images
-
-![Flutter logo](/dart-lang/site-shared/master/src/_assets/image/flutter/icon/64.png)
-
-## Tables
-
-|Syntax                                 |Result                               |
-|---------------------------------------|-------------------------------------|
-|`*italic 1*`                           |*italic 1*                           |
-|`_italic 2_`                           | _italic 2_                          |
-|`**bold 1**`                           |**bold 1**                           |
-|`__bold 2__`                           |__bold 2__                           |
-|`This is a ~~strikethrough~~`          |This is a ~~strikethrough~~          |
-|`***italic bold 1***`                  |***italic bold 1***                  |
-|`___italic bold 2___`                  |___italic bold 2___                  |
-|`***~~italic bold strikethrough 1~~***`|***~~italic bold strikethrough 1~~***|
-|`~~***italic bold strikethrough 2***~~`|~~***italic bold strikethrough 2***~~|
-
-## Styling
-Style text as _italic_, __bold__, ~~strikethrough~~, or `inline code`.
-
-- Use bulleted lists
-- To better clarify
-- Your points
-
-## Code blocks
-Formatted Dart code looks really pretty too:
-
-```
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      body: Markdown(data: markdownData),
-    ),
-  ));
-}
-```
-
-## Center Title
-
-###### ※ ※ ※
-
-_* How to implement it see main.dart#L129 in example._
-
-## Custom Syntax
-
-NaOH + Al_2O_3 = NaAlO_2 + H_2O
-
-C_4H_10 = C_2H_6 + C_2H_4
-
-## Markdown widget
-
-This is an example of how to create your own Markdown widget:
-
-    Markdown(data: 'Hello _world_!');
-
-Enjoy!
-
-[Google]: https://www.google.cn/
-
-## Line Breaks
-
-This is an example of how to create line breaks (tab or two whitespaces):
-
-line 1
-  
-   
-line 2
-  
-  
-  
-line 3
-""";
-
-class ArticleCreatePage extends StatefulWidget {
-  const ArticleCreatePage(this.classs);
-
-  final Class classs;
-
-  @override
-  _ArticleCreatePageState createState() => _ArticleCreatePageState();
-}
-
-class _ArticleCreatePageState extends State<ArticleCreatePage> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _bodyController = TextEditingController();
-  /* int _category; */
-  DateTime _date;
-  final controller = ScrollController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Markdown Demo'),
-        ),
-        body: SafeArea(
-          child: Markdown(
-            controller: controller,
-            selectable: true,
-            data: _markdownData,
-            imageDirectory: 'https://raw.githubusercontent.com',
-            builders: {
-              'h6': CenteredHeaderBuilder(),
-              'sub': SubscriptBuilder(),
-            },
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.arrow_upward),
-          onPressed: () => controller.animateTo(0,
-              duration: Duration(seconds: 1), curve: Curves.easeOut),
-        ),
-      
-    
-  );
-}
-}
-
-class CenteredHeaderBuilder extends MarkdownElementBuilder {
-  @override
-  Widget visitText(md.Text text, TextStyle preferredStyle) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(text.text, style: preferredStyle),
-      ],
-    );
-  }
-}
-
-class SubscriptBuilder extends MarkdownElementBuilder {
-  static const List<String> _subscripts = [
-    '₀',
-    '₁',
-    '₂',
-    '₃',
-    '₄',
-    '₅',
-    '₆',
-    '₇',
-    '₈',
-    '₉'
-  ];
-
-  @override
-  Widget visitElementAfter(md.Element element, TextStyle preferredStyle) {
-    // We don't currently have a way to control the vertical alignment of text spans.
-    // See https://github.com/flutter/flutter/issues/10906#issuecomment-385723664
-    String textContent = element.textContent;
-    String text = '';
-    for (int i = 0; i < textContent.length; i++) {
-      text += _subscripts[int.parse(textContent[i])];
-    }
-    return SelectableText.rich(TextSpan(text: text));
-  }
-}
-
-class SubscriptSyntax extends md.InlineSyntax {
-  static final _pattern = r'_([0-9]+)';
-
-  SubscriptSyntax() : super(_pattern);
-
-  @override
-  bool onMatch(md.InlineParser parser, Match match) {
-    parser.addNode(md.Element.text('sub', match[1]));
-    return true;
-  }
-} */

@@ -74,6 +74,15 @@ class _SignInPageState extends State<SignInPage> {
                           focusNode: _usernameFocusNode,
                           validator: Validator.validateUsername,
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            enabledBorder: OutlineInputBorder(),
+                            disabledBorder: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(),
+                            focusedErrorBorder: OutlineInputBorder(),
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            hintStyle: TextStyle(color: Colors.grey),
                             labelText: 'Usuario',
                             hintText: 'juanperez',
                           ),
@@ -86,6 +95,14 @@ class _SignInPageState extends State<SignInPage> {
                           validator: Validator.validatePassword,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
+                            enabledBorder: OutlineInputBorder(),
+                            disabledBorder: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(),
+                            focusedErrorBorder: OutlineInputBorder(),
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            hintStyle: TextStyle(color: Colors.grey),
                             labelText: 'Contraseña',
                             hintText: '••••••••••',
                           ),
@@ -102,8 +119,9 @@ class _SignInPageState extends State<SignInPage> {
                   child: SizedBox(
                     width: double.infinity,
                     child: FlatButton(
-                      color: Theme.of(context).buttonColor,
-                      child: Text('Iniciar sesión', style: TextStyle(color: Colors.white)),
+                      color: Colors.pink,
+                      child: Text('Iniciar sesión',
+                          style: TextStyle(color: Colors.white)),
                       onPressed: _isSending
                           ? null
                           : () async {

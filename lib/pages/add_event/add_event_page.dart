@@ -11,9 +11,10 @@ import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 
 class AddEventPage extends StatefulWidget {
-  const AddEventPage([this.classs]);
+  const AddEventPage([this.classs, this.previousDate]);
 
   final Class classs;
+  final DateTime previousDate;
 
   @override
   _AddEventPageState createState() => _AddEventPageState();
@@ -31,6 +32,7 @@ class _AddEventPageState extends State<AddEventPage> {
   @override
   void initState() {
     super.initState();
+    _date = widget.previousDate;
   }
 
   @override
@@ -146,7 +148,19 @@ class _AddEventPageState extends State<AddEventPage> {
                       ListTile(
                         title: Text('Fecha'),
                         trailing: FlatButton(
-                          child: Text('Seleccionar fecha'),
+                          child: _date != null
+                              ? Text(
+                                  _date.day.toString() +
+                                      '/' +
+                                      _date.month.toString() +
+                                      '/' +
+                                      _date.year.toString(),
+                                  style: TextStyle(color: Colors.blue),
+                                )
+                              : Text(
+                                  'Seleccionar fecha',
+                                  style: TextStyle(color: Colors.blue),
+                                ),
                           onPressed: () async {
                             _date = await showDatePicker(
                                 context: context,
@@ -155,7 +169,9 @@ class _AddEventPageState extends State<AddEventPage> {
                                 firstDate: DateTime.now(),
                                 lastDate:
                                     DateTime.now().add(Duration(days: 610)));
-                            setState(() {});
+                            setState(() {
+                              _date = _date;
+                            });
                           },
                         ),
                       ),
@@ -169,8 +185,8 @@ class _AddEventPageState extends State<AddEventPage> {
 
   Future<void> _postEvent() async {
     Class _selectedClass = _classes
-            .where((element) => element.idJoin == _idJoinSelectedClass)
-            .toList()[0];
+        .where((element) => element.idJoin == _idJoinSelectedClass)
+        .toList()[0];
 
     print(_selectedClass.id);
     final Event event = Event(
@@ -181,8 +197,7 @@ class _AddEventPageState extends State<AddEventPage> {
         description: _descriptionController.text,
         idCategory: _category);
 
-    await Provider.of<EventsProvider>(context, listen: false)
-        .postEvent(event);
+    await Provider.of<EventsProvider>(context, listen: false).postEvent(event);
 
     Navigator.pop(context);
   }

@@ -4,7 +4,7 @@ class SliderItem extends StatelessWidget {
   const SliderItem({
     @required this.image,
     @required this.title,
-    @required this.text,
+    this.text,
   });
 
   final String image;

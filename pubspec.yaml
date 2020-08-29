@@ -35,6 +35,7 @@ dependencies:
   url_launcher: any
   firebase_messaging: any
   flutter_markdown: any
+  image_picker: any
 
 dev_dependencies:
   flutter_test:

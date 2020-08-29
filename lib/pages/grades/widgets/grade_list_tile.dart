@@ -25,6 +25,17 @@ class _GradeListTileState extends State<GradeListTile> {
       trailing: SizedBox(
         width: 64,
         child: TextField(
+          decoration: InputDecoration(
+          border: OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(),
+            disabledBorder: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(),
+            focusedErrorBorder: OutlineInputBorder(),
+            labelStyle: TextStyle(
+              color: Colors.black,
+            ),
+            hintStyle: TextStyle(color: Colors.grey),
+          ),
           keyboardType: TextInputType.number,
           onChanged: (value) => widget.grade.value =
               int.tryParse(value),
