@@ -44,7 +44,6 @@ class _AddEventPageState extends State<AddEventPage> {
                 ? Text('Añadir evento')
                 : Text(
                     'Añadir evento - ${widget.classs.year}to ${widget.classs.course}',
-                    style: TextStyle(fontSize: 18),
                   )),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () => _postEvent(),

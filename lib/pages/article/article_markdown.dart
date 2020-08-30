@@ -17,8 +17,6 @@ class EditorPage extends StatefulWidget {
 }
 
 class _EditorPageState extends State<EditorPage> {
-  int _tappedCount = 1;
-  String _text = '';
   TextEditingController _textEditingController;
   
   @override
@@ -31,7 +29,8 @@ class _EditorPageState extends State<EditorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear artículo'),
+        title: Text('Crear artículo',
+          style: TextStyle(fontSize: 16),),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

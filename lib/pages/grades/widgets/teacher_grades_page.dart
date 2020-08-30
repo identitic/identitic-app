@@ -26,7 +26,6 @@ class TeacherGradesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Calificaciones',
-          style: TextStyle(fontSize: 16),
         ),
         centerTitle: true,
       ),

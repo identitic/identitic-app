@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:identitic/models/notification.dart';
 import 'package:identitic/services/notifications_service.dart';
+
 
 class PushNotificationsProvider {
   PushNotificationsProvider() {
@@ -10,14 +13,18 @@ class PushNotificationsProvider {
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  List<PNotification> _notifications = [PNotification(body: 'Nuevo evento', title: 'Matemática')];
+  List<PushNotification> _notifications = [PushNotification(body: 'Nuevo evento', title: 'Matemática')];
 
-  List<PNotification> get notifications => _notifications;
+  List<PushNotification> get notifications => _notifications;
 
   NotificationsService _notificationsService = NotificationsService();
 
+  static Future<dynamic> backgroundMessageHandler(Map<String, dynamic> message) async {
+  print(message);
+  }
 
-  Future<List<PNotification>> fetchNotifications() async {
+
+  Future<List<PushNotification>> fetchNotifications() async {
     _notifications = await _notificationsService.fetchNotifications();
     return _notifications;
   }
@@ -34,15 +41,18 @@ class PushNotificationsProvider {
         onMessage: (Map<String, dynamic> message) async {
       print("===== On Message =====");
       print(message);
-      _notifications.add(PNotification(title: message['title'], body: message['body']));
-    }, onLaunch: (Map<String, dynamic> message) async {
+      _notifications.add(PushNotification(title: message['title'], body: message['body']));
+      print(_notifications);
+    }, 
+    onBackgroundMessage: Platform.isIOS ? null : backgroundMessageHandler,
+    onLaunch: (Map<String, dynamic> message) async {
       print("===== On Launch =====");
       print(message);
-      _notifications.add(PNotification(title: message['title'], body: message['body']));
+      _notifications.add(PushNotification(title: message['title'], body: message['body'], id: message['data']));
     }, onResume: (Map<String, dynamic> message) async {
       print("===== On Resume =====");
       print(message);
-      _notifications.add(PNotification(title: message['title'], body: message['body']));
+      _notifications.add(PushNotification(title: message['title'], body: message['body']));
     });
   }
 }

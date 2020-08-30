@@ -37,7 +37,7 @@ class _HomePageState extends State<CalendarClassPage> {
             headerSliverBuilder: (_, __) => [
                   SliverAppBar(
                     pinned: true,
-                    title: Text('Calendario'),
+                    title: Text('Calendario', style: TextStyle(fontSize: 24)),
                   ),
                 ],
             body: listView()));
@@ -167,7 +167,7 @@ class _HomePageState extends State<CalendarClassPage> {
                 if (events.isNotEmpty) {
                   children.add(
                     Positioned(
-                      right: 0, //TODO: TODO EN 1 PA
+                      right: 0, 
                       bottom: 0,
                       left: 0,
                       child: _buildEventsMarker(date, events),

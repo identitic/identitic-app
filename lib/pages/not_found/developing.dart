@@ -7,7 +7,6 @@ class DevelopingPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           '?',
-          style: TextStyle(fontSize: 16),
         ),
         centerTitle: true,
       ),

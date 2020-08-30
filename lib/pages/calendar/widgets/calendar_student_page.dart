@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
+
 import 'package:identitic/models/event.dart';
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 import 'package:identitic/pages/home/widgets/event_list_tile.dart';
-import 'package:identitic/utils/constants.dart';
-import 'package:provider/provider.dart';
-
-import 'package:intl/date_symbol_data_local.dart';
-
-import 'package:intl/intl.dart';
-
-import 'package:table_calendar/table_calendar.dart';
 
 class CalendarStudentPage extends StatefulWidget {
   @override
@@ -19,7 +17,6 @@ class CalendarStudentPage extends StatefulWidget {
 
 class _HomePageState extends State<CalendarStudentPage> {
   CalendarController _controller;
-  int _course;
   DateTime _date = DateTime.now().toUtc();
   @override
   void initState() {
@@ -37,7 +34,7 @@ class _HomePageState extends State<CalendarStudentPage> {
             headerSliverBuilder: (_, __) => [
                   SliverAppBar(
                     pinned: true,
-                    title: Text('Calendario'),
+                    title: Text('Calendario', style: TextStyle(fontSize: 24)),
                   ),
                 ],
             body: listView()));

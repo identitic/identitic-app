@@ -14,10 +14,10 @@ import 'package:identitic/utils/constants.dart';
 
 class NotificationsService {
 
-  Future<List<PNotification>> fetchNotifications() async {
+  Future<List<PushNotification>> fetchNotifications() async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
-    List<PNotification> notifications = [PNotification(body: 'Nuevo evento', title: 'Matemática')];
+    List<PushNotification> notifications = [PushNotification(body: 'Nuevo evento', title: 'Matemática')];
 
     /* final Map<String, String> jsonHeaders = {
       HttpHeaders.acceptHeader: 'application/json',

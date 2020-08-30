@@ -51,7 +51,6 @@ class _ClassesPageCreateState extends State<ClassesPage> {
       appBar: AppBar(
         title: Text(
           'Mis cursos - ${widget.title}',
-          style: TextStyle(fontSize: 16),
         ),
         centerTitle: true,
       ),

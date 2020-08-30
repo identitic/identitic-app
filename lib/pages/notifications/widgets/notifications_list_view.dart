@@ -13,7 +13,7 @@ class NotificationsListView extends StatelessWidget {
           .fetchNotifications(),
       builder: (_, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          final List<PNotification>_notifications = snapshot.data;
+          final List<PushNotification>_notifications = snapshot.data;
           return ListView.separated(
               physics: BouncingScrollPhysics(),
               padding: EdgeInsets.all(0),

@@ -1,13 +1,15 @@
-class PNotification {
+class PushNotification {
   final String body;
   final String title;
+  final int id;
 
-  PNotification({this.body, this.title});
+  PushNotification({this.body, this.title, this.id});
 
-  factory PNotification.fromJson(Map<String, dynamic> json) {
-    return PNotification(
+  factory PushNotification.fromJson(Map<String, dynamic> json) {
+    return PushNotification(
       title: json['title'], 
-      body: json['body']
+      body: json['body'],
+      id: json['data']['id_event']
     );
   }
 }

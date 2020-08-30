@@ -22,7 +22,6 @@ class InattendancesTeacherPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Inasistencias',
-          style: TextStyle(fontSize: 16),
         ),
         centerTitle: true,
       ),

@@ -37,7 +37,6 @@ Future<void> main() async {
 
 
 class App extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -80,6 +79,7 @@ class App extends StatelessWidget {
           accentColorBrightness: Brightness.dark,
           scaffoldBackgroundColor: Colors.white,
           textTheme: TextTheme(
+            button: TextStyle(fontSize: 16), //TODO: definir si es 16 o 14
             subtitle1: TextStyle(
               fontWeight: FontWeight.w500,
             ),
@@ -87,7 +87,7 @@ class App extends StatelessWidget {
           appBarTheme: AppBarTheme(
             textTheme: TextTheme(
               headline6: TextStyle(
-                fontSize: 24,
+                fontSize: 18,       // Only for secondary pages, main pages use 24px
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
@@ -110,17 +110,6 @@ class App extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             textTheme: ButtonTextTheme.normal,
           ),
-          /* inputDecorationTheme: InputDecorationTheme(
-            border: OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(),
-            disabledBorder: OutlineInputBorder(),
-            focusedBorder: OutlineInputBorder(),
-            focusedErrorBorder: OutlineInputBorder(),
-            labelStyle: TextStyle(
-              color: Colors.black,
-            ),
-            hintStyle: TextStyle(color: Colors.grey)
-          ), */
         ),
         initialRoute: initialRoute,
         onGenerateRoute: onGenerateRoute,
