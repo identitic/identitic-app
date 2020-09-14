@@ -149,7 +149,7 @@ class _HomePageState extends State<CalendarClassPage> {
                   alignment: Alignment.center,
                   child: Text(
                     date.day.toString(),
-                    style: TextStyle(color: Colors.black), //TODO: checkear esto
+                    style: TextStyle(color: Colors.grey),
                   )),
               selectedDayBuilder: (context, date, events) => Container(
                   margin: const EdgeInsets.all(4.0),

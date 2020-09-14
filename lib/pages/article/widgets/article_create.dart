@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 import 'package:identitic/models/article.dart';
 import 'package:identitic/models/class.dart';
@@ -25,8 +27,6 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
 
   TextEditingController _textEditingController;
   DateTime _date;
-  int _tappedCount = 1;
-  String _text = '';
 
   @override
   void initState() {
@@ -36,13 +36,17 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    var showEditor = !(_tappedCount % 3 == 0);
-    if (!showEditor) {
-      _textEditingController.text = _text;
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Crear artículo'),
+        actions: [
+          IconButton(
+            icon: Icon(OMIcons.addAPhoto),
+            color: Colors.blue,
+            iconSize: 26,
+            onPressed: () => _selectImageGallery(context),
+          ),
+        ],
       ),
       resizeToAvoidBottomPadding: false,
       floatingActionButton: FloatingActionButton.extended(
@@ -65,37 +69,34 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
                 hintText: 'Título',
                 hintStyle:
                     TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
-                    maxLines: null,
+            maxLines: null,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             controller: _titleController,
           ),
           Divider(),
           TextField(
             decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Cuerpo',
-                hintStyle: TextStyle(fontWeight: FontWeight.w600)),
+              border: InputBorder.none,
+              hintText: 'Cuerpo',
+              hintStyle: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            textAlign: TextAlign.justify,
+            textAlignVertical: TextAlignVertical.bottom,
             keyboardType: TextInputType.multiline,
             maxLines: null,
             controller: _bodyController,
           ),
-          SizedBox(height: 16),
-          FlatButton(
-            color: imageFile == null ? Colors.blue : null,
-            child: imageFile == null
-                ? Text(
-                    'Adjuntar multimedia',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  )
-                : Container(
-                    child: Image.file(imageFile),
-                    height: 282,
-                    width: 282,
-                  ),
-            onPressed: () {
-              _selectImageGallery(context);
-            },
-          )
+          imageFile != null
+              ? Container(
+                  child: Image.file(imageFile),
+                  height: 282,
+                  width: 282,
+                  margin: EdgeInsets.only(top: 32),
+                  padding: EdgeInsets.only(top: 32),
+                )
+              : SizedBox()
         ],
       ),
     );
@@ -110,15 +111,18 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
   }
 
   Future<void> _generateArticle() async {
-    
+    String _markdown = """# __${_titleController.text}__
+### ${_bodyController.text}
+""";
+
     Article _article = Article(
-        idJoin: widget.classs.idJoin,
-        title: _titleController?.text?? 'Salio mal xdd',
-        body: _bodyController?.text?? 'Salio mal xd',
-        image: imageFile != null ? FileImage(imageFile) : null,
+        markdown: _markdown != null ? _markdown : null,
+        image: imageFile != null ? imageFile : null,
+        idJoin: widget?.classs != null ? widget.classs.idJoin : 90, //TODO: cambiar lo del id join, en el back permitan todo
         date: DateTime.now().toUtc().toString(),
-        deadline: _date?.toUtc()?.toString() ?? null,
-        idHierarchy: 2);
+        idHierarchy: widget?.classs != null ? 2 : 1,
+        title: _titleController.text ?? _titleController.text,
+        body: _bodyController.text ?? _bodyController.text);
 
     Navigator.pushNamed(context, RouteName.article_markdown,
         arguments: _article);

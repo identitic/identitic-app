@@ -5,6 +5,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+
+import 'package:dio/dio.dart';
 
 import 'package:identitic/models/article.dart';
 import 'package:identitic/models/user.dart';
@@ -61,7 +64,7 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbycategory/2',
+        '$apiBaseUrl/admin/getpostbyhierarchyid/1',
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -87,33 +90,34 @@ class ArticlesService {
   Future<void> postArticle(User user, Article article) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
-
+    Dio dio = new Dio();
     try {
-      final http.Response response = await http.post(
-          '$apiBaseUrl/admin/createpost',
+      Map<String, dynamic> data = {
+        "filee": article.image != null ? await MultipartFile.fromFile(article.image.path,
+            filename: article.image.path.split('/').last,
+            contentType: MediaType('image', 'jpg')) : null,
+        "title": article.title,
+        "body": article.body,
+        "markdown": article.markdown,
+        "id_sc": article.idJoin,
+        "id_hierarchy": article.hierarchy,
+        "date": DateTime.now().toString(),
+        "deadline": article.deadline
+      };
+
+      FormData formData = FormData.fromMap(data);
+
+      print(formData.fields);
+      var response = await dio.post(
+        '$apiBaseUrl/general/uploadPost',
+        data: formData,
+        options: Options(
           headers: {
-            "Content-Type": 'application/json',
-            'Authorization': 'Bearer $token'
+            "Authorization": 'Bearer $token',
           },
-          body: jsonEncode({
-            'id_sc': article.idJoin,
-            'id_user': user.id,
-            'title': article.title,
-            'body': article.body,
-            'date': article.date,
-            'id_hierarchy': article.idHierarchy,
-            'deadline': article.deadline
-          }));
-      switch (response.statusCode) {
-        case 200:
-          break;
-        case 401:
-          debugPrint(response.body);
-          throw UnauthorizedException('UnauthorizedException: Voló todo');
-        case 429:
-          debugPrint(response.body);
-          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
-      }
+        ),
+      );
+      print(response.data);
     } on SocketException {
       throw const SocketException('SocketException: Voló todo');
     } catch (e) {

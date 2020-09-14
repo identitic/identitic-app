@@ -3,6 +3,7 @@ import 'package:identitic/models/article.dart';
 import 'package:identitic/providers/articles_provider.dart';
 import 'package:identitic/pages/article/widgets/article_list_tile.dart';
 import 'package:identitic/providers/auth_provider.dart';
+import 'package:identitic/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class FamiliesPage extends StatelessWidget {
@@ -14,6 +15,19 @@ class FamiliesPage extends StatelessWidget {
             'Familias',
           ),
           centerTitle: true),
+          floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.pushNamed(
+            context,
+            RouteName
+                .article_create),
+        label: Row(
+          children: <Widget>[
+            Icon(Icons.add),
+            SizedBox(width: 8),
+            Text('Crear artículo'),
+          ],
+        ),
+      ),
       body: FutureBuilder<List<Article>>(
         future: Provider.of<ArticlesProvider>(context, listen: false)
             .fetchFamiliesArticles(

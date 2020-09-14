@@ -104,8 +104,15 @@ class _AddEventPageState extends State<AddEventPage> {
                       ),
                       TextField(
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Título',
+                            border: OutlineInputBorder(),
+                            enabledBorder: OutlineInputBorder(),
+                            disabledBorder: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(),
+                            focusedErrorBorder: OutlineInputBorder(),
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            hintStyle: TextStyle(color: Colors.grey),
                         ),
                         controller: _titleController,
                       ),
@@ -116,8 +123,15 @@ class _AddEventPageState extends State<AddEventPage> {
                       TextField(
                         maxLines: null,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Descripción',
+                            border: OutlineInputBorder(),
+                            enabledBorder: OutlineInputBorder(),
+                            disabledBorder: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(),
+                            focusedErrorBorder: OutlineInputBorder(),
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            hintStyle: TextStyle(color: Colors.grey),
                         ),
                         controller: _descriptionController,
                       ),

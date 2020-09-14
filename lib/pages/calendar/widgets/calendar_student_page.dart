@@ -107,6 +107,8 @@ class _HomePageState extends State<CalendarStudentPage> {
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
                     color: Colors.white)),
+                    daysOfWeekStyle:
+                DaysOfWeekStyle(weekendStyle: TextStyle(color: Colors.grey)),
             headerStyle: HeaderStyle(
               centerHeaderTitle: true,
               formatButtonDecoration: BoxDecoration(
@@ -123,6 +125,13 @@ class _HomePageState extends State<CalendarStudentPage> {
               });
             },
             builders: CalendarBuilders(
+              weekendDayBuilder: (context, date, events) => Container(
+                  margin: const EdgeInsets.all(4.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    date.day.toString(),
+                    style: TextStyle(color: Colors.grey),
+                  )),
               selectedDayBuilder: (context, date, events) =>
                   _buildSelectedDay(date),
               markersBuilder: (context, date, events, holidays) =>

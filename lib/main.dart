@@ -11,7 +11,7 @@ import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/providers/events_provider.dart';
 import 'package:identitic/providers/grades_provider.dart';
 import 'package:identitic/providers/inattendances_provider.dart';
-import 'package:identitic/providers/push_notifications_provider.dart';
+import 'package:identitic/providers/notifications_provider.dart';
 // import 'package:identitic/widgets/theme.dart';
 import 'package:identitic/utils/routes.dart';
 
@@ -45,8 +45,8 @@ class App extends StatelessWidget {
           create: (_) => AuthProvider(),
           lazy: false,
         ),
-        Provider<PushNotificationsProvider>(
-          create: (_) => PushNotificationsProvider(),
+        Provider<NotificationsProvider>(
+          create: (_) => NotificationsProvider(),
           lazy: false,
         ),
         ChangeNotifierProvider<InattendancesProvider>(
@@ -79,7 +79,7 @@ class App extends StatelessWidget {
           accentColorBrightness: Brightness.dark,
           scaffoldBackgroundColor: Colors.white,
           textTheme: TextTheme(
-            button: TextStyle(fontSize: 16), //TODO: definir si es 16 o 14
+            button: TextStyle(fontSize: 16),
             subtitle1: TextStyle(
               fontWeight: FontWeight.w500,
             ),

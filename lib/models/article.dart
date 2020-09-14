@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
 class Article {
   final int idUser;
   final String title;
   final String body;
-  final ImageProvider image;
+  final File image;
   final String date;
   final String deadline;
   final String hierarchy;
@@ -17,6 +17,8 @@ class Article {
   final String name;
   final String lastName;
   final int idJoin;
+  final String markdown;
+  final String fileURI;
 
   const Article(
       {this.idUser,
@@ -34,7 +36,9 @@ class Article {
       this.idSubject,
       this.subject,
       this.idHierarchy,
-      this.idJoin});
+      this.idJoin,
+      this.markdown,
+      this.fileURI});
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
@@ -50,6 +54,8 @@ class Article {
         name: json['first_name'],
         lastName: json['last_name'],
         deadline: json['deadline'],
-        hierarchy: json['hierarchy']);
+        hierarchy: json['hierarchy'],
+        markdown: json['markdown'],
+        fileURI: json['file']);
   }
 }

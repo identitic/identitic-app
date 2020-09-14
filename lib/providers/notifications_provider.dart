@@ -6,8 +6,8 @@ import 'package:identitic/models/notification.dart';
 import 'package:identitic/services/notifications_service.dart';
 
 
-class PushNotificationsProvider {
-  PushNotificationsProvider() {
+class NotificationsProvider {
+  NotificationsProvider() {
     _initNotifications();
   }
 
@@ -22,7 +22,6 @@ class PushNotificationsProvider {
   static Future<dynamic> backgroundMessageHandler(Map<String, dynamic> message) async {
   print(message);
   }
-
 
   Future<List<PushNotification>> fetchNotifications() async {
     _notifications = await _notificationsService.fetchNotifications();

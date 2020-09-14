@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:identitic/models/article.dart';
 
 class ArticlePage extends StatelessWidget {
-  const ArticlePage(this._article);
+  const ArticlePage([this.article]);
 
-  final Article _article;
-
+  final Article article;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,29 +15,17 @@ class ArticlePage extends StatelessWidget {
         slivers: [
           SliverAppBar(
             pinned: true,
-            title: Text('Identitic'),
+            title: Text(article.title),
             centerTitle: true,
           ),
           SliverPadding(
             padding: const EdgeInsets.all(16),
             sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                /* Image(
-                  image: _article.image,
-                ), */
-                const SizedBox(height: 16),
-                Text(
-                  _article.title,
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                const SizedBox(height: 16),
-              ]),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [Divider(), Text(_article.body)],
-            ),
+            delegate: SliverChildListDelegate([
+              MarkdownBody(data: article.markdown), 
+              Image.network('https://' + article.fileURI)
+            ]),
+          )
           ),
         ],
       ),
