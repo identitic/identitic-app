@@ -26,7 +26,6 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
   File imageFile;
 
   TextEditingController _textEditingController;
-  DateTime _date;
 
   @override
   void initState() {

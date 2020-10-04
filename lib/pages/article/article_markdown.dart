@@ -17,7 +17,9 @@ class EditorPage extends StatefulWidget {
 
 class _EditorPageState extends State<EditorPage> {
   TextEditingController _textEditingController;
-
+  bool enableComments = false;
+  bool enableDeliveries = false;
+  DateTime _date;
   @override
   void initState() {
     super.initState();
@@ -48,16 +50,97 @@ class _EditorPageState extends State<EditorPage> {
         body: CustomScrollView(slivers: <Widget>[
           SliverList(
             delegate: SliverChildListDelegate([
-              widget?.article?.markdown != null ? MarkdownBody(data: widget.article.markdown) : SizedBox(),
-              widget?.article?.image != null ? Image.file(widget.article.image) : SizedBox()
-            ]),
+              buildArticlePreview(),
+              buildArticleSettings()]),
           )
         ]));
   }
 
+  Widget buildArticlePreview() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        widget?.article?.markdown != null
+            ? MarkdownBody(data: widget.article.markdown)
+            : SizedBox(),
+        widget?.article?.image != null
+            ? Image.file(widget.article.image)
+            : SizedBox(),
+      ],
+    );
+  }
+
+  // Enable comments, deliveries, deadlines, etc
+  Widget buildArticleSettings() {
+    return Column(children: <Widget>[
+      Divider(),
+      ListTile(
+        leading: Text(
+          'Habilitar comentarios',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        trailing: Switch(
+          activeColor: Colors.blue,
+          value: enableComments,
+          onChanged: (bool state) {
+            setState(() {
+              enableComments = state;
+            });
+          },
+        ),
+      ),
+      ListTile(
+        leading: Text(
+          'Habilitar entregas',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        trailing: Switch(
+          activeColor: Colors.blue,
+          value: enableDeliveries,
+          onChanged: (bool state) {
+            setState(() {
+              enableDeliveries = state;
+            });
+          },
+        ),
+      ),
+      enableDeliveries != false
+          ? ListTile(
+              title: Text('Fecha límite'),
+              trailing: FlatButton(
+                child: _date != null
+                    ? Text(
+                        _date.day.toString() +
+                            '/' +
+                            _date.month.toString() +
+                            '/' +
+                            _date.year.toString(),
+                        style: TextStyle(color: Colors.blue),
+                      )
+                    : Text(
+                        'Seleccionar fecha',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                onPressed: () async {
+                  _date = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now().add(Duration(seconds: 10)),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 610)));
+                  setState(() {
+                    _date = _date;
+                  });
+                },
+              ),
+            )
+          : SizedBox(),
+      SizedBox(height: 32),
+    ]);
+  }
+
   void _postArticle(BuildContext context) async {
     Provider.of<ArticlesProvider>(context, listen: false).postArticle(
-        Provider.of<AuthProvider>(context, listen: false).user, widget.article); 
+        Provider.of<AuthProvider>(context, listen: false).user, widget.article);
 
     Navigator.of(context).popUntil((route) => route.isFirst);
   }

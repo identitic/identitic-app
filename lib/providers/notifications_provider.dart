@@ -40,8 +40,8 @@ class NotificationsProvider {
         onMessage: (Map<String, dynamic> message) async {
       print("===== On Message =====");
       print(message);
-      _notifications.add(PushNotification(title: message['title'], body: message['body']));
-      print(_notifications);
+      _notifications.add(PushNotification(title: message['notification']['title'], body: message['notification']['body'])); //Así es cuando es por firebase testing
+      print(_notifications[1].body);
     }, 
     onBackgroundMessage: Platform.isIOS ? null : backgroundMessageHandler,
     onLaunch: (Map<String, dynamic> message) async {
