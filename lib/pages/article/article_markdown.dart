@@ -49,24 +49,26 @@ class _EditorPageState extends State<EditorPage> {
         ),
         body: CustomScrollView(slivers: <Widget>[
           SliverList(
-            delegate: SliverChildListDelegate([
-              buildArticlePreview(),
-              buildArticleSettings()]),
+            delegate: SliverChildListDelegate(
+                [buildArticlePreview(), buildArticleSettings()]),
           )
         ]));
   }
 
   Widget buildArticlePreview() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        widget?.article?.markdown != null
-            ? MarkdownBody(data: widget.article.markdown)
-            : SizedBox(),
-        widget?.article?.image != null
-            ? Image.file(widget.article.image)
-            : SizedBox(),
-      ],
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          widget?.article?.markdown != null
+              ? MarkdownBody(data: widget.article.markdown)
+              : SizedBox(),
+          widget?.article?.image != null
+              ? Image.file(widget.article.image)
+              : SizedBox(),
+        ],
+      ),
     );
   }
 
