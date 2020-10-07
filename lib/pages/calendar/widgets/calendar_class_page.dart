@@ -167,7 +167,7 @@ class _HomePageState extends State<CalendarClassPage> {
                 if (events.isNotEmpty) {
                   children.add(
                     Positioned(
-                      right: 0, 
+                      right: 0,
                       bottom: 0,
                       left: 0,
                       child: _buildEventsMarker(date, events),

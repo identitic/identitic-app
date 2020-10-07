@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:identitic/pages/add_event/add_event_page.dart';
 import 'package:identitic/pages/article/article_markdown.dart';
+import 'package:identitic/pages/article/article_new_delivery.dart';
 import 'package:identitic/pages/article/article_page.dart';
-import 'package:identitic/pages/article/widgets/article_create.dart';
+import 'package:identitic/pages/article/article_create.dart';
 import 'package:identitic/pages/calendar/calendar_page.dart';
 import 'package:identitic/pages/calendar/widgets/calendar_class_page.dart';
 import 'package:identitic/pages/classes/classes_page.dart';
@@ -74,6 +75,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return TeacherTasksPage(settings.arguments);
         case RouteName.article_markdown:
           return EditorPage(settings.arguments);
+        case RouteName.new_delivery:
+          return NewDeliveryPage();
         default:
           return NotFoundPage();
       }

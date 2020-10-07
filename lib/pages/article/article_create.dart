@@ -117,7 +117,7 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
     Article _article = Article(
         markdown: _markdown != null ? _markdown : null,
         image: imageFile != null ? imageFile : null,
-        idJoin: widget?.classs != null ? widget.classs.idJoin : 93, //TODO: cambiar lo del id join, en el back permitan todo
+        idJoin: widget?.classs != null ? widget.classs.idJoin : 93,
         date: DateTime.now().toUtc().toString(),
         idHierarchy: widget?.classs != null ? 2 : 1,
         title: _titleController.text ?? _titleController.text,
