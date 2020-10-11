@@ -52,7 +52,12 @@ class GradesService {
   Future<void> postGrades(User user, List<Grade> grades, Class classs) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
-    
+
+    var jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
     Map<String, dynamic> params = {
       "info": <String, dynamic>{
         "id_class": classs.id,
@@ -72,10 +77,7 @@ class GradesService {
     try {
       final http.Response response = await http.post(
           '$apiBaseUrl/teacher/uploadMark',
-          headers: {
-            "Content-Type": 'application/json',
-            'Authorization': 'Bearer $token'
-          },
+          headers: jsonHeaders,
           body: json.encode(params));
       debugPrint(json.encode(params));
       debugPrint(response.body);

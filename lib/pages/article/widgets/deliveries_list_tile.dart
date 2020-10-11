@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:identitic/models/articles/article.dart';
+import 'package:identitic/models/articles/delivery.dart';
 import 'package:identitic/utils/constants.dart';
 
-class ArticleListTile extends StatelessWidget {
-  const ArticleListTile(this._article);
+class DeliveryListTile extends StatelessWidget {
+  const DeliveryListTile(this._userReturn);
 
-  final Article _article;
+  final dynamic _userReturn;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => Navigator.pushNamed(
         context,
-        RouteName.article,
-        arguments: _article,
+        RouteName.view_delivery,
+        arguments: _userReturn,
       ),
       leading: CircleAvatar(
         backgroundImage: AssetImage('assets/images/avatar.png'),
       ),
-      title: Text(_article.title),
+      title: Text(_userReturn.userLastName),
       subtitle: Text(
-        _article.body,
+        _userReturn.userName,
         maxLines: 1,
       ),
       trailing: Text(
-        '${_article.date[8]}' +
-            '${_article.date[9]}' +
-            '/' +
-            '${_article.date[5]}' +
-            '${_article.date[6]}',
+         _userReturn.delivered != null? 'Entregado' : 'No entrego',
         style: TextStyle(color: Theme.of(context).textTheme.caption.color),
       ),
     );

@@ -9,7 +9,8 @@ import 'package:http_parser/http_parser.dart';
 
 import 'package:dio/dio.dart';
 
-import 'package:identitic/models/article.dart';
+import 'package:identitic/models/articles/article.dart';
+import 'package:identitic/models/articles/delivery.dart';
 import 'package:identitic/models/user.dart';
 import 'package:identitic/services/exceptions.dart';
 import 'package:identitic/services/storage_service.dart';
@@ -21,15 +22,16 @@ class ArticlesService {
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
 
-    final Map<String, String> jsonHeaders = {
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token'
-    };
+    var params = {'id_class': idClass};
 
     try {
-      final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbyidclass/$idClass',
-        headers: jsonHeaders,
+      final http.Response response = await http.post(
+        '$apiBaseUrl/admin/getpostbyidclass',
+        body: json.encode(params),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
       );
       debugPrint(response.body);
       switch (response.statusCode) {
@@ -93,9 +95,11 @@ class ArticlesService {
     Dio dio = new Dio();
     try {
       Map<String, dynamic> data = {
-        "filee": article.image != null ? await MultipartFile.fromFile(article.image.path,
-            filename: article.image.path.split('/').last,
-            contentType: MediaType('image', 'jpg')) : null,
+        "filee": article.image != null
+            ? await MultipartFile.fromFile(article.image.path,
+                filename: article.image.path.split('/').last,
+                contentType: MediaType('image', 'jpg'))
+            : null,
         "title": article.title,
         "body": article.body,
         "markdown": article.markdown,
@@ -123,5 +127,122 @@ class ArticlesService {
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  Future<List<Delivery>> fetchDeliveriesByPost(Article article) async {
+    List<Delivery> deliveries;
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
+    final Map<String, String> jsonHeaders = {
+      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token'
+    };
+
+    try {
+      final http.Response response = await http.get(
+        '$apiBaseUrl/teacher/getdeliveriesbyidpost/${article.idArticle}',
+        headers: jsonHeaders,
+      );
+      switch (response.statusCode) {
+        case 200:
+          {
+            final Iterable<dynamic> list = json.decode(response.body)['data'];
+            deliveries = list.map((e) => Delivery.fromJson(e)).toList();
+            break;
+          }
+        case 401:
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e);
+    }
+
+    return deliveries;
+  }
+
+  Future<void> uploadDelivery(Delivery delivery) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
+    try {
+      var jsonHeaders = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      };
+
+      Map<String, dynamic> params = {
+        "id_post": delivery.idArticle,
+        "body": delivery.body,
+        "filee": delivery.file,
+        "date": delivery.date,
+      };
+
+      final http.Response response = await http.post(
+          '$apiBaseUrl/general/uploaddelivery',
+          headers: jsonHeaders,
+          body: json.encode(params));
+      debugPrint(json.encode(params));
+      debugPrint(response.body);
+
+      switch (response.statusCode) {
+        case 200:
+          debugPrint(response.body);
+          break;
+        case 401:
+          debugPrint(response.body);
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          debugPrint(response.body);
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<List<Delivery>> fetchReturnOfDelivery(Article article) async {
+    List<Delivery> deliveries;
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
+    var jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var params = {'id_post': article.idArticle};
+
+    try {
+      final http.Response response = await http.post(
+        '$apiBaseUrl/admin/getreturnbypost',
+        body: json.encode(params),
+        headers: jsonHeaders,
+      );
+      switch (response.statusCode) {
+        case 200:
+          {
+            final Iterable<dynamic> list = json.decode(response.body)['data'];
+            deliveries = list.map((e) => Delivery.fromJson(e)).toList();
+            break;
+          }
+        case 401:
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e);
+    }
+
+    return deliveries;
   }
 }

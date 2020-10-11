@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 
-import 'package:identitic/models/article.dart';
+import 'package:identitic/models/articles/article.dart';
 import 'package:identitic/models/class.dart';
 import 'package:identitic/utils/constants.dart';
 
@@ -47,7 +47,7 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
           ),
         ],
       ),
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _generateArticle(),
         label: Row(

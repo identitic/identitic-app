@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class Article {
+  final int idArticle;
   final int idUser;
   final String title;
   final String body;
@@ -21,7 +22,8 @@ class Article {
   final String fileURI;
 
   const Article(
-      {this.idUser,
+      {this.idArticle,
+      this.idUser,
       this.name,
       this.lastName,
       this.title,
@@ -56,6 +58,7 @@ class Article {
         deadline: json['deadline'],
         hierarchy: json['hierarchy'],
         markdown: json['markdown'],
-        fileURI: json['file']);
+        fileURI: json['file'],
+        idArticle: json['id_post']);
   }
 }

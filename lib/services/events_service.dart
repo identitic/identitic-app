@@ -120,6 +120,11 @@ class EventsService {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
 
+    var jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
     var params = {
       'id_join': event.idJoin,
       'date': event.date,
@@ -131,13 +136,10 @@ class EventsService {
     try {
       final http.Response response = await http.post(
           '$apiBaseUrl/teacher/postevent',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token'
-          },
+          headers: jsonHeaders,
           body: json.encode(params));
-          debugPrint(json.encode(params));
-          debugPrint(response.body);
+      debugPrint(json.encode(params));
+      debugPrint(response.body);
       switch (response.statusCode) {
         case 200:
           debugPrint(response.body);

@@ -76,7 +76,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         case RouteName.article_markdown:
           return EditorPage(settings.arguments);
         case RouteName.new_delivery:
-          return NewDeliveryPage();
+          return NewDeliveryPage(settings.arguments);
         default:
           return NotFoundPage();
       }

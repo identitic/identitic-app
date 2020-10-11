@@ -17,6 +17,11 @@ class ClassesService {
 
     List<Class> classes;
 
+    var jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
     Map<String, dynamic> params = {
       'id_user': user.id,
       'id_school': user.idSchool
@@ -25,10 +30,7 @@ class ClassesService {
     try {
       final http.Response response = await http.post(
           '$apiBaseUrl/teacher/classes',
-          headers: {
-            "Content-Type": 'application/json',
-            'Authorization': 'Bearer $token'
-          },
+          headers: jsonHeaders,
           body: json.encode(params));
       switch (response.statusCode) {
         case 200:

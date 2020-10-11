@@ -50,6 +50,11 @@ class InattendancesService {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
 
+    var jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
     Map<String, dynamic> params = {
       "absenses": [
         for (int i = 0; i < inattendances.length; i++)
@@ -64,10 +69,7 @@ class InattendancesService {
     try {
       final http.Response response = await http.post(
           '$apiBaseUrl/teacher/uploadabsenses',
-          headers: {
-            "Content-Type": 'application/json',
-            'Authorization': 'Bearer $token'
-          },
+          headers: jsonHeaders,
           body: json.encode(params));
       debugPrint(json.encode(params));
       debugPrint(response.body);

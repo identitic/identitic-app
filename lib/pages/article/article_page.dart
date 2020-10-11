@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-import 'package:identitic/models/article.dart';
+import 'package:identitic/models/articles/article.dart';
 import 'package:identitic/utils/constants.dart';
 
 class ArticlePage extends StatelessWidget {
@@ -13,11 +13,8 @@ class ArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton:
-          /* Provider.of(context)<AuthProvider>().user.hierarchy ==
-                  UserHierarchy.student
-              ? */
           FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, RouteName.new_delivery),
+        onPressed: () => Navigator.pushNamed(context, RouteName.new_delivery, arguments: article),
         label: Row(
           children: <Widget>[
             Icon(Icons.add),

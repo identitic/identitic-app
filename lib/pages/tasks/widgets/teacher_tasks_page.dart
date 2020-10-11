@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:identitic/models/article.dart';
+import 'package:identitic/models/articles/article.dart';
 import 'package:identitic/models/class.dart';
 import 'package:identitic/providers/articles_provider.dart';
 import 'package:identitic/pages/article/widgets/article_list_tile.dart';
