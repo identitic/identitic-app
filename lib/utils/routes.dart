@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:identitic/pages/add_event/add_event_page.dart';
+import 'package:identitic/pages/article/article_all_deliveries.dart';
 import 'package:identitic/pages/article/article_markdown.dart';
 import 'package:identitic/pages/article/article_new_delivery.dart';
 import 'package:identitic/pages/article/article_page.dart';
@@ -77,6 +78,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return EditorPage(settings.arguments);
         case RouteName.new_delivery:
           return NewDeliveryPage(settings.arguments);
+        case RouteName.article_deliveries:
+          return ArticleAllDeliveries(settings.arguments);
+        case RouteName.view_delivery:
+          return NotFoundPage();
         default:
           return NotFoundPage();
       }

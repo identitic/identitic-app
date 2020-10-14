@@ -14,7 +14,7 @@ class ArticlePage extends StatelessWidget {
     return Scaffold(
       floatingActionButton:
           FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, RouteName.new_delivery, arguments: article),
+        onPressed: () => Navigator.pushNamed(context, RouteName.article_deliveries, arguments: article),
         label: Row(
           children: <Widget>[
             Icon(Icons.add),

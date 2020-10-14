@@ -3,7 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:identitic/models/articles/article.dart';
+import 'package:identitic/models/articles/delivery.dart';
 import 'package:identitic/pages/article/widgets/deliveries_list_tile.dart';
+import 'package:identitic/providers/articles_provider.dart';
+import 'package:identitic/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class ArticleAllDeliveries extends StatefulWidget {
   const ArticleAllDeliveries(this.article);
@@ -11,7 +15,8 @@ class ArticleAllDeliveries extends StatefulWidget {
   final Article article;
 
   @override
-  _ArticleAllDeliveriesCreateState createState() => _ArticleAllDeliveriesCreateState();
+  _ArticleAllDeliveriesCreateState createState() =>
+      _ArticleAllDeliveriesCreateState();
 }
 
 class _ArticleAllDeliveriesCreateState extends State<ArticleAllDeliveries> {
@@ -23,11 +28,11 @@ class _ArticleAllDeliveriesCreateState extends State<ArticleAllDeliveries> {
             'Entregas - ${widget.article.title}',
           ),
           centerTitle: true),
-      body: FutureBuilder<List<Article>>(
-/*         future: Provider.of<ArticlesProvider>(context, listen: false)
-            .fetchArticles(widget.classs.id), */
-        builder: (_, AsyncSnapshot<List<Article>> snapshot) {
-          final List<Article> students = snapshot.data;
+      body: FutureBuilder(
+        future: Provider.of<ArticlesProvider>(context, listen: false)
+            .fetchDeliveriesByPost(widget.article),
+        builder: (_, AsyncSnapshot<List<dynamic>> snapshot) {
+          final List<Delivery> deliveries = snapshot.data;
           if (snapshot.hasData) {
             return ListView.separated(
               physics: BouncingScrollPhysics(),
@@ -35,9 +40,9 @@ class _ArticleAllDeliveriesCreateState extends State<ArticleAllDeliveries> {
               separatorBuilder: (_, int i) {
                 return SizedBox(height: 8);
               },
-              itemCount: students.length ?? 5,
+              itemCount: deliveries.length ?? 5,
               itemBuilder: (_, int i) {
-                return DeliveryListTile(students[i]);
+                return DeliveryListTile(deliveries[i]);
               },
             );
           }

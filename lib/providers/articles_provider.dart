@@ -17,9 +17,9 @@ class ArticlesProvider with ChangeNotifier {
   List<Article> get articles => _articles;
   List<Delivery> get deliveries => _deliveries;
 
-  Future<List<Article>> fetchArticles(int idClass) async {
+  Future<List<Article>> fetchArticles(int idClass, int idUser) async {
     try {
-      _articles = await _articleService.fetchArticles(idClass);
+      _articles = await _articleService.fetchArticles(idClass, idUser);
       notifyListeners();
       return _articles;
     } catch (e) {
@@ -27,9 +27,9 @@ class ArticlesProvider with ChangeNotifier {
     }
   }
 
-  Future<List<Article>> fetchFamiliesArticles(int idSchool) async {
+  Future<List<Article>> fetchFamiliesArticles(int idSchool, int idUser) async {
     try {
-      _articles = await _articleService.fetchArticles(idSchool);
+      _articles = await _articleService.fetchArticles(idSchool, idUser);
       notifyListeners();
       return _articles;
     } catch (e) {
@@ -55,7 +55,7 @@ class ArticlesProvider with ChangeNotifier {
     }
   }
 
-  Future<List<Delivery>> fetchDeliveriesByPost(Article article) async {
+  Future<List<dynamic>> fetchDeliveriesByPost(Article article) async {
     try {
       _deliveries = await _articleService.fetchDeliveriesByPost(article);
       notifyListeners();

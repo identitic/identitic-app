@@ -17,12 +17,12 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class ArticlesService {
-  Future<List<Article>> fetchArticles(int idClass) async {
+  Future<List<Article>> fetchArticles(int idClass, int idUser) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
 
-    var params = {'id_class': idClass};
+    var params = {'id_class': idClass, "id_user": idUser};
 
     try {
       final http.Response response = await http.post(
@@ -33,7 +33,6 @@ class ArticlesService {
           'Authorization': 'Bearer $token'
         },
       );
-      debugPrint(response.body);
       switch (response.statusCode) {
         case 200:
           {
@@ -66,7 +65,7 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbyhierarchyid/1',
+        '$apiBaseUrl/admin/getpostbyhierarchyid/1', //TODO: Arreglar families posts
         headers: jsonHeaders,
       );
       switch (response.statusCode) {
@@ -130,25 +129,33 @@ class ArticlesService {
   }
 
   Future<List<Delivery>> fetchDeliveriesByPost(Article article) async {
+
     List<Delivery> deliveries;
+
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
 
-    final Map<String, String> jsonHeaders = {
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token'
+    var jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
     };
 
+    var params = {"id_post": 39, "id_class": 43};
+
     try {
-      final http.Response response = await http.get(
-        '$apiBaseUrl/teacher/getdeliveriesbyidpost/${article.idArticle}',
-        headers: jsonHeaders,
+      final http.Response response = await http.post(
+        '$apiBaseUrl/teacher/getdeliveriesbyidpost',
+        body: json.encode(params),
+        headers: jsonHeaders
       );
+      /* print(json.decode(response.body)['data']['students']); */
       switch (response.statusCode) {
         case 200:
           {
-            final Iterable<dynamic> list = json.decode(response.body)['data'];
+            print('xdd');
+            final Iterable<dynamic> list = json.decode(response.body)['data']['students'];
             deliveries = list.map((e) => Delivery.fromJson(e)).toList();
+            print(deliveries);
             break;
           }
         case 401:

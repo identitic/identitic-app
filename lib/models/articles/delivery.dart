@@ -6,7 +6,7 @@ class Delivery {
   final int idUser;
   final int idArticle;
   final int idDelivery;
-  final List deliveries;
+  final List<dynamic> deliveries;
   final String body;
   final File file;
   final String date;
@@ -23,7 +23,7 @@ class Delivery {
 
   const Delivery(
       {@required this.idUser,
-      @required this.idArticle,
+      this.idArticle,
       this.userName,
       this.userLastName,
       this.body,
@@ -40,13 +40,17 @@ class Delivery {
     return Delivery(
         idUser: json['id_user'],
         idArticle: json['id_post'],
-        body: json['body'],
-        date: json['date'],
-        file: json['filee'],
-        deliveries: json['deliveries'],
         userName: json['first_name'],
         userLastName: json['last_name'],
-        returnMark: json['last_mark'],
-        returnBody: json['deliveries']);
+        deliveries: json['deliveries']
+/*         deliveries: json['deliveries'].map((e) => Delivery.fromJson(e)).toList(), */
+
+        /* idDelivery: json['id_delivery'],
+        body: json['body'],
+        date: json['date'],
+        file: json['file'],
+        returnedFile: json['rn_file'],
+        returnMark: json['mark'],
+        returnBody: json['deliveries'] */);
   }
 }

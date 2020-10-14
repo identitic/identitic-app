@@ -3,7 +3,7 @@ import 'package:identitic/models/articles/delivery.dart';
 import 'package:identitic/utils/constants.dart';
 
 class DeliveryListTile extends StatelessWidget {
-  const DeliveryListTile(this._userReturn);
+  const DeliveryListTile([this._userReturn]);
 
   final dynamic _userReturn;
 
@@ -24,8 +24,8 @@ class DeliveryListTile extends StatelessWidget {
         maxLines: 1,
       ),
       trailing: Text(
-         _userReturn.delivered != null? 'Entregado' : 'No entrego',
-        style: TextStyle(color: Theme.of(context).textTheme.caption.color),
+         _userReturn.deliveries.isNotEmpty ? _userReturn.deliveries[_userReturn.deliveries.length]['mark'] != null ? _userReturn.deliveries[0]['mark'] : 'Corregir' : 'No entregado',
+        style: TextStyle(color: _userReturn.deliveries.isNotEmpty ? Colors.green : Colors.red, fontWeight: FontWeight.w600),
       ),
     );
   }
