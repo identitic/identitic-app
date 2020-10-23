@@ -7,6 +7,7 @@ import 'package:identitic/pages/article/article_markdown.dart';
 import 'package:identitic/pages/article/article_new_delivery.dart';
 import 'package:identitic/pages/article/article_page.dart';
 import 'package:identitic/pages/article/article_create.dart';
+import 'package:identitic/pages/article/artlcie_view_delivery.dart';
 import 'package:identitic/pages/calendar/calendar_page.dart';
 import 'package:identitic/pages/calendar/widgets/calendar_class_page.dart';
 import 'package:identitic/pages/classes/classes_page.dart';
@@ -81,7 +82,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         case RouteName.article_deliveries:
           return ArticleAllDeliveries(settings.arguments);
         case RouteName.view_delivery:
-          return NotFoundPage();
+          return ViewDeliveryPage(settings.arguments);
         default:
           return NotFoundPage();
       }

@@ -13,7 +13,7 @@ class DeliveryListTile extends StatelessWidget {
       onTap: () => Navigator.pushNamed(
         context,
         RouteName.view_delivery,
-        arguments: _userReturn,
+         arguments: _userReturn,
       ),
       leading: CircleAvatar(
         backgroundImage: AssetImage('assets/images/avatar.png'),
@@ -24,9 +24,10 @@ class DeliveryListTile extends StatelessWidget {
         maxLines: 1,
       ),
       trailing: Text(
-         _userReturn.deliveries.isNotEmpty ? _userReturn.deliveries[_userReturn.deliveries.length]['mark'] != null ? _userReturn.deliveries[0]['mark'] : 'Corregir' : 'No entregado',
-        style: TextStyle(color: _userReturn.deliveries.isNotEmpty ? Colors.green : Colors.red, fontWeight: FontWeight.w600),
+         _userReturn.deliveries.isNotEmpty ? _userReturn.deliveries[0]['mark'] != null ? 'Corregido' : 'Corregir' : 'No entregado',
+        style: TextStyle(color: _userReturn.deliveries.isNotEmpty ? _userReturn.deliveries[0]['mark'] != null ? Colors.green : Colors.blue : Colors.grey, fontWeight: FontWeight.w600),
       ),
     );
+
   }
 }

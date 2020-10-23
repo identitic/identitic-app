@@ -140,7 +140,7 @@ class ArticlesService {
       'Authorization': 'Bearer $token'
     };
 
-    var params = {"id_post": 39, "id_class": 43};
+    var params = {"id_post": article.idArticle, "id_class": article.idClass};
 
     try {
       final http.Response response = await http.post(
@@ -148,7 +148,6 @@ class ArticlesService {
         body: json.encode(params),
         headers: jsonHeaders
       );
-      /* print(json.decode(response.body)['data']['students']); */
       switch (response.statusCode) {
         case 200:
           {
