@@ -38,19 +38,20 @@ class Delivery {
 
   factory Delivery.fromJson(Map<String, dynamic> json) {
     return Delivery(
-        idUser: json['id_user'],
-        idArticle: json['id_post'],
-        userName: json['first_name'],
-        userLastName: json['last_name'],
-        deliveries: json['deliveries']
+      idUser: json['id_user'],
+      idArticle: json['id_post'],
+      userName: json['first_name'],
+      userLastName: json['last_name'],
+      deliveries: json['deliveries'],
 /*         deliveries: json['deliveries'].map((e) => Delivery.fromJson(e)).toList(), */
 
-        /* idDelivery: json['id_delivery'],
+      /* idDelivery: json['id_delivery'],
         body: json['body'],
         date: json['date'],
         file: json['file'],
         returnedFile: json['rn_file'],
         returnMark: json['mark'],
-        returnBody: json['deliveries'] */);
+        returnBody: json['deliveries'] */
+    );
   }
 }

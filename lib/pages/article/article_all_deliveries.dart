@@ -6,7 +6,6 @@ import 'package:identitic/models/articles/article.dart';
 import 'package:identitic/models/articles/delivery.dart';
 import 'package:identitic/pages/article/widgets/deliveries_list_tile.dart';
 import 'package:identitic/providers/articles_provider.dart';
-import 'package:identitic/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 class ArticleAllDeliveries extends StatefulWidget {

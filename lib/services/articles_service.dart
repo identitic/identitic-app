@@ -129,7 +129,6 @@ class ArticlesService {
   }
 
   Future<List<Delivery>> fetchDeliveriesByPost(Article article) async {
-
     List<Delivery> deliveries;
 
     final String token =
@@ -144,15 +143,14 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.post(
-        '$apiBaseUrl/teacher/getdeliveriesbyidpost',
-        body: json.encode(params),
-        headers: jsonHeaders
-      );
+          '$apiBaseUrl/teacher/getdeliveriesbyidpost',
+          body: json.encode(params),
+          headers: jsonHeaders);
       switch (response.statusCode) {
         case 200:
           {
-            print('xdd');
-            final Iterable<dynamic> list = json.decode(response.body)['data']['students'];
+            final Iterable<dynamic> list =
+                json.decode(response.body)['data']['students'];
             deliveries = list.map((e) => Delivery.fromJson(e)).toList();
             print(deliveries);
             break;
@@ -195,6 +193,40 @@ class ArticlesService {
       debugPrint(json.encode(params));
       debugPrint(response.body);
 
+      switch (response.statusCode) {
+        case 200:
+          debugPrint(response.body);
+          break;
+        case 401:
+          debugPrint(response.body);
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          debugPrint(response.body);
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> uploadReturn(dynamic _return) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
+    try {
+      var jsonHeaders = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      };
+      http.Response response = await http.post(
+        '$apiBaseUrl/general/uploaddeliveryreturn',
+        headers: jsonHeaders,
+        body: json.encode(_return),
+      );
+      debugPrint(json.encode(_return));
+      debugPrint(response.body);
       switch (response.statusCode) {
         case 200:
           debugPrint(response.body);

@@ -8,8 +8,7 @@ import 'package:identitic/models/user.dart';
 import 'package:identitic/services/articles_service.dart';
 
 class ArticlesProvider with ChangeNotifier {
-  
-  ArticlesService _articleService = ArticlesService();
+  ArticlesService _articlesService = ArticlesService();
 
   List<Article> _articles;
   List<Delivery> _deliveries;
@@ -19,7 +18,7 @@ class ArticlesProvider with ChangeNotifier {
 
   Future<List<Article>> fetchArticles(int idClass, int idUser) async {
     try {
-      _articles = await _articleService.fetchArticles(idClass, idUser);
+      _articles = await _articlesService.fetchArticles(idClass, idUser);
       notifyListeners();
       return _articles;
     } catch (e) {
@@ -29,7 +28,7 @@ class ArticlesProvider with ChangeNotifier {
 
   Future<List<Article>> fetchFamiliesArticles(int idSchool, int idUser) async {
     try {
-      _articles = await _articleService.fetchArticles(idSchool, idUser);
+      _articles = await _articlesService.fetchArticles(idSchool, idUser);
       notifyListeners();
       return _articles;
     } catch (e) {
@@ -39,7 +38,7 @@ class ArticlesProvider with ChangeNotifier {
 
   Future<void> postArticle(User user, Article article) async {
     try {
-      await _articleService.postArticle(user, article);
+      await _articlesService.postArticle(user, article);
       notifyListeners();
     } catch (e) {
       rethrow;
@@ -48,7 +47,16 @@ class ArticlesProvider with ChangeNotifier {
 
   Future<void> uploadDelivery(Delivery delivery) async {
     try {
-      await _articleService.uploadDelivery(delivery);
+      await _articlesService.uploadDelivery(delivery);
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> uploadReturn(dynamic _return) async {
+    try {
+      await _articlesService.uploadReturn(_return);
       notifyListeners();
     } catch (e) {
       rethrow;
@@ -57,13 +65,11 @@ class ArticlesProvider with ChangeNotifier {
 
   Future<List<dynamic>> fetchDeliveriesByPost(Article article) async {
     try {
-      _deliveries = await _articleService.fetchDeliveriesByPost(article);
+      _deliveries = await _articlesService.fetchDeliveriesByPost(article);
       notifyListeners();
     } catch (e) {
       rethrow;
     }
     return _deliveries;
   }
-
-
 }

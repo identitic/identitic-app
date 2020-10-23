@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:identitic/models/user.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:identitic/providers/auth_provider.dart';
 // import 'package:identitic/pages/profile/widgets/profile_modal.dart';
-import 'package:identitic/utils/constants.dart';
 
 class UserSettingsPage extends StatelessWidget {
   @override
@@ -61,5 +58,4 @@ class UserSettingsPage extends StatelessWidget {
       ),
     );
   }
-
 }
