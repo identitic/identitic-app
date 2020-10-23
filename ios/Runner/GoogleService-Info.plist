@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>37092859619-cs14lumvj2jn0jnq3vb1ohip04lducqe.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.37092859619-cs14lumvj2jn0jnq3vb1ohip04lducqe</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>37092859619-5ea6jrsg7lsmj93ij0r0uptc00pj85a7.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBZuT0FKocB_Y9R6-3ADww8zf_TcgALvyU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>37092859619</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.identitic</string>
+	<key>PROJECT_ID</key>
+	<string>identitic-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>identitic-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:37092859619:ios:326309640dd5342b58afd6</string>
+	<key>DATABASE_URL</key>
+	<string>https://identitic-app.firebaseio.com</string>
+</dict>
+</plist>
