@@ -3,13 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-
-import 'package:identitic/models/articles/delivery.dart';
-import 'package:identitic/providers/articles_provider.dart';
-import 'package:identitic/providers/auth_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:identitic/utils/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 class ViewDeliveryPage extends StatefulWidget {
   const ViewDeliveryPage([this.delivery]);
@@ -47,9 +43,9 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
           ),
           centerTitle: true,
         ),
-        resizeToAvoidBottomInset: false,
+/*         resizeToAvoidBottomInset: false, */
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _uploadReturn(),
+          onPressed: () => _correctDelivery(),
           label: Row(
             children: <Widget>[
               Icon(Icons.done),
@@ -63,7 +59,7 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
             slivers: <Widget>[
               SliverList(
                   delegate: SliverChildListDelegate(
-                [buildStudentDelivery(), buildTeacherReturn()],
+                [buildStudentDelivery()],
               )),
             ]));
   }
@@ -72,120 +68,61 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
     return Padding(
         padding: EdgeInsets.all(16),
         child: Column(children: <Widget>[
-          widget?.delivery?.deliveries[0]['body'] != null
-              ? MarkdownBody(data: widget.delivery.deliveries[0]['body'])
-              : Text('Entregó sin cuerpo'),
-          widget?.delivery?.deliveries[0]['file'] != null
-              ? FlatButton(
-                  color: Colors.blue,
-                  onPressed: () =>
-                      _launchFileOnWeb(widget?.delivery?.deliveries[0]['file']),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Ver archivo adjunto',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
-                  ),
+          ListTile(
+            title: Text('Cuerpo'),
+          ),
+          // VIEW DELIVERY BODY
+          TextFormField(
+            readOnly: true,
+            decoration: InputDecoration(
+              hintText: widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(),
+              disabledBorder: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(),
+              focusedErrorBorder: OutlineInputBorder(),
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ),
+              hintStyle: TextStyle(color: Colors.black),
+            ),
+          ),
+          SizedBox(height: 16),
+          ListTile(
+            title: Text('Observaciones del alumno/a'),
+          ),
+          // VIEW DELIVERY OBSERVATIONS FOR TEACHER
+          TextFormField(
+            readOnly: true,
+            decoration: InputDecoration(
+              hintText: widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(),
+              disabledBorder: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(),
+              focusedErrorBorder: OutlineInputBorder(),
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ),
+              hintStyle: TextStyle(color: Colors.black),
+            ),
+          ),
+          SizedBox(height: 32),
+          FlatButton(
+            color: Colors.blue,
+            onPressed: () =>
+                _launchFileOnWeb(widget?.delivery?.deliveries[0]['file']),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Ver archivo adjunto',
+                  style: TextStyle(color: Colors.white),
                 )
-              /* Image.file(widget.delivery.deliveries[0]['file']) */
-              : Text('Entregó sin archivo adjunto'),
-          Divider()
+              ],
+            ),
+          )
         ]));
-  }
-
-  Widget buildTeacherReturn() {
-    return Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: <Widget>[
-            ListTile(
-              title: Text('Correción'),
-            ),
-            TextField(
-              maxLines: null,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                enabledBorder: OutlineInputBorder(),
-                disabledBorder: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(),
-                focusedErrorBorder: OutlineInputBorder(),
-                labelStyle: TextStyle(
-                  color: Colors.black,
-                ),
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-              controller: _bodyController,
-            ),
-            SizedBox(height: 32),
-            FlatButton(
-              color: Colors.blue,
-              onPressed: () => _pickFile(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Adjuntar archivo',
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            previewFile != null
-                ? ListTile(
-                    leading: Text(
-                      'Archivo seleccionado',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                    trailing: Text(
-                        '${previewFile.name[0] + previewFile.name[1] + previewFile.name[2] + '..' + previewFile.name[previewFile.name.length - 4] + previewFile.name[previewFile.name.length - 3] + previewFile.name[previewFile.name.length - 2] + previewFile.name[previewFile.name.length - 1]}',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600)),
-                  )
-                : SizedBox(),
-            ListTile(
-              title: Text('Nota'),
-            ),
-            TextField(
-              maxLines: 1,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                enabledBorder: OutlineInputBorder(),
-                disabledBorder: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(),
-                focusedErrorBorder: OutlineInputBorder(),
-                labelStyle: TextStyle(
-                  color: Colors.black,
-                ),
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-              controller: _markController,
-            ),
-            ListTile(
-              leading: Text(
-                'Debe reentregar',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              trailing: Switch(
-                activeColor: Colors.blue,
-                value: enableNewDeliveries,
-                onChanged: (bool state) {
-                  setState(() {
-                    enableNewDeliveries = state;
-                  });
-                },
-              ),
-            ),
-          ],
-        ));
   }
 
   Future<void> _launchFileOnWeb(String url) async {
@@ -194,31 +131,10 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
     }
   }
 
-  Future<void> _pickFile() async {
-    FilePickerResult result =
-        await FilePicker.platform.pickFiles(allowMultiple: true);
+  _correctDelivery() async {
 
-    if (result != null) {
-      setState(() {
-        files = result.paths.map((path) => File(path)).toList();
+    Navigator.pushNamed(context, RouteName.correct_delivery,
+        arguments: widget.delivery);
 
-        previewFile = result.files.first;
-      });
-    }
-  }
-
-  _uploadReturn() async {
-    var _return = {
-      'mark': _markController.text ?? null,
-      'id_delivery': widget?.delivery?.deliveries[0]['id_delivery'] ?? null,
-      'body': _bodyController.text ?? null,
-      'filee': selectedFile ?? null,
-      'date': DateTime.now().toUtc().toString(),
-    };
-
-    await Provider.of<ArticlesProvider>(context, listen: false)
-        .uploadReturn(_return);
-
-    Navigator.pop(context);
   }
 }

@@ -41,6 +41,7 @@ class RouteName {
   static const String new_delivery = '/new_delivery';
   static const String article_deliveries = '/article_deliveries';
   static const String view_delivery = '/view_delivery';
+  static const String correct_delivery = '/correct_delivery';
 }
 
 class StorageKey {

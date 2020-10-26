@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:identitic/pages/add_event/add_event_page.dart';
 import 'package:identitic/pages/article/article_all_deliveries.dart';
+import 'package:identitic/pages/article/article_correct_delivery.dart';
 import 'package:identitic/pages/article/article_markdown.dart';
 import 'package:identitic/pages/article/article_new_delivery.dart';
 import 'package:identitic/pages/article/article_page.dart';
@@ -83,6 +84,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return ArticleAllDeliveries(settings.arguments);
         case RouteName.view_delivery:
           return ViewDeliveryPage(settings.arguments);
+        case RouteName.correct_delivery:
+          return CorrectDeliveryPage(settings.arguments);
         default:
           return NotFoundPage();
       }
