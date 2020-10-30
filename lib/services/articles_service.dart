@@ -104,7 +104,7 @@ class ArticlesService {
         "markdown": article.markdown,
         "id_sc": article.idJoin,
         "id_hierarchy": article.idHierarchy,
-        "date": DateTime.now().toString(),
+        "date": DateTime.now().toIso8601String().toString(),
         "deadline": article.deadline
       };
 

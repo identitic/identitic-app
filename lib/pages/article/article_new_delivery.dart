@@ -45,7 +45,7 @@ class _NewDeliveryPageState extends State<NewDeliveryPage> {
           ),
           centerTitle: true,
         ),
-        resizeToAvoidBottomInset: false,
+/*         resizeToAvoidBottomInset: false, */
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () => _uploadDelivery(),
           label: Row(
@@ -181,7 +181,7 @@ class _NewDeliveryPageState extends State<NewDeliveryPage> {
       idArticle: widget?.article?.idArticle ?? widget.article.idArticle,
       body: _bodyController.text?? null,
       file: selectedFile?? selectedFile,
-      date: DateTime.now().toUtc().toString(),
+      date: DateTime.now().toIso8601String().toString(),
     );
 
     await Provider.of<ArticlesProvider>(context, listen: false).uploadDelivery(_delivery);

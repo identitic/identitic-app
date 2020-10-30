@@ -118,7 +118,7 @@ class _ArticleCreatePageState extends State<ArticleCreatePage> {
         markdown: _markdown != null ? _markdown : null,
         image: imageFile != null ? imageFile : null,
         idJoin: widget?.classs != null ? widget.classs.idJoin : 93,
-        date: DateTime.now().toUtc().toString(),
+        date: DateTime.now().toIso8601String().toString(),
         idHierarchy: widget?.classs != null ? 2 : 1,
         title: _titleController.text ?? _titleController.text,
         body: _bodyController.text ?? _bodyController.text);

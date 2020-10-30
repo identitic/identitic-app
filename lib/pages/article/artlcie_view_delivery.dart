@@ -17,8 +17,6 @@ class ViewDeliveryPage extends StatefulWidget {
 }
 
 class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
-  final TextEditingController _bodyController = TextEditingController();
-  final TextEditingController _markController = TextEditingController();
 
   bool enableNewDeliveries;
 

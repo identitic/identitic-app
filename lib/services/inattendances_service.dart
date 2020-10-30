@@ -60,7 +60,7 @@ class InattendancesService {
         for (int i = 0; i < inattendances.length; i++)
           <String, dynamic>{
             'users_id_user': inattendances[i].idUser,
-            'date': DateTime.now().toString(),
+            'date': DateTime.now().toIso8601String().toString(),
             'status': inattendances[i].value,
           },
       ],
