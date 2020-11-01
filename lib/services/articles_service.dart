@@ -53,6 +53,44 @@ class ArticlesService {
     return articles;
   }
 
+  Future<Article> fetchArticlebyID(int idArticle, int idUser) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
+    Article article;
+
+    var params = {'id_post': idArticle, "id_user": idUser};
+
+    try {
+      final http.Response response = await http.post(
+        '$apiBaseUrl/general/getpostbyidpost',
+        body: json.encode(params),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+      );
+      switch (response.statusCode) {
+        case 200:
+          {
+            debugPrint(response.body);
+            final Iterable<dynamic> list = json.decode(response.body)['data'];
+            article = list.map((e) => Article.fromJson(e)).toList()[0];
+            break;
+          }
+        case 401:
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e);
+    }
+    return article;
+  }
+
   Future<List<Article>> fetchFamiliesArticles(int idSchool) async {
     List<Article> articles;
     final String token =

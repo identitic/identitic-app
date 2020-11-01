@@ -26,6 +26,17 @@ class ArticlesProvider with ChangeNotifier {
     }
   }
 
+  Future<Article> fetchArticleByID(int idArticle, int idUser) async {
+    try {
+      final Article _article =
+          await _articlesService.fetchArticlebyID(idArticle, idUser);
+      notifyListeners();
+      return _article;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<List<Article>> fetchFamiliesArticles(int idSchool, int idUser) async {
     try {
       _articles = await _articlesService.fetchArticles(idSchool, idUser);

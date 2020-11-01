@@ -20,6 +20,7 @@ class Article {
   final int idJoin;
   final String markdown;
   final String fileURI;
+  final int deliveries;
 
   const Article(
       {this.idArticle,
@@ -39,6 +40,7 @@ class Article {
       this.subject,
       this.idHierarchy,
       this.idJoin,
+      this.deliveries,
       this.markdown,
       this.fileURI});
 
@@ -59,6 +61,7 @@ class Article {
         hierarchy: json['hierarchy'],
         markdown: json['markdown'],
         fileURI: json['file'],
-        idArticle: json['id_post']);
+        idArticle: json['id_post'],
+        deliveries: json['deliveries']);
   }
 }

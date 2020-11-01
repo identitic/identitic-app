@@ -9,7 +9,7 @@ import 'package:identitic/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class ArticlePage extends StatelessWidget {
-  const ArticlePage([this.article]);
+  const ArticlePage(this.article);
 
   final Article article;
 
@@ -71,15 +71,23 @@ class ArticlePage extends StatelessWidget {
   }
 
   _checkDeliveryStatus(BuildContext context) async {
-    dynamic _deliveries =
+    int idUser = Provider.of<AuthProvider>(context, listen: false).user.id;
+
+    dynamic _articleInfo =
         await Provider.of<ArticlesProvider>(context, listen: false)
-            .fetchDeliveriesByPost(article); //TODO: cambiar a bien esto
+            .fetchArticleByID(article.idArticle, idUser);
 
-    _deliveries.isEmpty ? Navigator.pushNamed(context, RouteName.new_delivery,
-            arguments: article) : Navigator.pushNamed(context, RouteName.view_delivery,
-            arguments: article);
+    //TODO: Trae error  "is not a subtype of type iterable dynamic"
 
+    _articleInfo.deliveries == 0
+            ? /* Navigator.pushNamed(context, RouteName.new_delivery,
+            arguments: article) */
+            print("esta empty xd")
+            : print(
+                "no esta empty") /* Navigator.pushNamed(context, RouteName.view_delivery,
+            arguments: article) */
+        ;
 
-            //TODO: Hacer funcion en el floating action button que sea async??
+    //TODO: Hacer funcion en el floating action button que sea async??
   }
 }
