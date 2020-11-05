@@ -80,14 +80,10 @@ class ArticlePage extends StatelessWidget {
     //TODO: Trae error  "is not a subtype of type iterable dynamic"
 
     _articleInfo.deliveries == 0
-            ? /* Navigator.pushNamed(context, RouteName.new_delivery,
-            arguments: article) */
-            print("esta empty xd")
-            : print(
-                "no esta empty") /* Navigator.pushNamed(context, RouteName.view_delivery,
-            arguments: article) */
+            ?  Navigator.pushNamed(context, RouteName.new_delivery,
+            arguments: article)
+            :  Navigator.pushNamed(context, RouteName.view_delivery,
+            arguments: article) //TODO: habría que mandarle la delivery, no el article, no? entonces habria que hacer un get de la deliveryy
         ;
-
-    //TODO: Hacer funcion en el floating action button que sea async??
   }
 }

@@ -74,8 +74,9 @@ class ArticlesService {
         case 200:
           {
             debugPrint(response.body);
-            final Iterable<dynamic> list = json.decode(response.body)['data'];
-            article = list.map((e) => Article.fromJson(e)).toList()[0];
+            final dynamic list = json.decode(response.body)['data'];
+            article = Article.fromJson(list);
+            print(article.deliveries);
             break;
           }
         case 401:

@@ -3,9 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:identitic/models/user.dart';
+import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/utils/constants.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+//TODO: Convertir a teacher/student, usar future builder
 
 class ViewDeliveryPage extends StatefulWidget {
   const ViewDeliveryPage([this.delivery]);
@@ -17,7 +21,6 @@ class ViewDeliveryPage extends StatefulWidget {
 }
 
 class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
-
   bool enableNewDeliveries;
 
   File selectedFile;
@@ -41,28 +44,18 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
           ),
           centerTitle: true,
         ),
-/*         resizeToAvoidBottomInset: false, */
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _correctDelivery(),
-          label: Row(
-            children: <Widget>[
-              Icon(Icons.done),
-              SizedBox(width: 8),
-              Text('Corregir'),
-            ],
-          ),
-        ),
+        floatingActionButton: _checkHierarchy(context),
         body: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: <Widget>[
               SliverList(
                   delegate: SliverChildListDelegate(
-                [buildStudentDelivery()],
+                [_buildStudentDelivery(), _deliveryStatus()],
               )),
             ]));
   }
 
-  Widget buildStudentDelivery() {
+  Widget _buildStudentDelivery() {
     return Padding(
         padding: EdgeInsets.all(16),
         child: Column(children: <Widget>[
@@ -73,7 +66,8 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
           TextFormField(
             readOnly: true,
             decoration: InputDecoration(
-              hintText: widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
+              hintText:
+                  widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(),
               disabledBorder: OutlineInputBorder(),
@@ -93,7 +87,8 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
           TextFormField(
             readOnly: true,
             decoration: InputDecoration(
-              hintText: widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
+              hintText:
+                  widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(),
               disabledBorder: OutlineInputBorder(),
@@ -130,9 +125,36 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
   }
 
   _correctDelivery() async {
-
     Navigator.pushNamed(context, RouteName.correct_delivery,
         arguments: widget.delivery);
+  }
 
+  _deliveryStatus() {
+    switch (Provider.of<AuthProvider>(context, listen: false).user.hierarchy) {
+      case UserHierarchy.student:
+        return null;
+      case UserHierarchy.teacher:
+        return null;
+    }
+  }
+
+  _checkHierarchy(BuildContext context) {
+    // CHECK THE USER HIERARCHY
+    switch (Provider.of<AuthProvider>(context, listen: false).user.hierarchy) {
+      case UserHierarchy.teacher:     // IF IS TEACHER, IT WILL SHOW A FLOATINGACTIONBUTTON
+        return FloatingActionButton.extended(
+          onPressed: () => _correctDelivery(),
+          label: Row(
+            children: <Widget>[
+              Icon(Icons.done),
+              SizedBox(width: 8),
+              Text('Corregir'),
+            ],
+          ),
+        );
+        
+      case UserHierarchy.student:
+        return null;              // IF IS STUDENT, IT WILL NOT SHOW A FLOATINGACTIONBUTTON
+    }
   }
 }
