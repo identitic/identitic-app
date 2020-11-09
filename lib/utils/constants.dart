@@ -31,6 +31,7 @@ class RouteName {
   static const String room = '/room';
   static const String sign_in = '/sign_in';
   static const String sign_up = '/sign_up';
+  static const String user_settings = '/user_settings';
   static const String grades_teacher = '/teacher_grades';
   static const String families = '/families';
   static const String article = '/article';
@@ -40,7 +41,8 @@ class RouteName {
   static const String article_markdown = '/article_markdown';
   static const String new_delivery = '/new_delivery';
   static const String article_deliveries = '/article_deliveries';
-  static const String view_delivery = '/view_delivery';
+  static const String teacher_view_delivery = '/teacher_view_delivery';
+  static const String student_view_delivery = '/student_view_delivery';
   static const String correct_delivery = '/correct_delivery';
 }
 

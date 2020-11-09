@@ -1,5 +1,3 @@
-//TODO: pagina que traiga una lista de estudiantes y si subieron o no una respuesta
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:identitic/models/articles/article.dart';

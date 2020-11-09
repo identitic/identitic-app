@@ -200,8 +200,7 @@ class _AddEventPageState extends State<AddEventPage> {
     Class _selectedClass = _classes
         .where((element) => element.idJoin == _idJoinSelectedClass)
         .toList()[0];
-
-    print(_selectedClass.id);
+        
     final Event event = Event(
         idClass: _selectedClass.id,
         idJoin: _selectedClass.idJoin,

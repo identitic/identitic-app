@@ -83,4 +83,16 @@ class ArticlesProvider with ChangeNotifier {
     }
     return _deliveries;
   }
+
+  Future<Delivery> fetchDeliveryByIdPost(int idArticle, int idUser) async {
+    try {
+      final Delivery _delivery =
+          await _articlesService.fetchDeliverybyIdPost(idArticle, idUser);
+      notifyListeners();
+      return _delivery;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
 }

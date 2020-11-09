@@ -73,10 +73,8 @@ class ArticlesService {
       switch (response.statusCode) {
         case 200:
           {
-            debugPrint(response.body);
             final dynamic list = json.decode(response.body)['data'];
             article = Article.fromJson(list);
-            print(article.deliveries);
             break;
           }
         case 401:
@@ -149,7 +147,6 @@ class ArticlesService {
 
       FormData formData = FormData.fromMap(data);
 
-      print(formData.fields);
       var response = await dio.post(
         '$apiBaseUrl/general/uploadPost',
         data: formData,
@@ -159,12 +156,48 @@ class ArticlesService {
           },
         ),
       );
-      print(response.data);
     } on SocketException {
       throw const SocketException('SocketException: Voló todo');
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  Future<dynamic> fetchDeliverybyIdPost(int idArticle, int idUser) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
+    Delivery delivery;
+
+    var params = {'id_post': idArticle, "id_user": idUser};
+
+    try {
+      final http.Response response = await http.post(
+        '$apiBaseUrl/general/getstudentpostdeliveries',
+        body: json.encode(params),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+      );
+      switch (response.statusCode) {
+        case 200:
+          {
+            final dynamic list = json.decode(response.body)['data'][0];
+            delivery = Delivery.fromJson(list);
+            break;
+          }
+        case 401:
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e);
+    }
+    return delivery;
   }
 
   Future<List<Delivery>> fetchDeliveriesByPost(Article article) async {
@@ -191,7 +224,6 @@ class ArticlesService {
             final Iterable<dynamic> list =
                 json.decode(response.body)['data']['students'];
             deliveries = list.map((e) => Delivery.fromJson(e)).toList();
-            print(deliveries);
             break;
           }
         case 401:

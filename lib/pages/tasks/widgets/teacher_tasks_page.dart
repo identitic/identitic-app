@@ -44,7 +44,6 @@ class _TasksPageCreateState extends State<TeacherTasksPage> {
                 Provider.of<AuthProvider>(context, listen: false).user.id),
         builder: (_, AsyncSnapshot<List<Article>> snapshot) {
           final List<Article> articles = snapshot.data;
-          print(articles);
           if (snapshot.hasData) {
             return ListView.separated(
               physics: BouncingScrollPhysics(),

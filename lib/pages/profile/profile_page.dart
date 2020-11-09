@@ -62,17 +62,6 @@ class ProfilePage extends StatelessWidget {
                 ),
                 ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: Colors.accents[0],
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: Text('Datos personales'),
-                  // onTap: () => Navigator.pushNamed(context, RouteName.business),
-                ),
-                ListTile(
-                  leading: CircleAvatar(
                     backgroundColor: Colors.accents[1],
                     child: Icon(
                       Icons.settings,
@@ -80,7 +69,11 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   title: Text('Ajustes'),
-                  // onTap: () => Navigator.pushNamed(context, RouteName.settings),
+                  onTap: () => Navigator.pushNamed(
+                      context, RouteName.user_settings,
+                      arguments:
+                          Provider.of<AuthProvider>(context, listen: false)
+                              .user),
                 ),
                 ListTile(
                   leading: CircleAvatar(
@@ -111,7 +104,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Future<void> _launchSupport() async {
-    const String url = 'https://wa.me/5491122548189';
+    const String url = 'https://wa.me/549115493738';
     if (await canLaunch(url)) {
       await launch(url);
     }

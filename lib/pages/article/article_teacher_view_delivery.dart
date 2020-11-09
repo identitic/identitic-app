@@ -3,29 +3,30 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:identitic/models/user.dart';
-import 'package:identitic/providers/auth_provider.dart';
-import 'package:identitic/utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//TODO: Convertir a teacher/student, usar future builder
+import 'package:identitic/models/user.dart';
+import 'package:identitic/providers/auth_provider.dart';
+import 'package:identitic/utils/constants.dart';
 
-class ViewDeliveryPage extends StatefulWidget {
-  const ViewDeliveryPage([this.delivery]);
+//TODO: Checkear esta pagina
+
+class TeacherViewDeliveryPage extends StatefulWidget {
+  const TeacherViewDeliveryPage([this.delivery]);
 
   final dynamic delivery;
 
   @override
-  _ViewDeliveryPageState createState() => _ViewDeliveryPageState();
+  _TeacherViewDeliveryPageState createState() => _TeacherViewDeliveryPageState();
 }
 
-class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
-  bool enableNewDeliveries;
+class _TeacherViewDeliveryPageState extends State<TeacherViewDeliveryPage> {
+  UserHierarchy hierarchy;
 
+  bool enableNewDeliveries;
   File selectedFile;
   PlatformFile previewFile;
-
   List<File> files;
 
   @override
@@ -39,7 +40,7 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            '${widget.delivery.userLastName + ' ' + widget?.delivery?.userName}',
+            '${widget?.delivery?.userLastName ?? 'xd' + ' ' + widget?.delivery?.userName ?? 'xd'}',
             style: TextStyle(fontSize: 18),
           ),
           centerTitle: true,
@@ -50,7 +51,10 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
             slivers: <Widget>[
               SliverList(
                   delegate: SliverChildListDelegate(
-                [_buildStudentDelivery(), _deliveryStatus()],
+                [
+                  _buildStudentDelivery(),
+                  hierarchy == UserHierarchy.student ? _deliveryCorrection() : null
+                ],
               )),
             ]));
   }
@@ -67,7 +71,7 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
             readOnly: true,
             decoration: InputDecoration(
               hintText:
-                  widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
+                  widget.delivery.deliveries[0]['body'] ?? 'Entrega sin cuerpo',
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(),
               disabledBorder: OutlineInputBorder(),
@@ -88,7 +92,7 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
             readOnly: true,
             decoration: InputDecoration(
               hintText:
-                  widget.delivery.deliveries[0]['body'] ?? 'Entregó sin cuerpo',
+                  widget.delivery.deliveries[0]['body'] ?? 'Entrega sin cuerpo',
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(),
               disabledBorder: OutlineInputBorder(),
@@ -118,30 +122,41 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
         ]));
   }
 
-  Future<void> _launchFileOnWeb(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
-  }
-
-  _correctDelivery() async {
-    Navigator.pushNamed(context, RouteName.correct_delivery,
-        arguments: widget.delivery);
-  }
-
-  _deliveryStatus() {
-    switch (Provider.of<AuthProvider>(context, listen: false).user.hierarchy) {
-      case UserHierarchy.student:
-        return null;
-      case UserHierarchy.teacher:
-        return null;
-    }
+  _deliveryCorrection() {
+    return Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(children: <Widget>[
+          //TODO: Checkear si HAY CORRECTION del docente
+          ListTile(
+            title: Text('Devolución del docente'),
+          ),
+          // VIEW DELIVERY BODY
+          TextFormField(
+            readOnly: true,
+            decoration: InputDecoration(
+              hintText:
+                  widget.delivery.body ?? 'Devolución sin cuerpo',
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(),
+              disabledBorder: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(),
+              focusedErrorBorder: OutlineInputBorder(),
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ),
+              hintStyle: TextStyle(color: Colors.black),
+            ),
+          )
+        ]));
   }
 
   _checkHierarchy(BuildContext context) {
     // CHECK THE USER HIERARCHY
     switch (Provider.of<AuthProvider>(context, listen: false).user.hierarchy) {
-      case UserHierarchy.teacher:     // IF IS TEACHER, IT WILL SHOW A FLOATINGACTIONBUTTON
+      case UserHierarchy.teacher:
+        setState(() {
+          hierarchy = UserHierarchy.teacher;
+        }); // IF IS TEACHER, IT WILL SHOW A FLOATINGACTIONBUTTON
         return FloatingActionButton.extended(
           onPressed: () => _correctDelivery(),
           label: Row(
@@ -152,9 +167,20 @@ class _ViewDeliveryPageState extends State<ViewDeliveryPage> {
             ],
           ),
         );
-        
+
       case UserHierarchy.student:
-        return null;              // IF IS STUDENT, IT WILL NOT SHOW A FLOATINGACTIONBUTTON
+        return null; // IF IS STUDENT, IT WILL NOT SHOW A FLOATINGACTIONBUTTON
     }
+  }
+
+    Future<void> _launchFileOnWeb(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
+  }
+
+  _correctDelivery() async {
+    Navigator.pushNamed(context, RouteName.correct_delivery,
+        arguments: widget.delivery);
   }
 }

@@ -65,8 +65,7 @@ class ArticlePage extends StatelessWidget {
 
     Provider.of<AuthProvider>(context, listen: false).user.hierarchy ==
             UserHierarchy.teacher
-        ? Navigator.pushNamed(context, RouteName.article_deliveries,
-            arguments: article)
+        ? Navigator.pushNamed(context, RouteName.article_deliveries)
         : _checkDeliveryStatus(context);
   }
 
@@ -77,13 +76,9 @@ class ArticlePage extends StatelessWidget {
         await Provider.of<ArticlesProvider>(context, listen: false)
             .fetchArticleByID(article.idArticle, idUser);
 
-    //TODO: Trae error  "is not a subtype of type iterable dynamic"
-
     _articleInfo.deliveries == 0
-            ?  Navigator.pushNamed(context, RouteName.new_delivery,
+        ? Navigator.pushNamed(context, RouteName.new_delivery,
             arguments: article)
-            :  Navigator.pushNamed(context, RouteName.view_delivery,
-            arguments: article) //TODO: habría que mandarle la delivery, no el article, no? entonces habria que hacer un get de la deliveryy
-        ;
+        : Navigator.pushNamed(context, RouteName.student_view_delivery, arguments: article);
   }
 }

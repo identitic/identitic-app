@@ -8,7 +8,8 @@ import 'package:identitic/pages/article/article_markdown.dart';
 import 'package:identitic/pages/article/article_new_delivery.dart';
 import 'package:identitic/pages/article/article_page.dart';
 import 'package:identitic/pages/article/article_create.dart';
-import 'package:identitic/pages/article/artlcie_view_delivery.dart';
+import 'package:identitic/pages/article/article_student_view_delivery.dart';
+import 'package:identitic/pages/article/article_teacher_view_delivery.dart';
 import 'package:identitic/pages/calendar/calendar_page.dart';
 import 'package:identitic/pages/calendar/widgets/calendar_class_page.dart';
 import 'package:identitic/pages/classes/classes_page.dart';
@@ -21,6 +22,7 @@ import 'package:identitic/pages/main/main_page.dart';
 import 'package:identitic/pages/not_found/developing.dart';
 import 'package:identitic/pages/not_found/not_found_page.dart';
 import 'package:identitic/pages/onboarding/onboarding_page.dart';
+import 'package:identitic/pages/profile/user_settings/user_settings_page.dart';
 import 'package:identitic/pages/sign_in/sign_in_page.dart';
 import 'package:identitic/pages/sign_up/sign_up_page.dart';
 import 'package:identitic/pages/splash/splash_page.dart';
@@ -66,6 +68,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return SignInPage();
         case RouteName.sign_up:
           return SignUpPage();
+        case RouteName.user_settings:
+          return UserSettingsPage(settings.arguments);
         case RouteName.grades_teacher:
           return TeacherGradesPage(settings.arguments);
         case RouteName.families:
@@ -82,8 +86,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return NewDeliveryPage(settings.arguments);
         case RouteName.article_deliveries:
           return ArticleAllDeliveries(settings.arguments);
-        case RouteName.view_delivery:
-          return ViewDeliveryPage(settings.arguments);
+        case RouteName.teacher_view_delivery:
+          return TeacherViewDeliveryPage(settings.arguments);
+        case RouteName.student_view_delivery:
+          return StudentViewDeliveryPage(settings.arguments);
         case RouteName.correct_delivery:
           return CorrectDeliveryPage(settings.arguments);
         default:

@@ -1,21 +1,52 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-import 'package:identitic/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:file_picker/file_picker.dart';
 
+import 'package:identitic/models/user.dart';
 import 'package:identitic/providers/auth_provider.dart';
-// import 'package:identitic/pages/profile/widgets/profile_modal.dart';
 
-class UserSettingsPage extends StatelessWidget {
+class UserSettingsPage extends StatefulWidget {
+  const UserSettingsPage(this._user);
+
+  final User _user;
+
+  @override
+  _UserSettingsPageState createState() => _UserSettingsPageState();
+}
+
+class _UserSettingsPageState extends State<UserSettingsPage> {
+
+  File _selectedFile;
+
+  TextEditingController _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget._user.name + ' ' + widget._user.lastName;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => _saveChanges(),
+          label: Row(
+            children: <Widget>[
+              Icon(Icons.done),
+              SizedBox(width: 8),
+              Text('Confirmar'),
+            ],
+          )),
       body: CustomScrollView(
         physics: const ClampingScrollPhysics(),
         slivers: <Widget>[
           SliverAppBar(
             pinned: true,
-            title: Text('Perfil', style: TextStyle(fontSize: 24)),
+            title: Text('Ajustes'),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
@@ -25,27 +56,36 @@ class UserSettingsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      GestureDetector(
-                        // onTap: () => showProfileModalBottomSheet(context),
-                        child: const CircleAvatar(
-                          radius: 56,
-                          backgroundImage:
-                              AssetImage('assets/images/profile_picture.jpg'),
+                      CircleAvatar(
+                        radius: 56,
+                        backgroundImage:
+                            AssetImage('assets/images/profile_picture.jpg'),
+                      ),
+                      FlatButton(
+                        child: Text(
+                          'Editar foto',
+                          style: TextStyle(
+                            color: Colors.blue,
+                          ),
                         ),
+                        onPressed: () => _pickFile(),
                       ),
-                      const SizedBox(height: 16),
-                      Text(
-                        '${context.watch<AuthProvider>().user.name} ${context.watch<AuthProvider>().user.lastName}',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        context.watch<AuthProvider>().user.hierarchy ==
-                                UserHierarchy.teacher
-                            ? 'Profesor/a'
-                            : 'Alumno/a',
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.caption.color,
+                      TextFormField(
+                        readOnly: false,
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: 'Editar nombre',
+                          hintText:
+                              '${context.watch<AuthProvider>().user.name} ${context.watch<AuthProvider>().user.lastName}',
+                          border: OutlineInputBorder(),
+                          enabledBorder: OutlineInputBorder(),
+                          disabledBorder: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(),
+                          focusedErrorBorder: OutlineInputBorder(),
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
                     ],
@@ -57,5 +97,22 @@ class UserSettingsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _pickFile() async {
+    FilePickerResult result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      setState(() {
+        _selectedFile = File(result.files.single.path);
+      });
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  void _saveChanges() {
+    //TODO: Upload photo
+    Navigator.pop(context);
   }
 }

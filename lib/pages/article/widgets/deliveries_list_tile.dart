@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:identitic/models/articles/delivery.dart';
 import 'package:identitic/utils/constants.dart';
 
 class DeliveryListTile extends StatelessWidget {
@@ -12,7 +11,7 @@ class DeliveryListTile extends StatelessWidget {
     return ListTile(
       onTap: () => Navigator.pushNamed(
         context,
-        RouteName.view_delivery,
+        RouteName.teacher_view_delivery,
          arguments: _userReturn,
       ),
       leading: CircleAvatar(

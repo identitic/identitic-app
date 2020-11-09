@@ -1,3 +1,5 @@
+import 'package:identitic/models/user.dart';
+
 class Validator {
   static String validateUsername(String value) {
     const String pattern = '^\\w{3,}\$';
@@ -29,6 +31,17 @@ class Validator {
     }
     if (!RegExp(pattern).hasMatch(value)) {
       return 'Ingresá una contraseña válida';
+    }
+    return null;
+  }
+
+  static String validateEditName([User user]) {
+    if (user == null) return 'Error';
+    if (user.hierarchy == UserHierarchy.student){
+      return 'No estas autorizado/a para esta función';
+    }
+    if (user.hierarchy == UserHierarchy.teacher){
+      return 'Consulte con soporte para el uso de esta función';
     }
     return null;
   }
