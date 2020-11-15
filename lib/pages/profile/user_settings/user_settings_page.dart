@@ -19,12 +19,14 @@ class UserSettingsPage extends StatefulWidget {
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
   File _selectedFile;
+  bool _toggleNotifications;
 
   TextEditingController _nameController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _toggleNotifications = false;
     _nameController.text = widget._user.name + ' ' + widget._user.lastName;
   }
 
@@ -87,7 +89,21 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
-                      //TODO: Agregar switch notifications, dark mode,  y sacar el editar nombre
+                      SizedBox(height: 8),
+                      ListTile(
+                        leading: Text('Desactivar notificaciones',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500)),
+                        trailing: Switch(
+                          activeColor: Colors.blue,
+                          value: _toggleNotifications,
+                          onChanged: (bool state) {
+                            setState(() {
+                              _toggleNotifications = state;
+                            });
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

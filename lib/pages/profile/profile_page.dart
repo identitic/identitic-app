@@ -21,7 +21,8 @@ class ProfilePage extends StatelessWidget {
             title: Text('Perfil', style: TextStyle(fontSize: 24)),
             actions: [
               IconButton(
-                icon: Icon(Icons.exit_to_app),
+                icon: Icon(Icons.exit_to_app,
+                    color: Theme.of(context).buttonColor),
                 onPressed: () => _signOut(context),
               ),
             ],
