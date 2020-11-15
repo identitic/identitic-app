@@ -18,7 +18,6 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
-
   File _selectedFile;
 
   TextEditingController _nameController = TextEditingController();
@@ -88,6 +87,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
+                      //TODO: Agregar switch notifications, dark mode,  y sacar el editar nombre
                     ],
                   ),
                 ),

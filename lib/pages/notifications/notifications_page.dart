@@ -11,7 +11,9 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => null,
+        onRefresh: () =>
+            Provider.of<NotificationsProvider>(context, listen: false)
+                .fetchNotifications(),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -25,6 +27,13 @@ class NotificationsPage extends StatelessWidget {
                   (_, NotificationsProvider notificationsProvider, __) {
                 final List<PushNotification> _notifications =
                     notificationsProvider.notifications;
+                if (_notifications.isEmpty) {
+                  return Center(
+                      child: Text(
+                    'Todavía no recibiste notificaciones :(',
+                    style: TextStyle(fontSize: 16),
+                  ));
+                }
                 return ListView.separated(
                     physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.all(0),
