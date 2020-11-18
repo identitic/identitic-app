@@ -20,6 +20,15 @@ class EventsListView extends StatelessWidget {
       Consumer<EventsProvider>(
         builder: (_, EventsProvider eventsProvider, __) {
           if (eventsProvider.events != null) {
+            if (eventsProvider.events.isEmpty) {
+              return Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text(
+                  'No hay nuevos eventos, a relajar!',
+                  style: TextStyle(fontSize: 16),
+                ),
+              );
+            }
             return ListView.builder(
               physics: ClampingScrollPhysics(),
               shrinkWrap: true,

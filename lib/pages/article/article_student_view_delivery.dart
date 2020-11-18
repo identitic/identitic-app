@@ -72,7 +72,7 @@ class _StudentViewDeliveryPageState extends State<StudentViewDeliveryPage> {
     final Delivery delivery = snapshot.data;
     return Column(children: <Widget>[
       ListTile(
-        title: Text('Entrega'),
+        title: Text('Cuerpo'),
       ),
 
       // VIEW DELIVERY BODY
@@ -97,7 +97,7 @@ class _StudentViewDeliveryPageState extends State<StudentViewDeliveryPage> {
       delivery.file == null
           ? ListTile(
               leading: Text(
-                'Archivo seleccionado',
+                'Archivo adjunto',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               trailing: FlatButton(
@@ -109,12 +109,12 @@ class _StudentViewDeliveryPageState extends State<StudentViewDeliveryPage> {
               ),
             )
           : SizedBox(),
-        
-      //  NEW DELIVERY OPTION 
+
+      //  NEW DELIVERY OPTION
       delivery.finished != null ? SizedBox(height: 0) : SizedBox(height: 8),
-      delivery.finished == null
+      delivery.finished != 1 //TODO: Check if "finished" is delivered by 0 or 1
           ? FlatButton(
-            onPressed: () => null,
+              onPressed: () => null,
               color: Colors.blue,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,10 @@ class _StudentViewDeliveryPageState extends State<StudentViewDeliveryPage> {
                 ],
               ),
             )
-          : SizedBox(),
+          : Text(
+              'Este artículo no permite reentrega',
+              style: TextStyle(color: Colors.red, fontSize: 16),
+            ),
     ]);
   }
 
@@ -153,22 +156,24 @@ class _StudentViewDeliveryPageState extends State<StudentViewDeliveryPage> {
             hintStyle: TextStyle(color: Colors.black),
           ),
         ),
-      correction.returnedFile == null ? SizedBox(height: 8) : SizedBox(height: 0),
-      correction.returnedFile == null
-          ? ListTile(
-              leading: Text(
-                'Archivo adjunto por docente',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              trailing: FlatButton(
-                onPressed: () => _launchFileOnWeb(correction.file.toString()),
-                child: Text(
-                  'Abrir archivo',
-                  style: TextStyle(color: Colors.blue),
+        correction.returnedFile == null
+            ? SizedBox(height: 8)
+            : SizedBox(height: 0),
+        correction.returnedFile == null
+            ? ListTile(
+                leading: Text(
+                  'Archivo adjunto',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-              ),
-            )
-          : SizedBox(),
+                trailing: FlatButton(
+                  onPressed: () => _launchFileOnWeb(correction.file.toString()),
+                  child: Text(
+                    'Abrir archivo',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              )
+            : SizedBox(),
       ]);
     }
     return Column(children: <Widget>[

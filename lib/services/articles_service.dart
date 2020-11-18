@@ -102,14 +102,16 @@ class ArticlesService {
 
     try {
       final http.Response response = await http.get(
-        '$apiBaseUrl/admin/getpostbyhierarchyid/1', //TODO: Arreglar families posts
+        '$apiBaseUrl/admin/getpostbyhierarchyid/1', // families posts
         headers: jsonHeaders,
       );
+      print(response.body);
       switch (response.statusCode) {
         case 200:
           {
             final Iterable<dynamic> list = json.decode(response.body)['data'];
             articles = list.map((e) => Article.fromJson(e)).toList();
+            print(articles);
             break;
           }
         case 401:

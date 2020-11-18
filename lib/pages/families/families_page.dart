@@ -33,9 +33,7 @@ class FamiliesPage extends StatelessWidget {
             .fetchFamiliesArticles(
                 Provider.of<AuthProvider>(context, listen: false)
                     .user
-                    .idSchool,Provider.of<AuthProvider>(context, listen: false)
-                    .user
-                    .id),
+                    .idSchool),
         builder: (_, AsyncSnapshot<List<Article>> snapshot) {
           final List<Article> _articles = snapshot.data;
           if (snapshot.hasData) {

@@ -37,9 +37,9 @@ class ArticlesProvider with ChangeNotifier {
     }
   }
 
-  Future<List<Article>> fetchFamiliesArticles(int idSchool, int idUser) async {
+  Future<List<Article>> fetchFamiliesArticles(int idSchool) async {
     try {
-      _articles = await _articlesService.fetchArticles(idSchool, idUser);
+      _articles = await _articlesService.fetchFamiliesArticles(idSchool);
       notifyListeners();
       return _articles;
     } catch (e) {

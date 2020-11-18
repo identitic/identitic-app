@@ -35,7 +35,6 @@ Future<void> main() async {
   runApp(App());
 }
 
-
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,7 +86,7 @@ class App extends StatelessWidget {
           appBarTheme: AppBarTheme(
             textTheme: TextTheme(
               headline6: TextStyle(
-                fontSize: 18,       // Only for secondary pages, main pages use 24px
+                fontSize: 18, // Only for secondary pages, main pages use 24px
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
