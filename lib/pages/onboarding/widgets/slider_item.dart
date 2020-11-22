@@ -17,26 +17,18 @@ class SliderItem extends StatelessWidget {
       padding: const EdgeInsets.all(32),
       child: Column(
         children: <Widget>[
+          SizedBox(height: 16),
           Image(
             height: 128,
             image: AssetImage(image),
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 32),
           Text(
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.grey,
             ),
           ),
         ],

@@ -60,7 +60,10 @@ class _SliderWidgetState extends State<SliderWidget> {
             child: FlatButton(
               onPressed: _nextPage,
               color: Theme.of(context).buttonColor,
-              child: Text('Continuar', style: TextStyle(color: Colors.white),),
+              child: Text(
+                'Continuar',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ],
@@ -72,20 +75,14 @@ class _SliderWidgetState extends State<SliderWidget> {
     SliderItem(
       image: 'assets/images/school.png',
       title: 'Bienvenido al futuro de la educación',
-      text:
-          'Uní tu escuela a Identitic, un sistema innovador, dinamico y divertido para todos',
     ),
     SliderItem(
-      image: 'assets/images/blackboard.png',
-      title: 'Estudiá más seguro y mejor',
-      text:
-          'Tus padres van a saber donde estás y vas a poder conectar tus estudios con la tecnología',
+      image: 'assets/images/touch.png',
+      title: 'Olvidate del papel',
     ),
     SliderItem(
-      image: 'assets/images/test.png',
-      title: 'Conectá con tu escuela',
-      text:
-          'Mejorá la calidad de tus clases gracias a nuestro innovador sistema de asistencia',
+      image: 'assets/images/schedule.png',
+      title: 'Organizate mejor',
     ),
   ];
 

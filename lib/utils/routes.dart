@@ -26,7 +26,7 @@ import 'package:identitic/pages/profile/user_settings/user_settings_page.dart';
 import 'package:identitic/pages/sign_in/sign_in_page.dart';
 import 'package:identitic/pages/sign_up/sign_up_page.dart';
 import 'package:identitic/pages/splash/splash_page.dart';
-import 'package:identitic/pages/families/families_page.dart';
+import 'package:identitic/pages/communications/communications_page.dart';
 import 'package:identitic/pages/tasks/tasks_page.dart';
 import 'package:identitic/pages/tasks/widgets/teacher_tasks_page.dart';
 import 'package:identitic/utils/constants.dart';
@@ -73,7 +73,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         case RouteName.grades_teacher:
           return TeacherGradesPage(settings.arguments);
         case RouteName.families:
-          return FamiliesPage();
+          return CommunicationsPage();
         case RouteName.article_create:
           return ArticleCreatePage(settings.arguments);
         case RouteName.tasks:

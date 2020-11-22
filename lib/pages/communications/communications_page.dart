@@ -3,31 +3,17 @@ import 'package:identitic/models/articles/article.dart';
 import 'package:identitic/providers/articles_provider.dart';
 import 'package:identitic/pages/article/widgets/article_list_tile.dart';
 import 'package:identitic/providers/auth_provider.dart';
-import 'package:identitic/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-class FamiliesPage extends StatelessWidget {
+class CommunicationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            'Familias',
+            'Comunicados',
           ),
           centerTitle: true),
-          floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(
-            context,
-            RouteName
-                .article_create),
-        label: Row(
-          children: <Widget>[
-            Icon(Icons.add),
-            SizedBox(width: 8),
-            Text('Crear artículo'),
-          ],
-        ),
-      ),
       body: FutureBuilder<List<Article>>(
         future: Provider.of<ArticlesProvider>(context, listen: false)
             .fetchFamiliesArticles(
@@ -51,7 +37,10 @@ class FamiliesPage extends StatelessWidget {
               );
             } else {
               return Center(
-                child: Text('No hay artículos nuevos :(', style: TextStyle(fontSize: 16),),
+                child: Text(
+                  'No hay artículos nuevos :(',
+                  style: TextStyle(fontSize: 16),
+                ),
               );
             }
           }

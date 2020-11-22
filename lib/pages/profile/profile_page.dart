@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:identitic/providers/auth_provider.dart';
-// import 'package:identitic/pages/profile/widgets/profile_modal.dart';
 import 'package:identitic/utils/constants.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -40,7 +39,7 @@ class ProfilePage extends StatelessWidget {
                         child: const CircleAvatar(
                           radius: 56,
                           backgroundImage:
-                              AssetImage('assets/images/profile_picture.jpg'),
+                              AssetImage('assets/images/avatar.png'),
                         ),
                       ),
                       const SizedBox(height: 16),

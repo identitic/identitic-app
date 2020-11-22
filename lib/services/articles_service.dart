@@ -105,13 +105,11 @@ class ArticlesService {
         '$apiBaseUrl/admin/getpostbyhierarchyid/1', // families posts
         headers: jsonHeaders,
       );
-      print(response.body);
       switch (response.statusCode) {
         case 200:
           {
             final Iterable<dynamic> list = json.decode(response.body)['data'];
             articles = list.map((e) => Article.fromJson(e)).toList();
-            print(articles);
             break;
           }
         case 401:
@@ -263,12 +261,9 @@ class ArticlesService {
           '$apiBaseUrl/general/uploaddelivery',
           headers: jsonHeaders,
           body: json.encode(params));
-      debugPrint(json.encode(params));
-      debugPrint(response.body);
 
       switch (response.statusCode) {
         case 200:
-          debugPrint(response.body);
           break;
         case 401:
           debugPrint(response.body);
@@ -298,8 +293,6 @@ class ArticlesService {
         headers: jsonHeaders,
         body: json.encode(_return),
       );
-      debugPrint(json.encode(_return));
-      debugPrint(response.body);
       switch (response.statusCode) {
         case 200:
           debugPrint(response.body);

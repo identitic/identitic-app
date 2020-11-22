@@ -59,8 +59,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                     children: [
                       CircleAvatar(
                         radius: 56,
-                        backgroundImage:
-                            AssetImage('assets/images/profile_picture.jpg'),
+                        backgroundImage: AssetImage('assets/images/avatar.png'),
                       ),
                       FlatButton(
                         child: Text(

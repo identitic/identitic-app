@@ -9,8 +9,7 @@ class OnboardingPage extends StatelessWidget {
       body: Container(
         constraints: BoxConstraints.expand(),
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(

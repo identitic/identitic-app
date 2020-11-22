@@ -72,8 +72,7 @@ class _MainPageState extends State<MainPage>
                   : Theme.of(context).bottomNavigationBarTheme.backgroundColor, */
               child: CircleAvatar(
                 radius: 12,
-                backgroundImage:
-                    AssetImage('assets/images/profile_picture.jpg'),
+                backgroundImage: AssetImage('assets/images/avatar.png'),
               ),
             ),
             title: Text(''),

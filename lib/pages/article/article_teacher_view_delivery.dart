@@ -18,7 +18,8 @@ class TeacherViewDeliveryPage extends StatefulWidget {
   final dynamic delivery;
 
   @override
-  _TeacherViewDeliveryPageState createState() => _TeacherViewDeliveryPageState();
+  _TeacherViewDeliveryPageState createState() =>
+      _TeacherViewDeliveryPageState();
 }
 
 class _TeacherViewDeliveryPageState extends State<TeacherViewDeliveryPage> {
@@ -53,7 +54,9 @@ class _TeacherViewDeliveryPageState extends State<TeacherViewDeliveryPage> {
                   delegate: SliverChildListDelegate(
                 [
                   _buildStudentDelivery(),
-                  hierarchy == UserHierarchy.student ? _deliveryCorrection() : null
+                  hierarchy == UserHierarchy.student
+                      ? _deliveryCorrection()
+                      : null
                 ],
               )),
             ]));
@@ -134,8 +137,7 @@ class _TeacherViewDeliveryPageState extends State<TeacherViewDeliveryPage> {
           TextFormField(
             readOnly: true,
             decoration: InputDecoration(
-              hintText:
-                  widget.delivery.body ?? 'Devolución sin cuerpo',
+              hintText: widget.delivery.body ?? 'Devolución sin cuerpo',
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(),
               disabledBorder: OutlineInputBorder(),
@@ -173,7 +175,7 @@ class _TeacherViewDeliveryPageState extends State<TeacherViewDeliveryPage> {
     }
   }
 
-    Future<void> _launchFileOnWeb(String url) async {
+  Future<void> _launchFileOnWeb(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     }

@@ -79,6 +79,7 @@ class ArticlePage extends StatelessWidget {
     _articleInfo.deliveries == 0
         ? Navigator.pushNamed(context, RouteName.new_delivery,
             arguments: article)
-        : Navigator.pushNamed(context, RouteName.student_view_delivery, arguments: article);
+        : Navigator.pushNamed(context, RouteName.student_view_delivery,
+            arguments: article);
   }
 }

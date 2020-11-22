@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                             onTap: () => Navigator.pushNamed(
                                 context, RouteName.families),
                             child: Icon(OMIcons.peopleOutline, size: 44),
-                            text: "Familias",
+                            text: "Comunicados",
                           ),
                           SizedBox(width: 16),
                           IdentiticCircle(
