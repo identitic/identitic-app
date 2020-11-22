@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -18,7 +19,9 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
-  File _selectedFile;
+  final picker = ImagePicker();
+
+  File imageFile;
   bool _toggleNotifications;
 
   TextEditingController _nameController = TextEditingController();
@@ -59,7 +62,9 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                     children: [
                       CircleAvatar(
                         radius: 56,
-                        backgroundImage: AssetImage('assets/images/avatar.png'),
+                        backgroundImage: imageFile == null
+                            ? AssetImage('assets/images/avatar.png')
+                            : FileImage(imageFile),
                       ),
                       FlatButton(
                         child: Text(
@@ -68,7 +73,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                             color: Colors.blue,
                           ),
                         ),
-                        onPressed: () => _pickFile(),
+                        onPressed: () => _selectImageGallery(context),
                       ),
                       TextFormField(
                         readOnly: false,
@@ -114,20 +119,17 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
     );
   }
 
-  Future<void> _pickFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles();
+  Future _selectImageGallery(BuildContext context) async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
-    if (result != null) {
-      setState(() {
-        _selectedFile = File(result.files.single.path);
-      });
-    } else {
-      // User canceled the picker
-    }
+    setState(() {
+      imageFile = File(pickedFile.path);
+    });
   }
 
-  void _saveChanges() {
-    //TODO: Upload photo
+  void _saveChanges() async {
+/*     await Provider.of<ProfilePhotoProvider>(context, listen: false)
+        .uploadPhoto(imageFile); */
     Navigator.pop(context);
   }
 }
