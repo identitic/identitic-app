@@ -48,4 +48,5 @@ class RouteName {
 
 class StorageKey {
   static const String token = 'token';
+  static const String profilePhoto = 'path';
 }

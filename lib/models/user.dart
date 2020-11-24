@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 
 import 'class.dart';
@@ -13,6 +15,7 @@ class User {
     @required this.hierarchy,
     this.name,
     this.lastName,
+    this.profilePhoto,
     this.idSchool,
     this.schoolName,
     this.idClass,
@@ -22,6 +25,7 @@ class User {
   final int id;
   final String name;
   final String lastName;
+  final String profilePhoto;
   final UserHierarchy hierarchy;
   final int idSchool;
   final String schoolName;
@@ -36,6 +40,7 @@ class User {
           : UserHierarchy.student,
       name: json['name'],
       lastName: json['lastName'],
+      profilePhoto: json['profile_photo'],
       idSchool: json['school'],
       schoolName: json['shoolName'],
       idClass: json['class']

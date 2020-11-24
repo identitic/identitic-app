@@ -4,6 +4,9 @@ import 'package:identitic/pages/calendar/calendar_page.dart';
 import 'package:identitic/pages/home/home_page.dart';
 import 'package:identitic/pages/notifications/notifications_page.dart';
 import 'package:identitic/pages/profile/profile_page.dart';
+import 'package:identitic/providers/auth_provider.dart';
+import 'package:identitic/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -71,9 +74,18 @@ class _MainPageState extends State<MainPage>
                   ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
                   : Theme.of(context).bottomNavigationBarTheme.backgroundColor, */
               child: CircleAvatar(
-                radius: 12,
-                backgroundImage: AssetImage('assets/images/avatar.png'),
-              ),
+                  radius: 12,
+                  backgroundImage:
+                      Provider.of<AuthProvider>(context, listen: false)
+                                  .user
+                                  .profilePhoto !=
+                              null
+                          ? NetworkImage(apiBaseUrl + "/" + Provider.of<AuthProvider>(
+                                          context,
+                                          listen: false)
+                                      .user
+                                      .profilePhoto)
+                          : AssetImage('assets/images/avatar.png')),
             ),
             title: Text(''),
           ),

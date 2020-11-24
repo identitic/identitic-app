@@ -34,14 +34,19 @@ class ProfilePage extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
-                      GestureDetector(
-                        // onTap: () => showProfileModalBottomSheet(context),
-                        child: const CircleAvatar(
+                      CircleAvatar(
                           radius: 56,
                           backgroundImage:
-                              AssetImage('assets/images/avatar.png'),
-                        ),
-                      ),
+                              Provider.of<AuthProvider>(context, listen: false)
+                                          .user
+                                          .profilePhoto !=
+                                      null
+                                  ? NetworkImage(apiBaseUrl + "/" + Provider.of<AuthProvider>(
+                                          context,
+                                          listen: false)
+                                      .user
+                                      .profilePhoto)
+                                  : AssetImage('assets/images/avatar.png')),
                       const SizedBox(height: 16),
                       Text(
                         '${context.watch<AuthProvider>().user.name} ${context.watch<AuthProvider>().user.lastName}',
@@ -102,6 +107,15 @@ class ProfilePage extends StatelessWidget {
       (_) => false,
     );
   }
+
+/*   _loadPhoto(BuildContext context) async {
+    Future<File>_photo = await StorageService.instance.getEncrypted(StorageKey.profilePhoto, null);
+    if (_photo == null){
+      File _defaultPhoto = File('assets/images/avatar.png');
+      return _defaultPhoto;
+    }
+    return _photo;
+  }  */
 
   Future<void> _launchSupport() async {
     const String url = 'https://wa.me/549115493738';

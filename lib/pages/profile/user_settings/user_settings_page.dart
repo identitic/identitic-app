@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:provider/provider.dart';
-import 'package:file_picker/file_picker.dart';
 
 import 'package:identitic/models/user.dart';
 import 'package:identitic/providers/auth_provider.dart';

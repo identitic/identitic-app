@@ -30,6 +30,7 @@ class AuthProvider {
       final String token = await AuthService.instance
           .signInWithEmailAndPassword(email, password);
       if (token != null) {
+        print(token);
         _user = User.fromJson(JWT.toMap(token));
         StorageService.instance.setEncrypted(StorageKey.token, token);
       }

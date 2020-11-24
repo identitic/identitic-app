@@ -129,25 +129,26 @@ class ArticlesService {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     Dio dio = new Dio();
+
+    Map<String, dynamic> data = {
+      "filee": article.image != null
+          ? await MultipartFile.fromFile(article.image.path,
+              filename: article.image.path.split('/').last,
+              contentType: MediaType('image', 'jpg'))
+          : null,
+      "title": article.title,
+      "body": article.body,
+      "markdown": article.markdown,
+      "id_sc": article.idJoin,
+      "id_hierarchy": article.idHierarchy,
+      "date": DateTime.now().toIso8601String().toString(),
+      "deadline": article.deadline
+    };
+
+    FormData formData = FormData.fromMap(data);
+
     try {
-      Map<String, dynamic> data = {
-        "filee": article.image != null
-            ? await MultipartFile.fromFile(article.image.path,
-                filename: article.image.path.split('/').last,
-                contentType: MediaType('image', 'jpg'))
-            : null,
-        "title": article.title,
-        "body": article.body,
-        "markdown": article.markdown,
-        "id_sc": article.idJoin,
-        "id_hierarchy": article.idHierarchy,
-        "date": DateTime.now().toIso8601String().toString(),
-        "deadline": article.deadline
-      };
-
-      FormData formData = FormData.fromMap(data);
-
-      var response = await dio.post(
+      await dio.post(
         '$apiBaseUrl/general/uploadPost',
         data: formData,
         options: Options(

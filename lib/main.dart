@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:identitic/providers/classes_provider.dart';
+import 'package:identitic/providers/profilephoto_provider.dart';
 import 'package:identitic/providers/students_provider.dart';
 // import 'package:identitic/utils/themes.dart';
 
@@ -48,6 +49,8 @@ class App extends StatelessWidget {
           create: (_) => NotificationsProvider(),
           lazy: false,
         ),
+        ChangeNotifierProvider<ProfilePhotoProvider>(
+          create: (_) => ProfilePhotoProvider()),
         ChangeNotifierProvider<InattendancesProvider>(
           create: (_) => InattendancesProvider(),
         ),
@@ -65,7 +68,7 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<ArticlesProvider>(
           create: (_) => ArticlesProvider(),
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
