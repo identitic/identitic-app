@@ -42,7 +42,6 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       key: _scaffoldKey,
       body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             pinned: true,
@@ -52,87 +51,86 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
           SliverFillRemaining(
-            hasScrollBody: false,
+            hasScrollBody: true,
             child: Column(
               children: <Widget>[
-                const SizedBox(height: 16),
-                const Spacer(),
+                Spacer(),
                 Image.asset(
                   'assets/images/identitic_pink.png',
                   width: MediaQuery.of(context).size.width / 2,
                 ),
-                const SizedBox(height: 32),
-                const Spacer(),
+                Spacer(),
+                // BUILD LOGIN FORM
+                Padding(padding: EdgeInsets.all(16), child: _buildForm()),
+
+                // BUILD LOGIN BUTTON
                 Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          controller: _usernameController,
-                          focusNode: _usernameFocusNode,
-                          validator: Validator.validateUsername,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(),
-                            disabledBorder: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(),
-                            focusedErrorBorder: OutlineInputBorder(),
-                            labelStyle: TextStyle(
-                              color: Colors.black,
-                            ),
-                            hintStyle: TextStyle(color: Colors.grey),
-                            labelText: 'Usuario',
-                            hintText: 'juanperez',
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        TextFormField(
-                          controller: _passwordController,
-                          focusNode: _passwordFocusNode,
-                          obscureText: true,
-                          validator: Validator.validatePassword,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(),
-                            disabledBorder: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(),
-                            focusedErrorBorder: OutlineInputBorder(),
-                            labelStyle: TextStyle(
-                              color: Colors.black,
-                            ),
-                            hintStyle: TextStyle(color: Colors.grey),
-                            labelText: 'Contraseña',
-                            hintText: '••••••••••',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 32),
-                const Spacer(),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: FlatButton(
-                      color: Colors.pink,
-                      child: Text('Iniciar sesión',
-                          style: TextStyle(color: Colors.white)),
-                      onPressed: _isSending
-                          ? null
-                          : () async {
-                              if (_formKey.currentState.validate()) {
-                                _signIn(context);
-                              }
-                            },
-                    ),
-                  ),
-                ),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FlatButton(
+                        color: Colors.pink,
+                        child: Text('Iniciar sesión',
+                            style: TextStyle(color: Colors.white)),
+                        onPressed: _isSending
+                            ? null
+                            : () async {
+                                if (_formKey.currentState.validate()) {
+                                  _signIn(context);
+                                }
+                              },
+                      ),
+                    )),
+                Spacer(),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: _usernameController,
+            focusNode: _usernameFocusNode,
+            validator: Validator.validateUsername,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(),
+              disabledBorder: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(),
+              focusedErrorBorder: OutlineInputBorder(),
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ),
+              hintStyle: TextStyle(color: Colors.grey),
+              labelText: 'Usuario',
+              hintText: 'juanperez',
+            ),
+          ),
+          SizedBox(height: 16),
+          TextFormField(
+            controller: _passwordController,
+            focusNode: _passwordFocusNode,
+            obscureText: true,
+            validator: Validator.validatePassword,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(),
+              disabledBorder: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(),
+              focusedErrorBorder: OutlineInputBorder(),
+              labelStyle: TextStyle(
+                color: Colors.black,
+              ),
+              hintStyle: TextStyle(color: Colors.grey),
+              labelText: 'Contraseña',
+              hintText: '••••••••••',
             ),
           ),
         ],

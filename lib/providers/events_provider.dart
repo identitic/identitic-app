@@ -92,17 +92,18 @@ class EventsProvider with ChangeNotifier {
     Map<DateTime, List<dynamic>> calendarEvents = Map();
 
     try {
-
       // Asking user hierarchy
       _allEvents = user.hierarchy == UserHierarchy.teacher
           ? await _eventsService.fetchAllEventsTeacher()
           : await _eventsService.fetchAllEvents(user.idClass);
 
-      _allEvents.forEach((event) {
-        calendarEvents[DateTime.parse(event.date)] == null
-            ? calendarEvents[DateTime.parse(event.date)] = [event]
-            : calendarEvents[DateTime.parse(event.date)].add(event);
-      });
+      if (_allEvents != null && _allEvents.isNotEmpty) {
+        _allEvents.forEach((event) {
+          calendarEvents[DateTime.parse(event.date)] == null
+              ? calendarEvents[DateTime.parse(event.date)] = [event]
+              : calendarEvents[DateTime.parse(event.date)].add(event);
+        });
+      }
     } catch (e) {
       debugPrint(e.toString());
       rethrow;

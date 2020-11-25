@@ -45,7 +45,7 @@ class ProfilePage extends StatelessWidget {
                                           context,
                                           listen: false)
                                       .user
-                                      .profilePhoto)
+                                      .profilePhoto.replaceFirst(r'\', "/"))
                                   : AssetImage('assets/images/avatar.png')),
                       const SizedBox(height: 16),
                       Text(
@@ -57,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                         context.watch<AuthProvider>().user.hierarchy ==
                                 UserHierarchy.teacher
                             ? 'Profesor/a'
-                            : 'Alumno/a',
+                            : 'Estudiante',
                         style: TextStyle(
                           color: Theme.of(context).textTheme.caption.color,
                         ),
@@ -103,7 +103,7 @@ class ProfilePage extends StatelessWidget {
     await context.read<AuthProvider>().signOut();
     Navigator.pushNamedAndRemoveUntil(
       context,
-      RouteName.onboarding,
+      RouteName.sign_in,
       (_) => false,
     );
   }
@@ -118,7 +118,7 @@ class ProfilePage extends StatelessWidget {
   }  */
 
   Future<void> _launchSupport() async {
-    const String url = 'https://wa.me/549115493738';
+    const String url = 'https://wa.me/5491154933738';
     if (await canLaunch(url)) {
       await launch(url);
     }

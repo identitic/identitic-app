@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:identitic/utils/constants.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () => _saveChanges(),
           label: Row(
@@ -62,8 +64,21 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                       CircleAvatar(
                         radius: 56,
                         backgroundImage: imageFile == null
-                            ? AssetImage('assets/images/avatar.png')
-                            : FileImage(imageFile),
+                            ? Provider.of<AuthProvider>(context, listen: false)
+                                        .user
+                                        .profilePhoto !=
+                                    null
+                                ? NetworkImage(apiBaseUrl +
+                                    "/" +
+                                    Provider.of<AuthProvider>(context,
+                                            listen: false)
+                                        .user
+                                        .profilePhoto
+                                        .replaceFirst(r'\', "/"))
+                                : imageFile != null
+                                    ? Image.file(imageFile)
+                                    : AssetImage('assets/images/avatar.png')
+                            : Image.file(imageFile), //TODO: arreglar
                       ),
                       FlatButton(
                         child: Text(

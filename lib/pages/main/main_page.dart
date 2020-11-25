@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage>
                                           context,
                                           listen: false)
                                       .user
-                                      .profilePhoto)
+                                      .profilePhoto.replaceFirst(r'\', "/"))
                           : AssetImage('assets/images/avatar.png')),
             ),
             title: Text(''),
