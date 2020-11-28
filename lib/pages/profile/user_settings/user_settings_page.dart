@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:identitic/providers/profilephoto_provider.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -76,9 +77,9 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                         .profilePhoto
                                         .replaceFirst(r'\', "/"))
                                 : imageFile != null
-                                    ? Image.file(imageFile)
+                                    ? FileImage(imageFile)
                                     : AssetImage('assets/images/avatar.png')
-                            : Image.file(imageFile), //TODO: arreglar
+                            : FileImage(imageFile), //TODO: arreglar
                       ),
                       FlatButton(
                         child: Text(
@@ -142,8 +143,8 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   }
 
   void _saveChanges() async {
-/*     await Provider.of<ProfilePhotoProvider>(context, listen: false)
-        .uploadPhoto(imageFile); */
+  await Provider.of<ProfilePhotoProvider>(context, listen: false)
+        .uploadPhoto(imageFile);
     Navigator.pop(context);
   }
 }

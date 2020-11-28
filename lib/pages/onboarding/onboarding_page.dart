@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
 
 import 'package:identitic/pages/onboarding/widgets/slider_widget.dart';
+import 'package:identitic/utils/constants.dart';
 
 class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
-        child: SafeArea(
-          child: ListView(
+        body: CustomScrollView(slivers: [
+      SliverFillRemaining(
+        hasScrollBody: true,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 56,
-                ),
-                child: Image(
-                  height: 100,
-                  image: AssetImage('assets/images/fingerprint.png'),
+              Spacer(flex: 2),
+              SliderWidget(),
+              Spacer(),
+              SizedBox(
+                width: double.infinity,
+                child: FlatButton(
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(RouteName.sign_in),
+                  color: Theme.of(context).buttonColor,
+                  child: Text(
+                    'Continuar',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
-              SliderWidget(),
             ],
           ),
         ),
       ),
-    );
+    ]));
   }
 }

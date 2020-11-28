@@ -40,14 +40,14 @@ class HomePage extends StatelessWidget {
                           IdentiticCircle(
                             onTap: () =>
                                 Navigator.pushNamed(context, RouteName.grades),
-                            child: Icon(OMIcons.classIcon, size: 44),
+                            child: Image.asset('assets/images/marks.png', height: 70),
                             text: "Calificaciones",
                           ),
                           SizedBox(width: 16),
                           IdentiticCircle(
                             onTap: () => Navigator.pushNamed(
                                 context, RouteName.inattendances),
-                            child: Icon(OMIcons.check, size: 44),
+                            child: Image.asset('assets/images/inattendances.png', height: 70),
                             text: "Inasistencias",
                           ),
                         ],
@@ -59,14 +59,14 @@ class HomePage extends StatelessWidget {
                           IdentiticCircle(
                             onTap: () => Navigator.pushNamed(
                                 context, RouteName.families),
-                            child: Icon(OMIcons.peopleOutline, size: 44),
+                            child: Image.asset('assets/images/school2.png', height: 70),
                             text: "Comunicados",
                           ),
                           SizedBox(width: 16),
                           IdentiticCircle(
                             onTap: () =>
                                 Navigator.pushNamed(context, RouteName.tasks),
-                            child: Icon(OMIcons.assignment, size: 46),
+                            child: Image.asset('assets/images/open-book.png', height: 70),
                             text: "Tareas",
                           ),
                         ],

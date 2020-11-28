@@ -44,7 +44,6 @@ class EventsProvider with ChangeNotifier {
     try {
       _allEvents = await _eventsService.fetchAllEventsTeacher();
       notifyListeners();
-
       return _allEvents;
     } catch (e) {
       rethrow;
@@ -55,14 +54,15 @@ class EventsProvider with ChangeNotifier {
     List<Event> _results;
     try {
       _allEvents = await _eventsService.fetchAllEvents(idClass);
-
+      if (_allEvents.length != 0 && _allEvents != null){
       _results = _allEvents
           .where((event) =>
-              /* DateTime.parse(event.date).difference(_selectedDay).inDays == 0) */
               DateTime.parse(event.date).day == _selectedDay.day &&
               DateTime.parse(event.date).month == _selectedDay.month &&
               DateTime.parse(event.date).year == _selectedDay.year)
           .toList();
+      }
+      print(_results);
       return _results;
     } catch (e) {
       rethrow;
@@ -73,15 +73,15 @@ class EventsProvider with ChangeNotifier {
     List<Event> _results;
     try {
       _allEvents = await _eventsService.fetchAllEventsTeacher();
-      if (_allEvents != null) {
-        _results = _allEvents
-            .where((event) =>
-                /* DateTime.parse(event.date).difference(_selectedDay).inDays == 0) */
-                DateTime.parse(event.date).day == _selectedDay.day &&
-                DateTime.parse(event.date).month == _selectedDay.month &&
-                DateTime.parse(event.date).year == _selectedDay.year)
-            .toList();
+      if (_allEvents.length != 0 && _allEvents != null){
+      _results = _allEvents
+          .where((event) =>
+              DateTime.parse(event.date).day == _selectedDay.day &&
+              DateTime.parse(event.date).month == _selectedDay.month &&
+              DateTime.parse(event.date).year == _selectedDay.year)
+          .toList();
       }
+      print(_results);
       return _results;
     } catch (e) {
       rethrow;

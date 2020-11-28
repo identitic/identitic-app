@@ -51,7 +51,7 @@ class _SliderWidgetState extends State<SliderWidget> {
             position: _position,
           ),
           SizedBox(height: 16),
-          Container(
+          /* Container(
             width: double.infinity,
             padding: EdgeInsets.only(
               right: 32,
@@ -65,7 +65,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-          ),
+          ), */
         ],
       ),
     );

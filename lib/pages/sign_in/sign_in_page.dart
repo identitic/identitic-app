@@ -19,6 +19,8 @@ class _SignInPageState extends State<SignInPage> {
   FocusNode _passwordFocusNode;
   bool _isSending = false;
 
+  bool _keyboardIsOpen = false;
+
   @override
   void initState() {
     super.initState();
@@ -51,22 +53,31 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
           SliverFillRemaining(
-            hasScrollBody: true,
-            child: Column(
-              children: <Widget>[
-                Spacer(),
-                Image.asset(
-                  'assets/images/identitic_pink.png',
-                  width: MediaQuery.of(context).size.width / 2,
-                ),
-                Spacer(),
-                // BUILD LOGIN FORM
-                Padding(padding: EdgeInsets.all(16), child: _buildForm()),
-
-                // BUILD LOGIN BUTTON
-                Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: SizedBox(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: <Widget>[
+                  // CHECK IF KEYBOARD IS OPEN OR NOT
+                  MediaQuery.of(context).viewInsets.bottom == 0
+                      ? Image.asset(
+                          'assets/images/fingerprint.png',
+                          height: 72,
+                        )
+                      : SizedBox(),
+                  Spacer(),
+                  Text('Iniciar sesión',
+                      style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                      )),
+                  SizedBox(height: 32),
+                  _buildForm(),
+                  SizedBox(height: 32),
+                  Spacer(),
+                  // BUILD LOGIN BUTTON
+                  SizedBox(
                       width: double.infinity,
                       child: FlatButton(
                         color: Colors.pink,
@@ -79,10 +90,9 @@ class _SignInPageState extends State<SignInPage> {
                                   _signIn(context);
                                 }
                               },
-                      ),
-                    )),
-                Spacer(),
-              ],
+                      )),
+                ],
+              ),
             ),
           ),
         ],
@@ -98,7 +108,7 @@ class _SignInPageState extends State<SignInPage> {
           TextFormField(
             controller: _usernameController,
             focusNode: _usernameFocusNode,
-            validator: Validator.validateUsername,
+/*             validator: Validator.validateUsername, */
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(),
@@ -118,7 +128,7 @@ class _SignInPageState extends State<SignInPage> {
             controller: _passwordController,
             focusNode: _passwordFocusNode,
             obscureText: true,
-            validator: Validator.validatePassword,
+/*             validator: Validator.validatePassword, */
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(),
@@ -153,7 +163,7 @@ class _SignInPageState extends State<SignInPage> {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text('Credenciales inválidas'),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.purple,
       ),
     );
     setState(() {

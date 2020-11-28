@@ -16,17 +16,23 @@ class InattendancesListView extends StatelessWidget {
         builder: (_, AsyncSnapshot snapshot) {
           final List<Inattendance> _inattendances = snapshot.data;
           if (snapshot.hasData) {
-            return ListView.separated(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: _inattendances.length,
-                padding: EdgeInsets.all(16),
-                separatorBuilder: (_, int i) {
-                  return SizedBox(height: 8);
-                },
-                itemBuilder: (_, int i) {
-                  return InattendanceListTile(_inattendances[i]);
-                });
+            if (_inattendances.isNotEmpty){
+              return ListView.separated(
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: _inattendances.length,
+                  padding: EdgeInsets.all(16),
+                  separatorBuilder: (_, int i) {
+                    return SizedBox(height: 8);
+                  },
+                  itemBuilder: (_, int i) {
+                    return InattendanceListTile(_inattendances[i]);
+                  });
+            }
+            else {
+              return Center(
+              child: Text('¡No tenés inasistencias!'));
+            }
           }
           return Center(
             child: CircularProgressIndicator(),

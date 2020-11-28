@@ -38,6 +38,7 @@ class _AddEventPageState extends State<AddEventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         appBar: AppBar(
             centerTitle: true,
             title: widget.classs == null
@@ -62,7 +63,7 @@ class _AddEventPageState extends State<AddEventPage> {
             builder: (_, AsyncSnapshot snapshot) {
               List<Class> classes = snapshot.data;
               if (snapshot.hasData) {
-                if (classes.isNotEmpty && classes != null) {
+                if (classes.length != 0) {
                   List<DropdownMenuItem<int>> _dropdownMenuItems;
                   List<DropdownMenuItem<int>> _buildDropdownMenuItems(
                       List<Class> classes) {
@@ -104,15 +105,15 @@ class _AddEventPageState extends State<AddEventPage> {
                       ),
                       TextField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(),
-                            disabledBorder: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(),
-                            focusedErrorBorder: OutlineInputBorder(),
-                            labelStyle: TextStyle(
-                              color: Colors.black,
-                            ),
-                            hintStyle: TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(),
+                          enabledBorder: OutlineInputBorder(),
+                          disabledBorder: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(),
+                          focusedErrorBorder: OutlineInputBorder(),
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          hintStyle: TextStyle(color: Colors.grey),
                         ),
                         controller: _titleController,
                       ),
@@ -123,15 +124,15 @@ class _AddEventPageState extends State<AddEventPage> {
                       TextField(
                         maxLines: null,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(),
-                            disabledBorder: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(),
-                            focusedErrorBorder: OutlineInputBorder(),
-                            labelStyle: TextStyle(
-                              color: Colors.black,
-                            ),
-                            hintStyle: TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(),
+                          enabledBorder: OutlineInputBorder(),
+                          disabledBorder: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(),
+                          focusedErrorBorder: OutlineInputBorder(),
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          hintStyle: TextStyle(color: Colors.grey),
                         ),
                         controller: _descriptionController,
                       ),
@@ -144,11 +145,11 @@ class _AddEventPageState extends State<AddEventPage> {
                           items: [
                             DropdownMenuItem(
                               child: Text('Exámenes'),
-                              value: 1,
+                              value: 8,
                             ),
                             DropdownMenuItem(
                               child: Text('Entregas'),
-                              value: 2,
+                              value: 7,
                             ),
                           ],
                           onChanged: (newValue) {
@@ -191,16 +192,22 @@ class _AddEventPageState extends State<AddEventPage> {
                     ],
                   );
                 }
+                return Center(
+                    child: Text(
+                  'No se encontraron cursos disponibles',
+                  style: TextStyle(fontSize: 18),
+                ));
               }
               return Center(child: CircularProgressIndicator());
             }));
   }
 
+
   Future<void> _postEvent() async {
     Class _selectedClass = _classes
         .where((element) => element.idJoin == _idJoinSelectedClass)
         .toList()[0];
-        
+
     final Event event = Event(
         idClass: _selectedClass.id,
         idJoin: _selectedClass.idJoin,
