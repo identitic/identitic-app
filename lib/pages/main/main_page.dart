@@ -57,37 +57,32 @@ class _MainPageState extends State<MainPage>
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text(''),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            title: Text(''),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
-            title: Text(''),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: CircleAvatar(
-              radius: 13,
-              /* backgroundColor: _currentIndex == 3
-                  ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
-                  : Theme.of(context).bottomNavigationBarTheme.backgroundColor, */
-              child: CircleAvatar(
-                  radius: 12,
-                  backgroundImage:
-                      Provider.of<AuthProvider>(context, listen: false)
-                                  .user
-                                  .profilePhoto !=
-                              null
-                          ? NetworkImage(apiBaseUrl + "/" + Provider.of<AuthProvider>(
-                                          context,
-                                          listen: false)
-                                      .user
-                                      .profilePhoto.replaceFirst(r'\', "/"))
-                          : AssetImage('assets/images/avatar.png')),
-            ),
-            title: Text(''),
+                radius: 13,
+                backgroundImage:
+                    Provider.of<AuthProvider>(context, listen: false)
+                                .user
+                                .profilePhoto !=
+                            null
+                        ? NetworkImage(apiBaseUrl +
+                            "/" +
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .user
+                                .profilePhoto
+                                .replaceFirst(r'\', "/"))
+                        : AssetImage('assets/images/avatar.png')),
+            label: '',
           ),
         ],
       ),

@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
@@ -18,21 +20,24 @@ class ProfilePhotoService {
       "filee": photo != null
           ? await MultipartFile.fromFile(photo.path,
               filename: photo.path.split('/').last,
-              contentType: MediaType('image', 'jpg'))
-          : null,
+              contentType: MediaType('image', 'jpeg'))
+          : null
     };
-    FormData formData = FormData.fromMap(data);
+    var formData = FormData.fromMap(data);
+    print(formData.fields);
 
     try {
-      await dio.post(
-        '$apiBaseUrl/general/uploadPost',
-        data: formData,
-        options: Options(
-          headers: {
-            "Authorization": 'Bearer $token',
-          },
-        ),
-      );
+      await dio
+          .post(
+            '$apiBaseUrl/general/uploadProfPic',
+            data: formData,
+            options: Options(
+              headers: {
+                "Authorization": 'Bearer $token',
+              },
+            ),
+          )
+          .then((response) => print(response));
     } on SocketException {
       throw const SocketException('SocketException: Voló todo');
     } catch (e) {

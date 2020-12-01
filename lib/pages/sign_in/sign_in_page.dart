@@ -84,7 +84,7 @@ class _SignInPageState extends State<SignInPage> {
                         child: Text('Iniciar sesión',
                             style: TextStyle(color: Colors.white)),
                         onPressed: _isSending
-                            ? null
+                            ? () => null
                             : () async {
                                 if (_formKey.currentState.validate()) {
                                   _signIn(context);

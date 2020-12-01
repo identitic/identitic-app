@@ -49,10 +49,15 @@ class ArticlePage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  MarkdownBody(data: article.markdown),
+                  MarkdownBody(data: article?.markdown ?? '"Error"'),
                   article.fileURI != null
-                      ? Image.network('https://' + article.fileURI)
-                      : null
+                      ? Image.network(apiBaseUrl +
+                          "/" +
+                          article.fileURI
+                              .split('/')
+                              .last
+                              .replaceFirst(r'\', "/"))
+                      : SizedBox()
                 ]),
               )),
         ],

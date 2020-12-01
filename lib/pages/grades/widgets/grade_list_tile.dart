@@ -26,7 +26,7 @@ class _GradeListTileState extends State<GradeListTile> {
         width: 64,
         child: TextField(
           decoration: InputDecoration(
-          border: OutlineInputBorder(),
+            border: OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(),
             disabledBorder: OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(),
@@ -36,10 +36,9 @@ class _GradeListTileState extends State<GradeListTile> {
             ),
             hintStyle: TextStyle(color: Colors.grey),
           ),
-          keyboardType: TextInputType.number,
-          onChanged: (value) => widget.grade.value =
-              int.tryParse(value),
-               textAlign: TextAlign.center, //Cambiar a double? Hablar con back
+          keyboardType: TextInputType.number, //TODO: Cambiar a LETRAS
+          onChanged: (value) => widget.grade.value = int.tryParse(value),
+          textAlign: TextAlign.center, //Cambiar a double? Hablar con back
         ),
       ),
     );

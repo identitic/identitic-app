@@ -73,7 +73,7 @@ class _SliderWidgetState extends State<SliderWidget> {
 
   List<SliderItem> _sliderItems = [
     SliderItem(
-      image: 'assets/images/school.png',
+      image: 'assets/images/school2.png',
       title: 'Bienvenido al futuro de la educación',
     ),
     SliderItem(
@@ -85,17 +85,4 @@ class _SliderWidgetState extends State<SliderWidget> {
       title: 'Organizate mejor',
     ),
   ];
-
-  void _nextPage() {
-    if (_pageController.page != _sliderItems.length - 1) {
-      _pageController.nextPage(
-        duration: Duration(
-          milliseconds: 300,
-        ),
-        curve: Curves.easeInOut,
-      );
-    } else {
-      Navigator.pushNamed(context, RouteName.sign_in);
-    }
-  }
 }

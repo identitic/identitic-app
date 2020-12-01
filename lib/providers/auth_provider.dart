@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
 import 'package:identitic/models/user.dart';
 import 'package:identitic/services/auth_service.dart';
+import 'package:identitic/services/profilephoto_service.dart';
 import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:identitic/utils/jwt.dart';
@@ -16,6 +18,8 @@ class AuthProvider {
   }
 
   User get user => _user;
+
+  ProfilePhotoService _photoService = ProfilePhotoService();
 
   Future<void> _setup() async {
     final String token =
@@ -44,4 +48,13 @@ class AuthProvider {
     await StorageService.instance.removeAll();
     await StorageService.instance.removeAllEncrypted();
   }
+
+/*   Future<void> updateProfilePhoto(File _newPhoto) async {
+    try {
+      await _photoService.uploadPhoto(_newPhoto);
+      _user.profilePhoto = _newPhoto.path;
+    } catch (e) {
+      rethrow;
+    }
+  } */
 }

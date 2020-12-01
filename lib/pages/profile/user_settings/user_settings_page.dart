@@ -143,8 +143,8 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   }
 
   void _saveChanges() async {
-  await Provider.of<ProfilePhotoProvider>(context, listen: false)
-        .uploadPhoto(imageFile);
+/*     await Provider.of<AuthProvider>(context, listen: false)
+        .updateProfilePhoto(imageFile); */
     Navigator.pop(context);
   }
 }

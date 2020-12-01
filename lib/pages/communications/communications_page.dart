@@ -38,7 +38,7 @@ class CommunicationsPage extends StatelessWidget {
             } else {
               return Center(
                 child: Text(
-                  'No hay artículos nuevos :(',
+                  'No hay artículos disponibles :(',
                   style: TextStyle(fontSize: 16),
                 ),
               );

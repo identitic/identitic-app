@@ -16,7 +16,7 @@ class InattendancesListView extends StatelessWidget {
         builder: (_, AsyncSnapshot snapshot) {
           final List<Inattendance> _inattendances = snapshot.data;
           if (snapshot.hasData) {
-            if (_inattendances.isNotEmpty){
+            if (_inattendances.isNotEmpty) {
               return ListView.separated(
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
@@ -28,10 +28,8 @@ class InattendancesListView extends StatelessWidget {
                   itemBuilder: (_, int i) {
                     return InattendanceListTile(_inattendances[i]);
                   });
-            }
-            else {
-              return Center(
-              child: Text('¡No tenés inasistencias!'));
+            } else {
+              return Center(child: Text('¡No tenés inasistencias!'));
             }
           }
           return Center(
