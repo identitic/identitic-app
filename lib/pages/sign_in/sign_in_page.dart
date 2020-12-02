@@ -19,8 +19,6 @@ class _SignInPageState extends State<SignInPage> {
   FocusNode _passwordFocusNode;
   bool _isSending = false;
 
-  bool _keyboardIsOpen = false;
-
   @override
   void initState() {
     super.initState();

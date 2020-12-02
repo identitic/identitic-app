@@ -31,17 +31,23 @@ class _ArticleAllDeliveriesCreateState extends State<ArticleAllDeliveries> {
         builder: (_, AsyncSnapshot<List<dynamic>> snapshot) {
           final List<Delivery> deliveries = snapshot.data;
           if (snapshot.hasData) {
-            return ListView.separated(
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.all(16),
-              separatorBuilder: (_, int i) {
-                return SizedBox(height: 8);
-              },
-              itemCount: deliveries.length ?? 5,
-              itemBuilder: (_, int i) {
-                return DeliveryListTile(deliveries[i]);
-              },
-            );
+            if (deliveries.length != 0) {
+              return ListView.separated(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.all(16),
+                separatorBuilder: (_, int i) {
+                  return SizedBox(height: 8);
+                },
+                itemCount: deliveries.length ?? 5,
+                itemBuilder: (_, int i) {
+                  return DeliveryListTile(deliveries[i]);
+                },
+              );
+            } else {
+              return Center(
+                  child: Text('No se han recibido entregas',
+                      style: TextStyle(fontSize: 18)));
+            }
           }
           return Center(
             child: CircularProgressIndicator(),

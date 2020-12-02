@@ -17,7 +17,46 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class ArticlesService {
-  Future<List<Article>> fetchArticles(int idClass, int idUser) async {
+
+  Future<List<Article>> fetchArticlesBySubject(int idSubject, int idUser) async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+    List<Article> articles;
+
+    var params = {'id_sc': idSubject, "id_user": idUser};
+
+    try {
+      final http.Response response = await http.post(
+        '$apiBaseUrl/general/getpostbyidsc',
+        body: json.encode(params),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+      );
+      print(params);
+      switch (response.statusCode) {
+        case 200:
+          {
+            final Iterable<dynamic> list = json.decode(response.body)['data'];
+            articles = list.map((e) => Article.fromJson(e)).toList();
+            break;
+          }
+        case 401:
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e);
+    }
+    return articles;
+
+  }
+
+  Future<List<Article>> fetchArticlesByClass(int idClass, int idUser) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
@@ -134,7 +173,7 @@ class ArticlesService {
       "filee": article.image != null
           ? await MultipartFile.fromFile(article.image.path,
               filename: article.image.path.split('/').last,
-              contentType: MediaType('image', 'jpg'))
+              contentType: MediaType('image', 'jpeg'))
           : null,
       "title": article.title,
       "body": article.body,
@@ -148,15 +187,17 @@ class ArticlesService {
     FormData formData = FormData.fromMap(data);
 
     try {
+      print(formData.fields);
       await dio.post(
         '$apiBaseUrl/general/uploadPost',
         data: formData,
         options: Options(
           headers: {
-            "Authorization": 'Bearer $token',
+            "Authorization": 'Bearer $token'
           },
         ),
-      );
+      ).then((value) => print(value));
+
     } on SocketException {
       throw const SocketException('SocketException: Voló todo');
     } catch (e) {

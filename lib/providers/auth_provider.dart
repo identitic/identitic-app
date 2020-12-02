@@ -19,7 +19,7 @@ class AuthProvider {
 
   User get user => _user;
 
-  ProfilePhotoService _photoService = ProfilePhotoService();
+  /* ProfilePhotoService _photoService = ProfilePhotoService(); */
 
   Future<void> _setup() async {
     final String token =
@@ -47,6 +47,7 @@ class AuthProvider {
   Future<void> signOut() async {
     await StorageService.instance.removeAll();
     await StorageService.instance.removeAllEncrypted();
+    _user = null;
   }
 
 /*   Future<void> updateProfilePhoto(File _newPhoto) async {

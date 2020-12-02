@@ -40,23 +40,31 @@ class _TasksPageCreateState extends State<TeacherTasksPage> {
       ),
       body: FutureBuilder<List<Article>>(
         future: Provider.of<ArticlesProvider>(context, listen: false)
-            .fetchArticles(widget.classs.id,
+            .fetchArticlesBySubject(widget.classs.idJoin,
                 Provider.of<AuthProvider>(context, listen: false).user.id),
         builder: (_, AsyncSnapshot<List<Article>> snapshot) {
           final List<Article> articles = snapshot.data;
           if (snapshot.hasData) {
-            return ListView.separated(
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.all(16),
-              separatorBuilder: (_, int i) {
-                return SizedBox(height: 8);
-              },
-              itemCount: articles.length ?? 5,
-              itemBuilder: (_, int i) {
-                return ArticleListTile(articles[i]);
-              },
-            );
+            if (articles.length != 0) {
+              return ListView.separated(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.all(16),
+                separatorBuilder: (_, int i) {
+                  return SizedBox(height: 8);
+                },
+                itemCount: articles.length ?? 5,
+                itemBuilder: (_, int i) {
+                  return ArticleListTile(articles[i]);
+                },
+              );
+            } else {
+              return Center(
+                child: Text('No hay artículos disponibles',
+                    style: TextStyle(fontSize: 18)),
+              );
+            }
           }
+
           return Center(
             child: CircularProgressIndicator(),
           );

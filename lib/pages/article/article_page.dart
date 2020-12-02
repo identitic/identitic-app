@@ -25,7 +25,7 @@ class ArticlePage extends StatelessWidget {
                         .hierarchy !=
                     UserHierarchy.teacher
                 ? Icons.add
-                : SizedBox()),
+                : Icons.add),
             SizedBox(width: 8),
             Text(Provider.of<AuthProvider>(context, listen: false)
                         .user
@@ -70,7 +70,7 @@ class ArticlePage extends StatelessWidget {
 
     Provider.of<AuthProvider>(context, listen: false).user.hierarchy ==
             UserHierarchy.teacher
-        ? Navigator.pushNamed(context, RouteName.article_deliveries)
+        ? Navigator.pushNamed(context, RouteName.article_deliveries, arguments: this.article)
         : _checkDeliveryStatus(context);
   }
 

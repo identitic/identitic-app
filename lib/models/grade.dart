@@ -8,8 +8,8 @@ class Grade {
 
   final int idUser;
   final String subject;
-  int value;
-  final int term;
+  dynamic value;
+  final dynamic term;
 
   factory Grade.fromJson(Map<String, dynamic> json) {
     return Grade(
