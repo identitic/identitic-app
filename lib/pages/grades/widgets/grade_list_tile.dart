@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:identitic/models/grade.dart';
 import 'package:identitic/models/student.dart';
 
@@ -36,9 +37,15 @@ class _GradeListTileState extends State<GradeListTile> {
             ),
             hintStyle: TextStyle(color: Colors.grey),
           ),
-          keyboardType: TextInputType.number, //TODO: Cambiar a LETRAS
           onChanged: (value) => widget.grade.value = int.tryParse(value),
-          textAlign: TextAlign.center, //Cambiar a double? Hablar con back
+          textAlign: TextAlign.center,
+          keyboardType: TextInputType.name,
+          textCapitalization: TextCapitalization.sentences,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp('[A-Z 0-9]')),
+            FilteringTextInputFormatter.deny(RegExp('[a-z] ' ' á-ú Á-Ú')),
+            LengthLimitingTextInputFormatter(2),
+          ],
         ),
       ),
     );

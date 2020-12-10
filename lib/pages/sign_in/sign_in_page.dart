@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:identitic/utils/validator.dart';
-import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -46,9 +47,12 @@ class _SignInPageState extends State<SignInPage> {
           SliverAppBar(
             pinned: true,
             leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () => Navigator.pop(context),
-            ),
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RouteName.onboarding,
+                      (_) => false,
+                    )),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
@@ -118,7 +122,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               hintStyle: TextStyle(color: Colors.grey),
               labelText: 'Usuario',
-              hintText: 'juanperez',
+              hintText: 'juan.perez',
             ),
           ),
           SizedBox(height: 16),

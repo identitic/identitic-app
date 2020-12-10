@@ -24,7 +24,7 @@ class OnboardingPage extends StatelessWidget {
                       Navigator.of(context).pushNamed(RouteName.sign_in),
                   color: Theme.of(context).buttonColor,
                   child: Text(
-                    'Continuar',
+                    'Comenzar',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

@@ -17,7 +17,7 @@ class StudentTasksPage extends StatelessWidget {
       body: FutureBuilder<List<Article>>(
         future: Provider.of<ArticlesProvider>(context, listen: false)
             .fetchArticlesByClass(
-                Provider.of<AuthProvider>(context, listen: false).user.classs.id,
+                Provider.of<AuthProvider>(context, listen: false).user.idClass,
                 Provider.of<AuthProvider>(context, listen: false).user.id),
         builder: (_, AsyncSnapshot<List<Article>> snapshot) {
           final List<Article> _articles = snapshot.data;

@@ -34,6 +34,8 @@ import 'package:identitic/utils/constants.dart';
 const String initialRoute = RouteName.initial_route;
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
+
+  // TEST A MATERIALPAGEROUTE FOR DISABLE BACK GESTURE ON ANDROID
   return CupertinoPageRoute<Widget>(
     settings: settings,
     builder: (_) {
