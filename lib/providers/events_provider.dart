@@ -62,8 +62,10 @@ class EventsProvider with ChangeNotifier {
                   DateTime.parse(event.date).month == _selectedDay.month &&
                   DateTime.parse(event.date).year == _selectedDay.year)
               .toList();
+              return _results;
         }
         _results = [];
+        return _results;
       }
       print(_allEvents);
       _results = [];
@@ -85,8 +87,10 @@ class EventsProvider with ChangeNotifier {
                   DateTime.parse(event.date).month == _selectedDay.month &&
                   DateTime.parse(event.date).year == _selectedDay.year)
               .toList();
+              return _results;
         }
         _results = [];
+        return _results;
       }
       print(_allEvents);
       _results = [];
