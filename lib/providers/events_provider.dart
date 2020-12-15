@@ -54,15 +54,19 @@ class EventsProvider with ChangeNotifier {
     List<Event> _results;
     try {
       _allEvents = await _eventsService.fetchAllEvents(idClass);
-      if (_allEvents.length != 0 && _allEvents != null){
-      _results = _allEvents
-          .where((event) =>
-              DateTime.parse(event.date).day == _selectedDay.day &&
-              DateTime.parse(event.date).month == _selectedDay.month &&
-              DateTime.parse(event.date).year == _selectedDay.year)
-          .toList();
+      if (_allEvents != null) {
+        if (_allEvents.length != 0) {
+          _results = _allEvents
+              .where((event) =>
+                  DateTime.parse(event.date).day == _selectedDay.day &&
+                  DateTime.parse(event.date).month == _selectedDay.month &&
+                  DateTime.parse(event.date).year == _selectedDay.year)
+              .toList();
+        }
+        _results = [];
       }
-      print(_results);
+      print(_allEvents);
+      _results = [];
       return _results;
     } catch (e) {
       rethrow;
@@ -73,15 +77,19 @@ class EventsProvider with ChangeNotifier {
     List<Event> _results;
     try {
       _allEvents = await _eventsService.fetchAllEventsTeacher();
-      if (_allEvents.length != 0 && _allEvents != null){
-      _results = _allEvents
-          .where((event) =>
-              DateTime.parse(event.date).day == _selectedDay.day &&
-              DateTime.parse(event.date).month == _selectedDay.month &&
-              DateTime.parse(event.date).year == _selectedDay.year)
-          .toList();
+      if (_allEvents != null) {
+        if (_allEvents.length != 0) {
+          _results = _allEvents
+              .where((event) =>
+                  DateTime.parse(event.date).day == _selectedDay.day &&
+                  DateTime.parse(event.date).month == _selectedDay.month &&
+                  DateTime.parse(event.date).year == _selectedDay.year)
+              .toList();
+        }
+        _results = [];
       }
-      print(_results);
+      print(_allEvents);
+      _results = [];
       return _results;
     } catch (e) {
       rethrow;

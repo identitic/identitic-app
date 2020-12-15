@@ -34,11 +34,11 @@ class EventsListView extends StatelessWidget {
               );
             } else {
               return Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text(
+                padding: EdgeInsets.all(16),
+                child: Center(child: Text(
                   'No hay nuevos eventos, a relajar!',
                   style: TextStyle(fontSize: 16),
-                ),
+                ),)
               );
             }
           }

@@ -26,6 +26,7 @@ class EventsService {
         '$apiBaseUrl/general/home',
         headers: jsonHeaders,
       );
+      print(response.body);
       switch (response.statusCode) {
         case 200:
           {
