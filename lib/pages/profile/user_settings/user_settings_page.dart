@@ -47,13 +47,15 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
               Text('Confirmar'),
             ],
           )),
+      appBar: AppBar(
+        title: Text(
+          'Ajustes',
+        ),
+        centerTitle: true,
+      ),
       body: CustomScrollView(
         physics: const ClampingScrollPhysics(),
         slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            title: Text('Ajustes'),
-          ),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Column(
@@ -109,20 +111,15 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      ListTile(
-                        leading: Text('Desactivar notificaciones',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500)),
-                        trailing: Switch(
+                      SwitchListTile.adaptive(
+                          title: Text('Desactivar notificaciones'),
                           activeColor: Colors.blue,
                           value: _toggleNotifications,
                           onChanged: (bool state) {
                             setState(() {
                               _toggleNotifications = state;
                             });
-                          },
-                        ),
-                      ),
+                          }),
                     ],
                   ),
                 ),

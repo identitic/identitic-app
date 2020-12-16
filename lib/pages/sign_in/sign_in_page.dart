@@ -45,15 +45,12 @@ class _SignInPageState extends State<SignInPage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            pinned: true,
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      RouteName.onboarding,
-                      (_) => false,
-                    )),
-          ),
+              pinned: true,
+              leading: Navigator.of(context).canPop()
+                  ? IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () => Navigator.of(context).pop())
+                  : null),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
@@ -67,7 +64,9 @@ class _SignInPageState extends State<SignInPage> {
                           height: 72,
                         )
                       : SizedBox(),
-                  Spacer(),
+                  MediaQuery.of(context).viewInsets.bottom == 0
+                      ? Spacer()
+                      : SizedBox(),
                   Text('Iniciar sesión',
                       style: TextStyle(
                         fontFamily: 'Nunito',

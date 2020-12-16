@@ -123,21 +123,15 @@ class _CorrectDeliveryPageState extends State<CorrectDeliveryPage> {
               controller: _markController,
             ),
             SizedBox(height: 16),
-            ListTile(
-              leading: Text(
-                'Debe reentregar',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              trailing: Switch(
+            SwitchListTile.adaptive(
+                title: Text('Debe reentregar'),
                 activeColor: Colors.blue,
                 value: enableNewDeliveries,
                 onChanged: (bool state) {
                   setState(() {
                     enableNewDeliveries = state;
                   });
-                },
-              ),
-            ),
+                }),
             SizedBox(
               height: 16,
             ),

@@ -27,6 +27,9 @@ class IdentiticCircle extends StatelessWidget {
               Text(
                 text,
                 style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.fade,
+                maxLines: 1,
+                softWrap: false,
               ),
             ],
           ),

@@ -120,21 +120,15 @@ class _NewDeliveryPageState extends State<NewDeliveryPage> {
                             fontWeight: FontWeight.w600)),
                   )
                 : SizedBox(),
-            ListTile(
-              leading: Text(
-                'Entrega en grupo',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-              trailing: Switch(
+                SwitchListTile.adaptive(
+                title: Text('Entrega en grupo'),
                 activeColor: Colors.blue,
                 value: enableGroup,
                 onChanged: (bool state) {
                   setState(() {
                     enableGroup = state;
                   });
-                },
-              ),
-            ),
+                }),
             enableGroup == true
                 ? ListTile(
                     title: Text('Integrantes'),

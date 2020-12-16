@@ -8,6 +8,8 @@ import 'package:identitic/pages/home/widgets/identitic_circle.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:provider/provider.dart';
 
+//TODO: Convertir NestedScrollView en CustomScrollView, y la ListView en una SliverList, creo.
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

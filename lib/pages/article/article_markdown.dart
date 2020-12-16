@@ -76,35 +76,27 @@ class _EditorPageState extends State<EditorPage> {
   Widget buildArticleSettings() {
     return Column(children: <Widget>[
       Divider(),
-      ListTile(
-        leading: Text(
-          'Habilitar comentarios',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        trailing: Switch(
-          activeColor: Colors.blue,
+      SwitchListTile.adaptive(
+        title: Text(
+          'Habilitar comentarios'),
+        activeColor: Colors.blue,
           value: enableComments,
           onChanged: (bool state) {
             setState(() {
               enableComments = state;
             });
-          },
-        ),
+          }
       ),
-      ListTile(
-        leading: Text(
-          'Habilitar entregas',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        trailing: Switch(
-          activeColor: Colors.blue,
+       SwitchListTile.adaptive(
+        title: Text(
+          'Habilitar entregas'),
+        activeColor: Colors.blue,
           value: enableDeliveries,
           onChanged: (bool state) {
             setState(() {
               enableDeliveries = state;
             });
-          },
-        ),
+          }
       ),
       enableDeliveries != false
           ? ListTile(
