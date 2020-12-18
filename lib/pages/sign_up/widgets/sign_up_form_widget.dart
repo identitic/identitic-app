@@ -9,8 +9,10 @@ class SignUpFormWidget extends StatefulWidget {
 
 class _SignUpFormWidgetState extends State<SignUpFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _usernameController = TextEditingController();
-  final FocusNode _usernameFocusNode = FocusNode();
+
+  final TextEditingController _emailController = TextEditingController();
+
+  final FocusNode _emailFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,8 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
       child: Column(
         children: <Widget>[
           TextFormField(
-            controller: _usernameController,
-            focusNode: _usernameFocusNode,
+            controller: _emailController,
+            focusNode: _emailFocusNode,
             validator: (value) => Validator.validateUsername(value),
             decoration: InputDecoration(
               hintText: 'Email',
@@ -41,7 +43,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
           //TODO: Metodo para enviar mails a la base de datos?
         },
         color: Colors.pink,
-        child: Text('Recibir información'),
+        child: Text('Probar IDENTITIC', style: TextStyle(color: Colors.white),),
       ),
     );
   }

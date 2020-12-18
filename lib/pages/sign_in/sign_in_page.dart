@@ -75,23 +75,11 @@ class _SignInPageState extends State<SignInPage> {
                       )),
                   SizedBox(height: 32),
                   _buildForm(),
-                  SizedBox(height: 32),
+                  _buildRegisterButton(),
                   Spacer(),
                   // BUILD LOGIN BUTTON
-                  SizedBox(
-                      width: double.infinity,
-                      child: FlatButton(
-                        color: Colors.pink,
-                        child: Text('Iniciar sesión',
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: _isSending
-                            ? () => null
-                            : () async {
-                                if (_formKey.currentState.validate()) {
-                                  _signIn(context);
-                                }
-                              },
-                      )),
+
+                  _buildSignInButton()
                 ],
               ),
             ),
@@ -101,7 +89,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  _buildForm() {
+  Widget _buildForm() {
     return Form(
       key: _formKey,
       child: Column(
@@ -149,6 +137,32 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  Widget _buildSignInButton() {
+    return SizedBox(
+        width: double.infinity,
+        child: FlatButton(
+          color: Colors.pink,
+          child: Text('Iniciar sesión', style: TextStyle(color: Colors.white)),
+          onPressed: _isSending
+              ? () => null
+              : () async {
+                  if (_formKey.currentState.validate()) {
+                    _signIn(context);
+                  }
+                },
+        ));
+  }
+
+  Widget _buildRegisterButton() {
+    return FlatButton(
+      child: Text(
+        'No tengo cuenta',
+        style: TextStyle(color: Colors.blue),
+      ),
+      onPressed: () => Navigator.pushNamed(context, RouteName.sign_up),
+    );
+  }
+
   Future<void> _signIn(BuildContext context) async {
     setState(() {
       _isSending = true;
@@ -164,7 +178,7 @@ class _SignInPageState extends State<SignInPage> {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text('Credenciales inválidas'),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.blue,
       ),
     );
     setState(() {

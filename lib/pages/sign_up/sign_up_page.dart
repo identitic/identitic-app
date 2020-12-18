@@ -19,7 +19,6 @@ class SignUpPage extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.pink,
                     ),
                   ),
                 ),
@@ -27,7 +26,7 @@ class SignUpPage extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(top: 64),
+                      padding: EdgeInsets.all(64),
                       child: Image(
                         height: 100,
                         image: AssetImage('assets/images/fingerprint.png'),
@@ -44,38 +43,36 @@ class SignUpPage extends StatelessWidget {
                           color: Colors.grey,
                         ),
                         children: [
-                          TextSpan(text: 'Se parte del '),
+                          TextSpan(
+                              text: 'Sé parte del ',
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline1
+                                      .color)),
                           TextSpan(
                             text: 'futuro ',
                             style: TextStyle(
-                              color: Colors.deepPurpleAccent,
+                              color: Colors.blue,
                             ),
                           ),
-                          TextSpan(text: 'de la educación'),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 32),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 22,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey,
-                        ),
-                        children: [
                           TextSpan(
-                              text:
-                                  'Dejanos un correo al que podamos envíarte información sobre nuestra plataforma'),
+                              text: 'de la educación',
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline1
+                                      .color)),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: SignUpFormWidget(),
-                    ),
+                        padding: const EdgeInsets.all(32),
+                        child: Column(
+                          children: <Widget>[
+                            SignUpFormWidget(),
+                          ],
+                        )),
                   ],
                 ),
               ],
