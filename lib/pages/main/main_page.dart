@@ -57,15 +57,15 @@ class _MainPageState extends State<MainPage>
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: '',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            label: '',
+            label: 'Calendario',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
-            label: '',
+            label: 'Notificaciones',
           ),
           BottomNavigationBarItem(
             icon: CircleAvatar(
@@ -82,7 +82,7 @@ class _MainPageState extends State<MainPage>
                                 .profilePhoto
                                 .replaceFirst(r'\', "/"))
                         : AssetImage('assets/images/avatar.png')),
-            label: '',
+            label: 'Perfil',
           ),
         ],
       ),
