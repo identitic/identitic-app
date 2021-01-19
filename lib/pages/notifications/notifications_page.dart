@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:identitic/models/notification.dart';
-import 'package:identitic/pages/notifications/widgets/notification_list_tile.dart';
-
-import 'package:identitic/pages/notifications/widgets/notifications_list_view.dart';
 import 'package:identitic/providers/notifications_provider.dart';
 import 'package:provider/provider.dart';
 

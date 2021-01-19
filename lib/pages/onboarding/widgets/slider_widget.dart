@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 import 'package:identitic/pages/onboarding/widgets/slider_item.dart';
-import 'package:identitic/utils/constants.dart';
 
 class SliderWidget extends StatefulWidget {
   @override

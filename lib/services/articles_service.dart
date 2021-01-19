@@ -17,8 +17,8 @@ import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 
 class ArticlesService {
-
-  Future<List<Article>> fetchArticlesBySubject(int idSubject, int idUser) async {
+  Future<List<Article>> fetchArticlesBySubject(
+      int idSubject, int idUser) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
@@ -53,10 +53,10 @@ class ArticlesService {
       throw Exception(e);
     }
     return articles;
-
   }
 
-  Future<List<Article>> fetchArticlesByClass(int idClass, int idUser) async {
+  Future<List<Article>> fetchArticlesByClass(int idClass, int idUser,
+      [int pageNum]) async {
     final String token =
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
@@ -188,16 +188,15 @@ class ArticlesService {
 
     try {
       print(formData.fields);
-      await dio.post(
-        '$apiBaseUrl/general/uploadPost',
-        data: formData,
-        options: Options(
-          headers: {
-            "Authorization": 'Bearer $token'
-          },
-        ),
-      ).then((value) => print(value));
-
+      await dio
+          .post(
+            '$apiBaseUrl/general/uploadPost',
+            data: formData,
+            options: Options(
+              headers: {"Authorization": 'Bearer $token'},
+            ),
+          )
+          .then((value) => print(value));
     } on SocketException {
       throw const SocketException('SocketException: Voló todo');
     } catch (e) {

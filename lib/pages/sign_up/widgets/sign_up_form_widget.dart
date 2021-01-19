@@ -43,7 +43,10 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
           //TODO: Metodo para enviar mails a la base de datos?
         },
         color: Colors.pink,
-        child: Text('Probar IDENTITIC', style: TextStyle(color: Colors.white),),
+        child: Text(
+          'Probar IDENTITIC',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }

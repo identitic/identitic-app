@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:identitic/models/event.dart';
+import 'package:identitic/utils/constants.dart';
 
 class EventListTile extends StatelessWidget {
   final Event event;
@@ -10,6 +11,9 @@ class EventListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => {
+        Navigator.pushNamed(context, RouteName.event_page, arguments: event)
+      },
       leading: CircleAvatar(
           radius: 24,
           backgroundColor: Colors.pink,
@@ -19,7 +23,10 @@ class EventListTile extends StatelessWidget {
               SizedBox(height: 8),
               Text(
                 '${event.date[8]}' + '${event.date[9]}',
-                style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
               ),
               Text(
                 'DIC',
@@ -30,7 +37,7 @@ class EventListTile extends StatelessWidget {
       title: Text(
         event?.title ?? 'No hay eventos disponibles',
       ),
-      subtitle: Text(event?.description ?? '...'),
+      subtitle: Text(event?.subject ?? '...'),
     );
   }
 }

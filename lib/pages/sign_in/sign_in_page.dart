@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'package:identitic/providers/auth_provider.dart';
 import 'package:identitic/utils/constants.dart';
-import 'package:identitic/utils/validator.dart';
 
 class SignInPage extends StatefulWidget {
   @override

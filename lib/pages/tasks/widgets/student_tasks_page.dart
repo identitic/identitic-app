@@ -37,8 +37,8 @@ class StudentTasksPage extends StatelessWidget {
             } else {
               return Center(
                 child: Text(
-                  'No hay nuevas noticias!',
-                  style: TextStyle(fontSize: 16),
+                  'No hay artículos disponibles',
+                  style: TextStyle(fontSize: 18),
                 ),
               );
             }

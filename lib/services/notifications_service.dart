@@ -7,17 +7,13 @@ import 'dart:async';
 import 'package:http/http.dart' as http; */
 
 import 'package:identitic/models/notification.dart';
+
 /* import 'package:identitic/services/exceptions.dart'; */
-import 'package:identitic/services/storage_service.dart';
-import 'package:identitic/utils/constants.dart';
-
-
 class NotificationsService {
-
   Future<List<PushNotification>> fetchNotifications() async {
-    final String token =
-        await StorageService.instance.getEncrypted(StorageKey.token, null);
-    List<PushNotification> notifications = [PushNotification(body: 'Nuevo evento', title: 'Matemática')];
+    List<PushNotification> notifications = [
+      PushNotification(body: 'Nuevo evento', title: 'Matemática')
+    ];
 
     /* final Map<String, String> jsonHeaders = {
       HttpHeaders.acceptHeader: 'application/json',
@@ -49,5 +45,4 @@ class NotificationsService {
     } */
     return notifications;
   }
-
 }

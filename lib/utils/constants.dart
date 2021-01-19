@@ -20,6 +20,7 @@ class RouteName {
   static const String class_calendar = '/class_calendar';
   static const String calendar = '/calendar';
   static const String calendar_teacher = '/calendar_teacher';
+  static const String event_page = '/event_page';
   static const String classes = '/classes';
   static const String grades = '/grades';
   static const String home = '/home';

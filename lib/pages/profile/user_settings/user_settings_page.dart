@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:identitic/providers/profilephoto_provider.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:image_picker/image_picker.dart';
 

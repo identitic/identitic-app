@@ -11,6 +11,7 @@ import 'package:identitic/pages/article/article_create.dart';
 import 'package:identitic/pages/article/article_student_view_delivery.dart';
 import 'package:identitic/pages/article/article_teacher_view_delivery.dart';
 import 'package:identitic/pages/calendar/calendar_page.dart';
+import 'package:identitic/pages/calendar/event_page.dart';
 import 'package:identitic/pages/calendar/widgets/calendar_class_page.dart';
 import 'package:identitic/pages/classes/classes_page.dart';
 import 'package:identitic/pages/grades/grades_page.dart';
@@ -34,7 +35,6 @@ import 'package:identitic/utils/constants.dart';
 const String initialRoute = RouteName.initial_route;
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
-
   // TEST A MATERIALPAGEROUTE FOR DISABLE BACK GESTURE ON ANDROID
   return CupertinoPageRoute<Widget>(
     settings: settings,
@@ -49,7 +49,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         case RouteName.calendar:
           return CalendarPage();
         case RouteName.class_calendar:
-          return CalendarClassPage(/* settings.arguments */);
+          return CalendarClassPage();
+        case RouteName.event_page:
+          return EventPage(settings.arguments);
         case RouteName.classes:
           return ClassesPage(settings.arguments);
         case RouteName.grades:

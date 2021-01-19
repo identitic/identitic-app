@@ -16,9 +16,11 @@ class ArticlesProvider with ChangeNotifier {
   List<Article> get articles => _articles;
   List<Delivery> get deliveries => _deliveries;
 
-  Future<List<Article>> fetchArticlesBySubject(int idSubject, int idUser) async {
+  Future<List<Article>> fetchArticlesBySubject(int idSubject, int idUser,
+      [int pageNum]) async {
     try {
-      _articles = await _articlesService.fetchArticlesBySubject(idSubject, idUser);
+      _articles =
+          await _articlesService.fetchArticlesBySubject(idSubject, idUser);
       notifyListeners();
       return _articles;
     } catch (e) {
@@ -26,7 +28,8 @@ class ArticlesProvider with ChangeNotifier {
     }
   }
 
-  Future<List<Article>> fetchArticlesByClass(int idClass, int idUser) async {
+  Future<List<Article>> fetchArticlesByClass(int idClass, int idUser,
+      [int pageNum]) async {
     try {
       _articles = await _articlesService.fetchArticlesByClass(idClass, idUser);
       notifyListeners();
@@ -104,5 +107,4 @@ class ArticlesProvider with ChangeNotifier {
       rethrow;
     }
   }
-
 }

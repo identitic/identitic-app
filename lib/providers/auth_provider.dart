@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
 import 'package:identitic/models/user.dart';
 import 'package:identitic/services/auth_service.dart';
-import 'package:identitic/services/profilephoto_service.dart';
 import 'package:identitic/services/storage_service.dart';
 import 'package:identitic/utils/constants.dart';
 import 'package:identitic/utils/jwt.dart';
