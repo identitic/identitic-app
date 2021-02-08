@@ -41,11 +41,12 @@ class ProfilePage extends StatelessWidget {
                                           .user
                                           .profilePhoto !=
                                       null
-                                  ? NetworkImage(apiBaseUrl + "/" + Provider.of<AuthProvider>(
+                                  ? NetworkImage(Provider.of<AuthProvider>(
                                           context,
                                           listen: false)
                                       .user
-                                      .profilePhoto.replaceFirst(r'\', "/"))
+                                      .profilePhoto
+                                      .replaceFirst(r'\', "/"))
                                   : AssetImage('assets/images/avatar.png')),
                       const SizedBox(height: 16),
                       Text(

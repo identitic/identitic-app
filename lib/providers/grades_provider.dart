@@ -8,7 +8,6 @@ import 'package:identitic/models/user.dart';
 import 'package:identitic/services/grades_service.dart';
 
 class GradesProvider with ChangeNotifier {
-
   GradesService _gradesService = GradesService();
   List<Grade> _grades;
 

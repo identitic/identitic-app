@@ -23,6 +23,7 @@ class RouteName {
   static const String event_page = '/event_page';
   static const String classes = '/classes';
   static const String grades = '/grades';
+  static const String grade_info = '/grade_info';
   static const String home = '/home';
   static const String inattendances = '/inattendances';
   static const String inattendances_teacher = '/inattendances_teacher';
@@ -38,6 +39,7 @@ class RouteName {
   static const String article = '/article';
   static const String article_create = '/article_create';
   static const String tasks = '/tasks';
+  static const String tasks_student = '/tasks_student';
   static const String tasks_teacher = '/tasks_teacher';
   static const String article_markdown = '/article_markdown';
   static const String new_delivery = '/new_delivery';

@@ -13,7 +13,8 @@ class InattendanceListTile extends StatelessWidget {
     if (inattendance != null) {
       return ListTile(
           leading: CircleAvatar(
-              backgroundColor: Colors.pink, child: Icon(OMIcons.close)),
+              backgroundColor: Colors.pink,
+              child: Icon(OMIcons.close, color: Colors.white)),
           title: Text('${inattendance.date[8]}' +
               '${inattendance.date[9]}' +
               '/' +

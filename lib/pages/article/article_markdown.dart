@@ -77,27 +77,23 @@ class _EditorPageState extends State<EditorPage> {
     return Column(children: <Widget>[
       Divider(),
       SwitchListTile.adaptive(
-        title: Text(
-          'Habilitar comentarios'),
-        activeColor: Colors.blue,
+          title: Text('Habilitar comentarios'),
+          activeColor: Colors.blue,
           value: enableComments,
           onChanged: (bool state) {
             setState(() {
               enableComments = state;
             });
-          }
-      ),
-       SwitchListTile.adaptive(
-        title: Text(
-          'Habilitar entregas'),
-        activeColor: Colors.blue,
+          }),
+      SwitchListTile.adaptive(
+          title: Text('Habilitar entregas'),
+          activeColor: Colors.blue,
           value: enableDeliveries,
           onChanged: (bool state) {
             setState(() {
               enableDeliveries = state;
             });
-          }
-      ),
+          }),
       enableDeliveries != false
           ? ListTile(
               title: Text('Fecha límite'),
@@ -133,6 +129,9 @@ class _EditorPageState extends State<EditorPage> {
   }
 
   void _postArticle(BuildContext context) async {
+    widget.article.enabledComments = enableComments;
+    widget.article.enabledDeliveries = enableDeliveries;
+
     Provider.of<ArticlesProvider>(context, listen: false).postArticle(
         Provider.of<AuthProvider>(context, listen: false).user, widget.article);
 

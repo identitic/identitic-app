@@ -14,6 +14,7 @@ import 'package:identitic/pages/calendar/calendar_page.dart';
 import 'package:identitic/pages/calendar/event_page.dart';
 import 'package:identitic/pages/calendar/widgets/calendar_class_page.dart';
 import 'package:identitic/pages/classes/classes_page.dart';
+import 'package:identitic/pages/grades/grade_info.dart';
 import 'package:identitic/pages/grades/grades_page.dart';
 import 'package:identitic/pages/grades/widgets/teacher_grades_page.dart';
 import 'package:identitic/pages/home/home_page.dart';
@@ -29,6 +30,7 @@ import 'package:identitic/pages/sign_up/sign_up_page.dart';
 import 'package:identitic/pages/splash/splash_page.dart';
 import 'package:identitic/pages/communications/communications_page.dart';
 import 'package:identitic/pages/tasks/tasks_page.dart';
+import 'package:identitic/pages/tasks/widgets/student_tasks_page.dart';
 import 'package:identitic/pages/tasks/widgets/teacher_tasks_page.dart';
 import 'package:identitic/utils/constants.dart';
 
@@ -56,6 +58,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return ClassesPage(settings.arguments);
         case RouteName.grades:
           return GradesPage();
+        case RouteName.grade_info:
+          return GradeInfo(settings.arguments);
         case RouteName.home:
           return HomePage();
         case RouteName.inattendances:
@@ -82,6 +86,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
           return ArticleCreatePage(settings.arguments);
         case RouteName.tasks:
           return TasksPage();
+        case RouteName.tasks_student:
+          return StudentTasksPage(settings.arguments);
         case RouteName.tasks_teacher:
           return TeacherTasksPage(settings.arguments);
         case RouteName.article_markdown:

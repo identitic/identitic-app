@@ -34,6 +34,7 @@ class GradesService {
           {
             final Iterable<dynamic> list = json.decode(response.body)['data'];
             grades = list.map((e) => Grade.fromJson(e)).toList();
+            print(grades);
             break;
           }
         case 401:

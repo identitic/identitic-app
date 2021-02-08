@@ -21,8 +21,11 @@ class Article {
   final String markdown;
   final String fileURI;
   final int deliveries;
+  bool enabledDeliveries;
+  bool enabledComments;
+  bool enableRedelivieries;
 
-  const Article(
+  Article(
       {this.idArticle,
       this.idUser,
       this.name,
@@ -42,7 +45,10 @@ class Article {
       this.idJoin,
       this.deliveries,
       this.markdown,
-      this.fileURI});
+      this.fileURI,
+      this.enabledDeliveries,
+      this.enabledComments,
+      this.enableRedelivieries});
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(

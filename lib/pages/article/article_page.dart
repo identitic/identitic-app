@@ -49,7 +49,10 @@ class ArticlePage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  MarkdownBody(data: article?.markdown ?? '"Error"'),
+                  MarkdownBody(
+                      data: article?.markdown ??
+                          article?.body ??
+                          'El articulo no está disponible'),
                   article.fileURI != null
                       ? Image.network(apiBaseUrl +
                           "/" +
@@ -70,7 +73,8 @@ class ArticlePage extends StatelessWidget {
 
     Provider.of<AuthProvider>(context, listen: false).user.hierarchy ==
             UserHierarchy.teacher
-        ? Navigator.pushNamed(context, RouteName.article_deliveries, arguments: this.article)
+        ? Navigator.pushNamed(context, RouteName.article_deliveries,
+            arguments: this.article)
         : _checkDeliveryStatus(context);
   }
 
@@ -80,11 +84,14 @@ class ArticlePage extends StatelessWidget {
     dynamic _articleInfo =
         await Provider.of<ArticlesProvider>(context, listen: false)
             .fetchArticleByID(article.idArticle, idUser);
+    print(_articleInfo.deliveries);
 
     _articleInfo.deliveries == 0
         ? Navigator.pushNamed(context, RouteName.new_delivery,
             arguments: article)
-        : Navigator.pushNamed(context, RouteName.student_view_delivery,
-            arguments: article);
+        : _articleInfo.deliveries == null
+            ? Navigator.pop(context)
+            : Navigator.pushNamed(context, RouteName.student_view_delivery,
+                arguments: article);
   }
 }

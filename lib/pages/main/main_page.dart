@@ -75,8 +75,7 @@ class _MainPageState extends State<MainPage>
                                 .user
                                 .profilePhoto !=
                             null
-                        ? NetworkImage(apiBaseUrl +
-                            "/" +
+                        ? NetworkImage(
                             Provider.of<AuthProvider>(context, listen: false)
                                 .user
                                 .profilePhoto

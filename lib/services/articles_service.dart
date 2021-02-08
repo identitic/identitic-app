@@ -23,7 +23,7 @@ class ArticlesService {
         await StorageService.instance.getEncrypted(StorageKey.token, null);
     List<Article> articles;
 
-    var params = {'id_sc': idSubject, "id_user": idUser};
+    var params = {'id_join': idSubject, "id_user": idUser};
 
     try {
       final http.Response response = await http.post(
@@ -109,6 +109,7 @@ class ArticlesService {
           'Authorization': 'Bearer $token'
         },
       );
+      print(response.body);
       switch (response.statusCode) {
         case 200:
           {
@@ -181,7 +182,10 @@ class ArticlesService {
       "id_sc": article.idJoin,
       "id_hierarchy": article.idHierarchy,
       "date": DateTime.now().toIso8601String().toString(),
-      "deadline": article.deadline
+      "deadline": article.deadline,
+      "comments": article.enabledComments == true ? 1 : 0,
+      "deliveries": article.enabledDeliveries == true ? 1 : 0,
+      "redeliveries": article.enableRedelivieries == true ? 1 : 0,
     };
 
     FormData formData = FormData.fromMap(data);

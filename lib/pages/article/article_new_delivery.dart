@@ -20,7 +20,6 @@ class NewDeliveryPage extends StatefulWidget {
 }
 
 class _NewDeliveryPageState extends State<NewDeliveryPage> {
-
   final TextEditingController _bodyController = TextEditingController();
   bool enableGroup;
 
@@ -120,7 +119,7 @@ class _NewDeliveryPageState extends State<NewDeliveryPage> {
                             fontWeight: FontWeight.w600)),
                   )
                 : SizedBox(),
-                SwitchListTile.adaptive(
+            SwitchListTile.adaptive(
                 title: Text('Entrega en grupo'),
                 activeColor: Colors.blue,
                 value: enableGroup,
@@ -156,7 +155,6 @@ class _NewDeliveryPageState extends State<NewDeliveryPage> {
   }
 
   _pickFile() async {
-
     FilePickerResult result =
         await FilePicker.platform.pickFiles(allowMultiple: true);
 
@@ -173,12 +171,13 @@ class _NewDeliveryPageState extends State<NewDeliveryPage> {
     Delivery _delivery = Delivery(
       idUser: Provider.of<AuthProvider>(context, listen: false).user.id,
       idArticle: widget?.article?.idArticle ?? widget.article.idArticle,
-      body: _bodyController.text?? null,
-      file: selectedFile?? selectedFile,
+      body: _bodyController.text ?? null,
+      file: selectedFile ?? selectedFile,
       date: DateTime.now().toIso8601String().toString(),
     );
 
-    await Provider.of<ArticlesProvider>(context, listen: false).uploadDelivery(_delivery);
+    await Provider.of<ArticlesProvider>(context, listen: false)
+        .uploadDelivery(_delivery);
 
     Navigator.pop(context);
   }

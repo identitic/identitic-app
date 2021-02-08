@@ -51,4 +51,40 @@ class ClassesService {
     }
     return classes;
   }
+
+  Future<List<Class>> fetchSubjects() async {
+    final String token =
+        await StorageService.instance.getEncrypted(StorageKey.token, null);
+
+    List<Class> subjects;
+
+    var jsonHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    try {
+      final http.Response response = await http
+          .get('$apiBaseUrl/general/getscbyuserclass', headers: jsonHeaders);
+      print(response.body);
+      switch (response.statusCode) {
+        case 200:
+          {
+            final Iterable<dynamic> list = json.decode(response.body)['data'];
+            subjects = list.map((e) => Class.fromJson(e)).toList();
+            print(subjects);
+            break;
+          }
+        case 401:
+          throw UnauthorizedException('UnauthorizedException: Voló todo');
+        case 429:
+          throw TooManyRequestsException('TooManyRequestsException: Voló todo');
+      }
+    } on SocketException {
+      throw const SocketException('SocketException: Voló todo');
+    } catch (e) {
+      throw Exception(e);
+    }
+    return subjects;
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:identitic/pages/tasks/widgets/student_tasks_page.dart';
-
+import 'package:identitic/pages/subjects/student_subjects_page.dart';
 import 'package:provider/provider.dart';
 
 import 'package:identitic/models/user.dart';
@@ -14,7 +13,7 @@ class TasksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (Provider.of<AuthProvider>(context, listen: false).user.hierarchy) {
       case UserHierarchy.student:
-        return StudentTasksPage();
+        return SubjectsPage();
       case UserHierarchy.teacher:
         return ClassesPage(selected);
       default:
