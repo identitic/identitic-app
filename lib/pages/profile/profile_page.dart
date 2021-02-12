@@ -17,7 +17,8 @@ class ProfilePage extends StatelessWidget {
         slivers: <Widget>[
           SliverAppBar(
             pinned: true,
-            title: Text('Perfil', style: TextStyle(fontSize: 24)),
+            centerTitle: false,
+            title: Text('Perfil', style: TextStyle(fontSize: 28)),
             actions: [
               IconButton(
                 icon: Icon(Icons.exit_to_app,

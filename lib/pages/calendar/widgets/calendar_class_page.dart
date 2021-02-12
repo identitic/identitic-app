@@ -37,7 +37,8 @@ class _HomePageState extends State<CalendarClassPage> {
             headerSliverBuilder: (_, __) => [
                   SliverAppBar(
                     pinned: true,
-                    title: Text('Calendario', style: TextStyle(fontSize: 24)),
+                    centerTitle: false,
+                    title: Text('Calendario', style: TextStyle(fontSize: 28)),
                   ),
                 ],
             body: listView()));

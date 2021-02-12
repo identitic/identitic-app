@@ -91,25 +91,6 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         ),
                         onPressed: () => _selectImageGallery(context),
                       ),
-                      TextFormField(
-                        readOnly: false,
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          labelText: 'Editar nombre',
-                          hintText:
-                              '${context.watch<AuthProvider>().user.name} ${context.watch<AuthProvider>().user.lastName}',
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
-                          disabledBorder: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(),
-                          focusedErrorBorder: OutlineInputBorder(),
-                          labelStyle: TextStyle(
-                            color: Colors.black,
-                          ),
-                          hintStyle: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                      SizedBox(height: 8),
                       SwitchListTile.adaptive(
                           title: Text('Desactivar notificaciones'),
                           activeColor: Colors.blue,

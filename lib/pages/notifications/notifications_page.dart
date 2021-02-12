@@ -15,7 +15,8 @@ class NotificationsPage extends StatelessWidget {
           slivers: [
             SliverAppBar(
               pinned: true,
-              title: Text('Notificaciones', style: TextStyle(fontSize: 24)),
+              centerTitle: false,
+              title: Text('Notificaciones', style: TextStyle(fontSize: 28)),
             ),
             SliverFillRemaining(
               hasScrollBody: true,

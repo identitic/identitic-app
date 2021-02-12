@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
         headerSliverBuilder: (_, __) => [
           SliverAppBar(
             pinned: true,
+            centerTitle: false,
             title: Image.asset(
               'assets/images/identitic_pink.png',
               height: 24,
