@@ -21,11 +21,17 @@ class NotificationsPage extends StatelessWidget {
             SliverFillRemaining(
               hasScrollBody: true,
               //TODO: Notificaciones
-              child: Center(
-                  child: Text(
-                'Todavía no recibiste notificaciones :(',
-                style: TextStyle(fontSize: 16),
-              )),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/empty_notifications.png',
+                    ),
+                    Text(
+                      'Todavía no recibiste notificaciones',
+                      style: TextStyle(fontSize: 18),
+                    )
+                  ]),
             ),
           ],
         ),
